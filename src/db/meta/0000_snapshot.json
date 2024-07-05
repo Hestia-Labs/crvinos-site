@@ -1,0 +1,68 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "6",
+  "dialect": "sqlite",
+  "tables": {
+    "mailing_list": {
+      "name": "mailing_list",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "email": {
+          "autoincrement": false,
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "subscribed_on": {
+          "default": "(DATE('now'))",
+          "autoincrement": false,
+          "name": "subscribed_on",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "default": "'active'",
+          "autoincrement": false,
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "idx_email": {
+          "name": "idx_email",
+          "columns": [
+            "email"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
