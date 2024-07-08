@@ -1,13 +1,70 @@
+'use client';
+import React from 'react';
 import Icon from "../Icons";
+import Link from 'next/link';
+import { motion, useAnimation, useScroll } from 'framer-motion';
 
 export default function Navbar() {
+
+    const variants = {
+        visible: { opacity: 1 },
+        hidden: { opacity: 0 }
+    };
+    const animations = useAnimation();
+    
+    const hidden = async () => {
+        await animations.start(variants.hidden);
+    }
+    const visible = async () => {
+        await animations.start('visible');
+    }
+
+
+
     return (
-      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-5 py-4 bg-transparent z-20">
-        <Icon name={"CRVinos"} className="sm:h-20 sm:w-20 h-16 w-16" />
-        <div className="flex space-x-4">
-          <Icon name={"Facebook"} link="https://www.facebook.com/p/CR-VINOS-MX-100078033250234/" className="sm:h-12 sm:w-12 h-10 w-10" />
-          <Icon name={"Instagram"} link="https://www.instagram.com/crvinosmx/" className="sm:h-12 sm:w-12 h-10 w-10" />
-        </div>
-      </nav>
+        <nav className=" w-full flex justify-between items-center px-32 py-4 bg-transparent z-50 fixed top-0 left-0 right-0">
+            <Icon name="CRVinos" className="h-20 w-20 md:h-28 md:w-28  s" />
+            <motion.div 
+                className="flex border-b-2 border-white"
+           
+            >
+                <div className="flex space-x-20 py-2 justify-center items-center md:text-sm text-xs">
+                    {['Nosotros', 'Blog', 'Catalogo', 'Enoturismo'].map((item, index) => (
+                        <motion.div
+                            key={index} 
+                            whileHover={{ y: -3 }}
+                            whileTap={{ y: -3 }}
+                            initial={{ y: 0 }}
+                            animate={{ y: 0 }}
+                            exit={{ y: 0 }}
+                            transition={{ type: 'ease-in', stiffness: 300 }}
+                            className="text-white"
+                        >
+                            <Link href={`/${item.toLowerCase()}`}>
+                                {item}
+                            </Link>
+                        </motion.div>
+                    ))}
+                    <div className='flex space-x-4 items-center justify-center'>
+                        {['Search', 'Email'].map((iconName, index) => (
+                            <motion.div
+                                key={index}
+                                whileHover={{ y: -3 }}
+                                whileTap={{ y: -3 }}
+                                initial={{ y: 0 }}
+                                animate={{ y: 0 }}
+                                exit={{ y: 0 }}
+                                transition={{ type: 'ease-in', stiffness: 300 }}
+                                className="text-white"
+                            >
+                                <Link href="/contact">
+                                    <Icon name={iconName} className="h-20 w-20 md:h-5 md:w-5" />
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </motion.div>
+        </nav>
     );
-  }
+}

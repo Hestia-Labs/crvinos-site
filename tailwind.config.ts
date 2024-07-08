@@ -1,3 +1,4 @@
+// tailwind.config.js
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -13,8 +14,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        'cormorant': ['"Cormorant Garamond"', 'serif'],
+      },
+      colors: {
+        'crred': '#8D131E',
+      },
     },
   },
   plugins: [],
 };
+
 export default config;
