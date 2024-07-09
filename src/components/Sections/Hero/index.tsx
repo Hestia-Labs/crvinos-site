@@ -1,13 +1,15 @@
 import React from 'react';
 import {useTranslations} from 'next-intl';
 import Video from 'next-video';
+import BasicButton from '@/components/Buttons/BasicButton';
 import crvinos from '../../../../videos/crvinos-bg.mp4';
+
 
 
 const Hero: React.FC = () => {
     const  t   = useTranslations();
     return (
-        <div className='relative min-h-screen w-full  no-scrollbars'>
+        <div className='relative min-h-screen w-full  no-scrollbars '>
             <Video 
                 src={crvinos} 
                 autoPlay 
@@ -16,15 +18,22 @@ const Hero: React.FC = () => {
                 controls={false}  
                 className="bg-video" 
             />
-            <div className="absolute inset-0 z-10 flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center min-h-screen">
-                    
-                    <div className='flex flex-col items-center justify-center '>
-                        <div className='md:w-4/6 w-5/6 md:mt-16 mt-8'>
-                            <p className="text-white md:text-xl  text-xs font-semibold text-center"></p>
+            <div className="absolute inset-0 z-10 flex items-center justify-center pt-7 ">
+                <div className="flex flex-col items-center justify-between py-36 min-h-screen">
+                    <div className="">
+                        <div className='space-y-3 justify-center flex flex-col items-center'>
+                            <p className=' text-crred font-semibold text-lg italic'>Sabor 100% Mexicano</p>
+                            <h1 className='text-crred-title lg:text-8xl md:text-3xl text-xl italic ' style={{ letterSpacing: '20%', fontWeight: '400' }}>De Nuestro Viñedo a tu Mesa</h1>
                         </div>
-                        
+                        <div>
+                            <p className='text-crred  text-center cormorant-garamond-regular-italic text-lg'>Experimenta la verdadera cosecha de nuestra historia</p>
+                        </div>
                     </div>
+                   
+                    <BasicButton variant="bg-back" sizex='xlarge' className=' border-crred border border-solid '>
+                        Aprende más
+                    </BasicButton>
+                
                 </div>
             </div>
         </div>

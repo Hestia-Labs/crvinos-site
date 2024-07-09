@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 interface IconProps {
   name: string;
   className?: string;
@@ -8,12 +7,10 @@ interface IconProps {
   [key: string]: any;  
 }
 
-const Icon: React.FC<IconProps> = async ({ name,  className = '', link = '', ...props }) => {
-
-
-    const imageElement = (
+const Icon: React.FC<IconProps> = ({ name, className = '', link = '', ...props }) => {
+    const svgElement = (
         <img
-        src={`/img/${name}.png`}
+        src={`/img/icons/${name}.svg`}
         className={className}
         alt={`${name} icon`}
         {...props}
@@ -22,10 +19,10 @@ const Icon: React.FC<IconProps> = async ({ name,  className = '', link = '', ...
 
     return link ? (
         <a href={link} target="_blank" rel="noopener noreferrer" className={className}>
-        {imageElement}
+        {svgElement}
         </a>
     ) : (
-        imageElement
+        svgElement
     );
 };
 

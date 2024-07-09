@@ -31,7 +31,7 @@ export default async function RootLayout({
         <link rel="icon" href="/img/favicon.ico" />
         <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
       </head>
-      <body className="font-cormorant">
+      <body className="font-cormorant ">
         <NextIntlClientProvider messages={messages}>
           <Navbar />
           {children}

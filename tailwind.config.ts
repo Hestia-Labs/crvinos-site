@@ -19,6 +19,21 @@ const config: Config = {
       },
       colors: {
         'crred': '#8D131E',
+        'crred-title': '#8C141F',
+        'crred-light': '#B71C1C',
+        'back': '#FFFBF7',
+      },
+      height: {
+        'screen/2': '50vh',
+        'screen/3': 'calc(100vh / 3)',
+        'screen/4': 'calc(100vh / 4)',
+        'screen/5': 'calc(100vh / 5)',
+        'screen/6': 'calc(100vh / 6)',
+        '60': '15rem',
+        '126': '32rem',
+        '144': '36rem',
+        '160': '40rem',
+        '192': '48rem',
       },
     },
   },
@@ -26,3 +41,4 @@ const config: Config = {
 };
 
 export default config;
+

@@ -22,14 +22,14 @@ export default function Navbar() {
 
 
     return (
-        <nav className=" w-full flex justify-between items-center px-32 py-4 bg-transparent z-50 fixed top-0 left-0 right-0">
+        <nav className=" w-full flex justify-between items-center px-32 py-4 bg-transparent z-50 absolute top-0 left-0 right-0">
             <Icon name="CRVinos" className="h-20 w-20 md:h-28 md:w-28  s" />
             <motion.div 
                 className="flex border-b-2 border-white"
            
             >
-                <div className="flex space-x-20 py-2 justify-center items-center md:text-sm text-xs">
-                    {['Nosotros', 'Blog', 'Catalogo', 'Enoturismo'].map((item, index) => (
+                <div className="flex space-x-10 py-2 justify-center items-center md:text-sm text-xs">
+                    {['Nosotros', 'Blog', 'Catalogo','Contact', 'Enoturismo', 'Contact'].map((item, index) => (
                         <motion.div
                             key={index} 
                             whileHover={{ y: -3 }}
@@ -46,7 +46,7 @@ export default function Navbar() {
                         </motion.div>
                     ))}
                     <div className='flex space-x-4 items-center justify-center'>
-                        {['Search', 'Email'].map((iconName, index) => (
+                        {['Search', 'Shopping'].map((iconName, index) => (
                             <motion.div
                                 key={index}
                                 whileHover={{ y: -3 }}
