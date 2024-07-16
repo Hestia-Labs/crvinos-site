@@ -15,6 +15,15 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   images: {
     domains: ['localhost', 'picsum.photos'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
+  },
+  experimental: {
+    taint: true,
   },
 };
 

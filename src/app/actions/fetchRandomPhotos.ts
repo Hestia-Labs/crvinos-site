@@ -1,8 +1,8 @@
 'use server';
 
-import { Event } from "@/types/Event";
+import { Event, EventShort } from "@/types/Event";
 
-export const fetchRandomPhotos = async (count: number, query: string): Promise<Event[]> => {
+export const fetchRandomPhotos = async (count: number, query: string): Promise<EventShort[]> => {
     try {
         const response = await fetch(`https://api.unsplash.com/photos/random?query=${query}&count=${count}&client_id=${process.env.UNSPLASH_ACCESS_KEY}`);
 
@@ -14,7 +14,7 @@ export const fetchRandomPhotos = async (count: number, query: string): Promise<E
             throw new TypeError('Expected an array of photos');
         }
 
-        const formattedEvents: Event[] = data.map((photo: any, index: number) => ({
+        const formattedEvents: EventShort[] = data.map((photo: any, index: number) => ({
             id: index + 1,
             title: 'POST TITLE',
             date: new Date(photo.created_at).toLocaleDateString(),

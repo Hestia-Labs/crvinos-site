@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -33,7 +33,6 @@ export default async function RootLayout({
       </head>
       <body className="font-cormorant ">
         <NextIntlClientProvider messages={messages}>
-          <Navbar />
           {children}
           <Footer />
         </NextIntlClientProvider>
