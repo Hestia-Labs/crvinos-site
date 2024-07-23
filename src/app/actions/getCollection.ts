@@ -37,7 +37,7 @@ export const fetchCollectionData = async (selectedOption: string): Promise<Colle
           name,
           "photo": photo.asset->url,
           "alt": photo.alt,
-          slug
+          "slug": slug.current,
         }
       }
     `;

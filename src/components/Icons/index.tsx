@@ -10,16 +10,16 @@ interface IconProps {
 const Icon: React.FC<IconProps> = ({ name, className = '', link = '', ...props }) => {
     const svgElement = (
         <img
-        src={`/img/icons/${name}.svg`}
-        className={className}
-        alt={`${name} icon`}
-        {...props}
+            src={`/img/icons/${name}.svg`}
+            className={className}
+            alt={`${name} icon`}
+            {...props}
         />
     );
 
     return link ? (
-        <a href={link} target="_blank" rel="noopener noreferrer" className={className}>
-        {svgElement}
+        <a href={link} className={className}>
+            {svgElement}
         </a>
     ) : (
         svgElement

@@ -26,14 +26,18 @@ const Instagram: React.FC = () => {
                 <h2 className="text-xl text-crred font-light">Síguenos en Instagram</h2>
                 <span className="text-crred cormorant-garamond-light-italic font-light text-xl underline underline-offset-2 cursor-pointer transition-colors duration-300 ease-in-out hover:text-crred-light hover:underline-offset-3">@crvinosmx</span>
             </div>
-            <div className="flex space-x-4 overflow-x-auto justify-center items-center ">
+            <div className="flex space-x-4 overflow-x-auto justify-around items-center ">
                 {loading ? (
                     <InstagramLoader />
                 ) : (
                     photos.map(photo => (
-                        <div key={photo.id} className="overflow-hidden flex rounded-lg shadow-sm shadow-gray-300/50 m-1 cursor-pointer">
+                        <div key={photo.id} className="overflow-hidden flex rounded-lg shadow-sm shadow-gray-300/50  cursor-pointer">
                             <div className="px-1 py-1 sm:p-3">
-                                <img src={photo.imageUrl} alt={`Instagram ${photo.id}`} className="w-44 h-44 sm:w-48 sm:h-48 object-cover" />
+                                <img 
+                                    src={photo.imageUrl} 
+                                    alt={`Instagram ${photo.id}`} 
+                                    className="w-44 h-44 sm:w-48 sm:h-48 object-cover transition-transform duration-300 ease-in-out hover:scale-105" 
+                                />
                             </div>
                         </div>
                     ))

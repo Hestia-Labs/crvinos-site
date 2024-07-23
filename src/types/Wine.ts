@@ -14,6 +14,7 @@ export interface WinePhoto {
   }
   
   export interface Wine extends WineShort {
+    name: string;
     type: string;
     origin: string;
     grapeVariety: string;
@@ -25,10 +26,11 @@ export interface WinePhoto {
     temperature: string;
     alcoholPercentage: string;
   }
-  
   export interface GetWinesParams {
     slug?: string;
     count?: number;
     shortVersion?: boolean;
+    exclude?: string;
+    collection?: string; 
+    distinctCollections?: boolean;
   }
-  

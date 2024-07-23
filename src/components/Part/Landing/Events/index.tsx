@@ -14,19 +14,17 @@ const Events: React.FC = () => {
 
     useEffect(() => {
         const loadEvents = async () => {
-            const fetchedEvents = await getEvents({ count: 3, shortVersion: true }) as EventShort[];
+            const fetchedEvents = await getEvents({shortVersion: true }) as EventShort[];
 
             const now = new Date();
             const sortedEvents = fetchedEvents.sort((a: EventShort, b: EventShort) => {
                 const dateA = new Date(a.endDate);
                 const dateB = new Date(b.endDate);
 
-                // If both dates are in the future or both in the past, sort by date
                 if ((dateA >= now && dateB >= now) || (dateA < now && dateB < now)) {
                     return dateA.getTime() - dateB.getTime();
                 }
 
-                // If only one date is in the future, that one should come first
                 if (dateA >= now && dateB < now) {
                     return -1;
                 }
@@ -37,7 +35,7 @@ const Events: React.FC = () => {
                 return 0;
             });
 
-            setEvents(sortedEvents as EventShort[]);
+            setEvents(sortedEvents.slice(0, 3) as EventShort[]);
             setLoading(false);
         };
 
@@ -47,8 +45,8 @@ const Events: React.FC = () => {
     return (
         <div className="flex flex-col w-full items-center justify-center border-crred border-t-2 bg-back py-12 space-y-7">
             <div className='flex flex-col justify-center items-center w-full  flex-colm'>
-                <h2 className="text-4xl text-crred font-thin tracking-wide mb-2">Próximos Eventos</h2>
-                <p className="text-crred font-extralight italic text-lg">Únete para una experiencia inolvidable</p>
+                <h2 className="text-3xl text-crred font-thin tracking-wide mb-2">Próximos Eventos</h2>
+                <p className="text-crred font-extralight italic ">Únete para una experiencia inolvidable</p>
             </div>
             <div className="flex flex-col items-center justify-center space-y-7 p-6 w-5/6">
                 {loading ? (

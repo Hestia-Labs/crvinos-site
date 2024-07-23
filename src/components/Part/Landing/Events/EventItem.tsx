@@ -55,8 +55,8 @@ const EventItem: React.FC<EventItemProps> = ({ imageUrl, title, description, dat
         >
             <img src={imageUrl} alt={title} className="w-full h-64 object-cover" />
             {isPastEvent && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20">
-                    <p className="text-white text-2xl">Evento Pasado</p>
+                <div className="absolute inset-0 flex items-center justify-center bg-crred bg-opacity-15">
+                    <p className="text-white text-2xl cormorant-garamond-semibold  ">Evento Pasado</p>
                 </div>
             )}
             <div className="flex justify-between mt-4 border-crred border-t w-full py-4 px-2">
