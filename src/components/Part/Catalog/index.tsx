@@ -70,7 +70,7 @@ const WineCatalog: React.FC<WineCatalogProps> = ({  initialSelectedOption = 'DBC
         className="relative"
       >
         <Image src={collectionData?.photo as string} alt="Banner Image"  width={0} height={0} sizes="100vw" className="w-full h-144 object-cover" priority />
-        <div className="absolute inset-0 bg-white opacity-20"></div>
+        <div className="absolute inset-0 bg-back opacity-15"></div>
         <div className="absolute top-0 left-0 w-full">
           <div className=" text-crred text-center ">
             <div className="flex justify-around py-4">

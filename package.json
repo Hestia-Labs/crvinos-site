@@ -19,6 +19,8 @@
     "@sanity/vision": "^3.49.0",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.31.2",
+    "embla-carousel-autoplay": "^8.1.7",
+    "embla-carousel-react": "^8.1.7",
     "framer-motion": "^11.2.13",
     "i18next": "^23.11.5",
     "i18next-resources-to-backend": "^1.2.1",

@@ -1,13 +1,17 @@
+'use client';
+
 import React from 'react';
 import {useTranslations} from 'next-intl';
 import Video from 'next-video';
 import BasicButton from '@/components/Buttons/BasicButton';
 import crvinos from '../../../../../videos/crvinos-bg.mp4';
+import { useRouter } from 'next/navigation';
 import { Toaster} from 'sonner'
 import Map from './Map';
 
 const Hero: React.FC = () => {
     const t = useTranslations();
+    const router = useRouter();
     return (
         <div className='relative min-h-screen w-full no-scrollbars'>
             <Toaster
@@ -31,14 +35,14 @@ const Hero: React.FC = () => {
                 <div className="flex flex-col items-center justify-between py-36 min-h-screen">
                     <div className="">
                         <div className='space-y-3 justify-center flex flex-col items-center'>
-                            <p className='text-crred font-semibold text-lg italic'>Sabor 100% Mexicano</p>
-                            <h1 className='text-crred-title lg:text-8xl md:text-3xl text-xl italic' style={{ letterSpacing: '20%', fontWeight: '400' }}>De Nuestro Viñedo a tu Mesa</h1>
+                            <p className='text-crred font-bold text-lg italic'>Sabor 100% Mexicano</p>
+                            <h1 className='text-crred-title lg:text-8xl md:text-3xl text-xl cormorant-garamond-semibold-italic' style={{ letterSpacing: '30%'}}>De Nuestro Viñedo a tu Mesa</h1>
                         </div>
                         <div>
-                            <p className='text-crred text-center cormorant-garamond-regular-italic text-lg'>Experimenta la verdadera cosecha de nuestra historia</p>
+                            <p className='text-crred text-center cormorant-garamond-semibold-italic text-lg'>Experimenta la verdadera cosecha de nuestra historia</p>
                         </div>
                     </div>
-                    <BasicButton variant="bg-back" sizex='xlarge' className='border-crred border border-solid'>
+                    <BasicButton onClick={()=>{router.push("/about")}}  variant="bg-back" sizex='xlarge' className='border-crred border border-solid'>
                         Aprende más
                     </BasicButton>
                 </div>

@@ -19,7 +19,10 @@ export const fetchRandomPhotos = async (count: number, query: string): Promise<E
             title: 'POST TITLE',
             date: new Date(photo.created_at).toLocaleDateString(),
             time: new Date(photo.created_at).toLocaleTimeString(),
-            imageUrl: photo.urls.regular
+            imageUrl: photo.urls.regular,
+            slug: `photo-${index + 1}`, 
+            endDate: new Date(photo.created_at).toLocaleDateString(), 
+            description: photo.description || 'No description available' 
         }));
 
         return formattedEvents;

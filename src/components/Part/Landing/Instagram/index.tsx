@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { fetchRandomPhotos } from '@/app/actions/fetchRandomPhotos';
-import { Event } from '@/types/Event';
+import { EventShort } from '@/types/Event';  
 import InstagramLoader from '@/components/Loaders/InstagramLoader';
 
 const Instagram: React.FC = () => {
-    const [photos, setPhotos] = useState<Event[]>([]);
+    const [photos, setPhotos] = useState<EventShort[]>([]);  
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const Instagram: React.FC = () => {
             const fetchedPhotos = await fetchRandomPhotos(5, "wine");
             setPhotos(fetchedPhotos);
             if (fetchedPhotos.length > 0)
-            setLoading(false);
+                setLoading(false);
         };
 
         loadPhotos();
@@ -31,11 +31,11 @@ const Instagram: React.FC = () => {
                     <InstagramLoader />
                 ) : (
                     photos.map(photo => (
-                        <div key={photo.id} className="overflow-hidden flex rounded-lg shadow-sm shadow-gray-300/50  cursor-pointer">
+                        <div key={photo.slug} className="overflow-hidden flex rounded-lg shadow-sm shadow-gray-300/50  cursor-pointer">
                             <div className="px-1 py-1 sm:p-3">
                                 <img 
                                     src={photo.imageUrl} 
-                                    alt={`Instagram ${photo.id}`} 
+                                    alt={`Instagram ${photo.slug}`} 
                                     className="w-44 h-44 sm:w-48 sm:h-48 object-cover transition-transform duration-300 ease-in-out hover:scale-105" 
                                 />
                             </div>

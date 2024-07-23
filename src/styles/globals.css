@@ -112,3 +112,8 @@ body {
   font-style: italic;
 }
 
+.cormorant-garamond-extrabold-italic {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 900;
+  font-style: italic;
+}
