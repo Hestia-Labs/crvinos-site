@@ -84,7 +84,9 @@ export default function CatalogWine() {
                 </div>
               </div>
             </div>
-            <RecommendationsSection collection={wine?.collection} exclude={params.slug} />
+          
+              <RecommendationsSection collection={wine?.collection} exclude={params.slug} />
+
           </div>
         )}
       </div>

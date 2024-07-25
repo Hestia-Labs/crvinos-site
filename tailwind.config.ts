@@ -19,6 +19,9 @@ const config: Config = {
       },
       colors: {
         'crred': '#8D131E',
+        'crred-50': 'rgba(141, 19, 30, 0.5)',
+        'crred-75': 'rgba(141, 19, 30, 0.75)',
+        'crred-90': 'rgba(141, 19, 30, 0.9)',
         'crred-title': '#8C141F',
         'crred-light': '#B71C1C',
         'back': '#FFFBF7',

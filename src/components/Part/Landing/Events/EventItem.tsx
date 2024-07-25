@@ -24,7 +24,7 @@ const EventItem: React.FC<EventItemProps> = ({ imageUrl, title, description, dat
         if (isPastEvent) return;
      
         if (slug) {
-            router.push(`/events/${slug}`);
+            router.push(`/enoturism/${slug}`);
         }
     };
 
@@ -50,7 +50,7 @@ const EventItem: React.FC<EventItemProps> = ({ imageUrl, title, description, dat
 
     return (
         <div 
-            className={`w-full overflow-hidden cursor-pointer relative ${isPastEvent ? 'opacity-50' : ''}`} 
+            className={`w-full overflow-hidden  relative ${isPastEvent ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`} 
             onClick={ handleClick}
         >
             <img src={imageUrl} alt={title} className="w-full h-64 object-cover" />
@@ -65,9 +65,9 @@ const EventItem: React.FC<EventItemProps> = ({ imageUrl, title, description, dat
                         <p className="text-crred text-lg cormorant-garamond-light">{title}</p>
                         <p className="text-crred text-sm">{description}</p>
                     </div>
-                    <div className='flex justify-start items-center space-x-2 transition duration-300 ease-in-out hover:space-x-3'>
+                    <div className='flex justify-start items-center space-x-2 transition duration-300 ease-in-out transform hover:translate-x-2  '>
                         <p className="font-cormorant text-crred underline cursor-pointer transition-colors duration-300 ease-in-out hover:text-crred-light hover:underline-offset-2">Descubre Más</p>
-                        <Icon name='Arrow' className="h-5 w-5" />
+                        <Icon name='Arrow' className="h-5 w-5 " />
                     </div>
                 </div>
                 <div className='flex flex-col items-end space-y-1'>

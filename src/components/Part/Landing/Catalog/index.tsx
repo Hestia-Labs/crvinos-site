@@ -58,7 +58,7 @@ const Catalog: React.FC = () => {
                         <motion.div 
                             className='flex items-center justify-center flex-col h-100 cursor-pointer' 
                             key={wine._id}
-                            onClick={() => handleImageClick(wine.slug)}
+                            onClick={() => handleImageClick(wine.collection)}
                             whileHover={{ scale: 1.05, transition: { type: "tween", ease: "linear" } }}
                         >
                             <Image src={wine.photo.asset.url} alt={wine.photo.alt} width={0} height={0} sizes="100vw" priority className='object-contain w-full h-full' />

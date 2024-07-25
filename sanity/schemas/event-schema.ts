@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity';
+import uniqid from 'uniqid';
 
 const eventSchema = defineType({
   name: 'event',
@@ -139,11 +140,13 @@ const eventSchema = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'title', maxLength: 96 },
+      options: {
+        source: (doc) => `${doc.title}-${new Date(doc.dates.start).toISOString().split('T')[0]}-${uniqid()}`,
+        maxLength: 96,
+      },
       validation: (Rule) => Rule.required().error('Un slug es necesario para fines de SEO.'),
     }),
   ],
 });
 
 export default eventSchema;
-

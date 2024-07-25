@@ -34,12 +34,13 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collect
   return (
     <div className='w-full flex flex-col justify-center items-center space-y-6 py-5'>
       <div className='w-full flex justify-start items-center'>
-        <h1 className='text-crred text-2xl '> Más de {collection}</h1>
+        <h1 className='text-crred text-3xl '> Más de {collection}</h1>
       </div>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 p-4 justify-evenly items-center w-full'>
       {loading ? (
         <WineRecLoader/>
       ) : (
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 p-4 justify-evenly items-center w-full'>
+        <>
           {recommendations.map((wine, index) => (
             <WineItem 
               key={wine.slug}
@@ -49,8 +50,9 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collect
               link={`/catalog/${wine.collection.toLowerCase()}/${encodeURIComponent(wine.slug)}`}
             />
           ))}
-        </div>
+        </>
       )}
+      </div>
     </div>
   );
 };

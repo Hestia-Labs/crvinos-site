@@ -7,10 +7,12 @@ import NoEvents from './NoEvents';
 import EventItem from './EventItem';
 import { EventShort } from '@/types/Event';
 import { getEvents } from '@/app/actions/getEvents';
+import { useRouter } from 'next/navigation';
 
 const Events: React.FC = () => {
     const [events, setEvents] = useState<EventShort[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const router = useRouter();
 
     useEffect(() => {
         const loadEvents = async () => {
@@ -87,7 +89,7 @@ const Events: React.FC = () => {
                 )}
             </div>
             <div className='flex w-full justify-center items-center '>
-                <BasicButton variant='transparent' sizex='xxxxlarge' className='border-crred border border-solid'>
+                <BasicButton onClick={()=>{router.push("/enoturism")}} variant='transparent' sizex='xxxxlarge' className='border-crred border border-solid'>
                 <p className='text-lg'>Ver Todo</p>
                 </BasicButton>
             </div>
