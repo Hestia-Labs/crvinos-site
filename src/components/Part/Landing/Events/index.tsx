@@ -16,7 +16,7 @@ const Events: React.FC = () => {
 
     useEffect(() => {
         const loadEvents = async () => {
-            const fetchedEvents = await getEvents({shortVersion: true }) as EventShort[];
+            const fetchedEvents = await getEvents({ shortVersion: true }) as EventShort[];
 
             const now = new Date();
             const sortedEvents = fetchedEvents.sort((a: EventShort, b: EventShort) => {
@@ -45,12 +45,12 @@ const Events: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex flex-col w-full items-center justify-center border-crred border-t-2 bg-back py-12 space-y-7">
-            <div className='flex flex-col justify-center items-center w-full  flex-colm'>
-                <h2 className="text-3xl text-crred font-thin tracking-wide mb-2">Próximos Eventos</h2>
-                <p className="text-crred font-extralight italic ">Únete para una experiencia inolvidable</p>
+        <div className="flex flex-col w-full items-center justify-center border-crred border-t-2 py-12 space-y-7">
+            <div className='flex flex-col justify-center items-center w-full'>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-crred font-thin tracking-wide mb-2">Próximos Eventos</h2>
+                <p className="text-crred font-extralight italic text-base md:text-lg lg:text-xl">Únete para una experiencia inolvidable</p>
             </div>
-            <div className="flex flex-col items-center justify-center space-y-7 p-6 w-5/6">
+            <div className="flex flex-col items-center justify-center space-y-7   sm:p-6 md:p-8 lg:p-10 w-full sm:w-5/6 md:w-4/5 lg:w-3/4">
                 {loading ? (
                     <EventsLoader />
                 ) : (
@@ -67,7 +67,7 @@ const Events: React.FC = () => {
                                     date={events[0].date}
                                     time={events[0].time}
                                 />
-                                <div className="flex justify-between w-full space-x-7">
+                                <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-full">
                                     {events.slice(1).map(event => (
                                         <EventItem
                                             key={event.slug}
@@ -87,12 +87,12 @@ const Events: React.FC = () => {
                         )}
                     </>
                 )}
-            </div>
-            <div className='flex w-full justify-center items-center '>
-                <BasicButton onClick={()=>{router.push("/enoturism")}} variant='transparent' sizex='xxxxlarge' className='border-crred border border-solid'>
-                <p className='text-lg'>Ver Todo</p>
+            </div>{ events.length > 0 &&
+            <div className='flex w-full justify-center items-center'>
+                <BasicButton onClick={() => { router.push("/enoturism") }} variant='transparent' sizex='xxlarge' className='border-crred border border-solid'>
+                    <p className=' text-nowrap text-sm sm:text-base md:text-lg lg:text-xl'>Ver Todo</p>
                 </BasicButton>
-            </div>
+            </div>}
         </div>
     );
 };

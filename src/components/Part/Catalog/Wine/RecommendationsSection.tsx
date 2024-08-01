@@ -34,9 +34,9 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collect
   return (
     <div className='w-full flex flex-col justify-center items-center space-y-6 py-5'>
       <div className='w-full flex justify-start items-center'>
-        <h1 className='text-crred text-3xl '> Más de {collection}</h1>
+        <h1 className='text-crred text-xl sm:text-xl md:text-2xl lg:text-3xl '> Más de {collection}</h1>
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 p-4 justify-evenly items-center w-full'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-8 md:gap-20 p-4 justify-evenly items-center w-full'>
       {loading ? (
         <WineRecLoader/>
       ) : (

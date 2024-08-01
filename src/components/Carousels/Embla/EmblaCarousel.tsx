@@ -35,7 +35,7 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, options }) => {
   return (
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container">
+        <div className="embla__container ">
           {slides.map((slide, index) => (
             <motion.div
               key={index}
@@ -44,18 +44,19 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, options }) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: index * 0.3 }}
             >
-              <div className="w-full flex flex-col justify-center items-center px-32 space-y-4">
-                <h3 className="text-2xl font-bold text-crred">{slide.title}</h3>
-                <p className="text-sm cormorant-garamond-bold text-center text-crred">{slide.text}</p>
+              <div className="w-full flex flex-col justify-center items-center px-4 sm:px-10 md:px-20 space-y-4">
+                <h3 className=" text-xl md:text-2xl font-bold text-crred">{slide.title}</h3>
+                <p className=" text-[12px] md:text-sm cormorant-garamond-bold text-center text-crred">{slide.text}</p>
               </div>
-              <div className="flex w-full px-20 pb-8">
+              <div className="flex w-full px-4 sm:px-10 md:px-20 pb-8">
                 <Image
                   src={slide.image}
                   alt={slide.title}
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="w-full h-96 object-cover"
+                  className="w-full h-72 sm:h-96 lg:h-144 object-cover"
+                  typeof='image/webp'
                 />
               </div>
             </motion.div>
@@ -63,7 +64,7 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, options }) => {
         </div>
       </div>
 
-      <div className="embla__controls">
+      <div className="embla__controls ">
         <div className="embla__buttons">
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />

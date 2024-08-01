@@ -5,9 +5,10 @@ interface IconProps {
   className?: string;
   link?: string;
   [key: string]: any;  
+  newPage?: boolean;
 }
 
-const Icon: React.FC<IconProps> = ({ name, className = '', link = '', ...props }) => {
+const Icon: React.FC<IconProps> = ({ name, className = '', link = '', newPage = false, ...props }) => {
     const svgElement = (
         <img
             src={`/img/icons/${name}.svg`}
@@ -18,7 +19,11 @@ const Icon: React.FC<IconProps> = ({ name, className = '', link = '', ...props }
     );
 
     return link ? (
-        <a href={link} className={className}>
+        <a 
+            href={link} 
+            className={className} 
+            {...(newPage ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
             {svgElement}
         </a>
     ) : (

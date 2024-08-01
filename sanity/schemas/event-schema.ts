@@ -141,7 +141,10 @@ const eventSchema = defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: (doc) => `${doc.title}-${new Date(doc.dates.start).toISOString().split('T')[0]}-${uniqid()}`,
+        source: (doc) => {
+            const dates = (doc as unknown as { dates: { start: string } }).dates;
+            return `${doc.title}-${new Date(dates.start).toISOString().split('T')[0]}-${uniqid()}`;
+          },
         maxLength: 96,
       },
       validation: (Rule) => Rule.required().error('Un slug es necesario para fines de SEO.'),

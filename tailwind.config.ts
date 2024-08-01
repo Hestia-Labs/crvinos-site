@@ -62,10 +62,14 @@ const config: Config = {
         '192': '48rem',
 
       },
+      fontSize: {
+        'xxs': ['0.75rem', { lineHeight: '1rem' }], /* 12px, 16px */
+        'xxxs': ['0.625rem', { lineHeight: '0.75rem' }], /* 10px, 12px */
+        'xxxxs': ['0.5rem', { lineHeight: '0.625rem' }], /* 8px, 10px */
+      },
     },
   },
   plugins: [],
 };
 
 export default config;
-

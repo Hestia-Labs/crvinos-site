@@ -1,0 +1,22 @@
+{
+    "name": "CRVinosMX",
+    "short_name": "CRVinosMX",
+    "icons": [
+        {
+            "src": "/img/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "description": "CRvinos es una empresa 100% mexicana que ofrece una amplia variedad de vinos de la mas alta calidad.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fffbf7", 
+    "theme_color": "#8d131e",
+    "orientation": "portrait"
+}

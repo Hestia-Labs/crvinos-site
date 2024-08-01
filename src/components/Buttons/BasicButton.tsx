@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 
 interface BasicButtonProps {
     variant: 'transparent' | 'bg-back' | 'bg-crred';
@@ -10,9 +11,20 @@ interface BasicButtonProps {
     onClick?: () => void;
     className?: string;
     disabled?: boolean;
+    link?: string; // Added link prop
 }
 
-const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', sizey = 'medium', children, onClick, className = '', disabled = false }) => {
+const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', sizey = 'medium', children, onClick, className = '', disabled = false, link }) => {
+    const router = useRouter();
+
+    const handleClick = () => {
+        if (link) {
+            router.push(link);
+        } else if (onClick) {
+            onClick();
+        }
+    };
+
     const sizeClassName = clsx({
         'px-4': sizex === 'small',
         'px-6': sizex === 'medium',
@@ -43,7 +55,7 @@ const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', si
     );
 
     return (
-        <button className={baseClassName} onClick={onClick} disabled={disabled}>
+        <button className={baseClassName} onClick={handleClick} disabled={disabled}>
             {children}
         </button>
     );

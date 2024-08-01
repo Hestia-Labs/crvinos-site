@@ -13,22 +13,21 @@ const Map: React.FC = () => {
     // };
 
     const handleImageClick = () => {
-        window.open("https://www.google.com/maps/place/Carr.+Chichimequillas-la+Griega,+76249+El+Lobo,+Qro.,+México", "_blank");
+        window.open("https://www.google.com/maps/place/RANCHO+SAN+MARTIN/@20.6163015,-100.0205995,17z/data=!4m7!3m6!1s0x85d37bf349f5136f:0xd0d981870247a049!4b1!8m2!3d20.6163015!4d-100.0180246!16s%2Fg%2F11t5dbn819?entry=ttu", "_blank");
     };
 
     return (
-        <div onClick={handleImageClick} className="absolute bottom-8 cursor-pointer left-8 bg-back-75 space-x-2 flex p-3 justify-evenly items-center rounded-lg h-fit border-crred border z-50 flex-row  md:space-x-2  space-y-2 md:space-y-0">
+        <div onClick={handleImageClick} className="absolute  bottom-4 cursor-pointer left-4 bg-back-75 space-x-1 flex p-2 justify-evenly items-center rounded-lg h-fit border-crred border z-30 flex-row sm:space-x-1 space-y-1 sm:flex-row sm:items-center lg:flex-row lg:items-center lg:space-x-1 lg:space-y-0">
             <img 
                 src="/img/address.png" 
                 alt="Google Maps Location" 
-                className=" object-cover md:w-20 md:h-20 w-16 h-16 mr-2 rounded-lg border-back border-2"
-                style={{ cursor: 'pointer' }}
+                className="object-cover  sm:w-16 sm:h-16 w-10 h-10 mr-1 rounded-lg border-back border-2 lg:w-16 lg:h-16 cursor-pointer"
             />
             <div 
-                className="flex flex-col items-start justify-end h-full  md:w-60 w-30"
+                className="flex flex-col items-start justify-center h-full sm:w-40 w-30 lg:w-40 "
             >
-                <h3 className="text-crred font-semibold md:text-lg text-xs">Nuestra Ubicación:</h3>
-                <p className="text-crred font-semibold text-wrap md:text-base text-xs/3">Carr. Chichimequillas-la Griega, 76249 El Lobo, Qro., México</p>
+                <h3 className="text-crred font-semibold sm:text-xs text-xxs lg:text-sm">Nuestra Ubicación:</h3>
+                <p className="text-crred font-semibold sm:text-xxs text-xxxs lg:text-xs break-words">Camino Tejocote a San Jose La Laja km 3.2, Tequisquiapan, Qro., Mexico </p>
             </div>
         </div>
     );
