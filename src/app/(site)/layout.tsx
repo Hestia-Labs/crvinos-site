@@ -60,13 +60,13 @@ export default async function RootLayout({
         <meta name="msapplication-TileColor" content="#fffbf7" />
         <meta name="theme-color" content="#fffbf7" />
         <meta name="description" content="CRvinos es una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad." />
-        <meta name="keywords" content="vinos, CRVinos, alta calidad, vinos mexicanos, empresa mexicana, vinos en mexico, vinos calidad, calidad, vino tinto, vino blanco, vino rosado, cata de vinos, maridaje, enoturismo, bodega, viñedo, sommelier, degustación" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="noindex, follow, nocache" />
-        <meta
-          name="googlebot"
-          content="index, nofollow, noimageindex, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
-        />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="CRVinos" />
+        <meta property="og:description" content="Explora nuestra selección de vinos mexicanos de alta calidad." />
+        <meta property="og:image" content={`${process.env.SITE_URL}/img/CRVino-logo.png`} />
+        <meta property="og:url" content={`${process.env.SITE_URL}/`} />
+        <meta property="og:type" content="website" />
         <link rel="canonical" href={`${process.env.SITE_URL}/`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>

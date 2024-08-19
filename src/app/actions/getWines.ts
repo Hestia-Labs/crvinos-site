@@ -7,10 +7,10 @@ import { groq } from 'next-sanity';
 import { Wine, WineShort } from '@/types/Wine'; 
 
 const clientConfig = {
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: process.env.SANITY_API_VERSION,
-  token: process.env.SANITY_API_TOKEN,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET   || '',
+  apiVersion: process.env.SANITY_API_VERSION  || '',
+  token: process.env.SANITY_API_TOKEN   || '',
   useCdn: false,
 };
 
@@ -82,7 +82,7 @@ export async function getWines({
     } ${limit}
   `;
 
-  return client.fetch(query, {}, { cache: "no-store" });
+  return client.fetch(query, {});
 }
 
 export async function getDistinctCollectionWines(): Promise<WineShort[]> {
@@ -100,7 +100,7 @@ export async function getDistinctCollectionWines(): Promise<WineShort[]> {
       }
     `;
   
-    const results = await client.fetch(query, {}, { cache: "no-store" });
+    const results = await client.fetch(query, {});
   
     return [ results.hermelinda, results.dbc, results.recuento].filter(Boolean);
   }

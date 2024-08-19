@@ -10,17 +10,17 @@ const carouselItems = [
   {
     title: 'El Viñedo',
     image: '/img/vinedo.jpg',
-    text: 'Descubre la belleza y la tradición de nuestro viñedo, donde cada uva es cultivada con esmero y dedicación para producir vinos de la más alta calidad. Pasea por nuestros campos y siente la conexión con la naturaleza mientras aprendes sobre el proceso de vinificación. Nuestro viñedo no solo es un lugar de trabajo, sino también un refugio de paz y serenidad, donde la tierra y el cielo se encuentran para crear un entorno perfecto para el crecimiento de nuestras uvas. Cada visita al viñedo es una oportunidad para sumergirse en la historia y la pasión que ponemos en cada botella de vino.'
+    text: 'Explora la esencia de nuestro viñedo, un lugar donde la tradición y la naturaleza se fusionan. Cada uva es cuidada con pasión para crear vinos excepcionales. Pasea por nuestros campos y descubre el arte de la vinificación mientras te conectas con el entorno natural. Nuestro viñedo es un santuario de serenidad, donde la tierra nutre nuestras uvas bajo un cielo abierto. Cada visita es un viaje hacia la historia y la dedicación que ponemos en cada botella.',
   },
   {
     title: 'El Restaurante',
     image: '/img/restaurant.jpeg',
-    text: 'Disfruta de una experiencia culinaria única en nuestro restaurante, donde los sabores de nuestros vinos se complementan perfectamente con platos exquisitos. Nuestro chef utiliza ingredientes frescos y locales para crear menús que deleitan todos los sentidos. Cada plato es una obra de arte, diseñada para resaltar las notas distintivas de nuestros vinos. Desde aperitivos hasta postres, cada bocado es una celebración de la gastronomía y la enología. Nuestro restaurante no es solo un lugar para comer, sino un destino para experimentar la armonía entre la comida y el vino en su máxima expresión.'
+    text: 'Vive una experiencia gastronómica inolvidable en nuestro restaurante italiano-argentino, donde la tradición culinaria se encuentra con nuestros vinos selectos. Nuestro chef crea platos que realzan los sabores únicos de nuestros vinos, usando ingredientes frescos y locales. Cada comida es una obra maestra que celebra la armonía entre la gastronomía y la enología, desde los aperitivos hasta los postres. Aquí, la comida y el vino se unen en perfecta sintonía.',
   },
   {
     title: 'La Bodega',
     image: '/img/barrels.jpg',
-    text: 'Explora nuestra bodega, un lugar donde la magia del vino cobra vida. Aquí, en un ambiente controlado, nuestras barricas de roble añejan el vino a la perfección, desarrollando sabores y aromas complejos que te sorprenderán. La bodega es el corazón de nuestra operación, donde la ciencia y el arte de la vinificación se unen. Cada barrica cuenta una historia, y cada botella es el resultado de años de dedicación y experiencia. Al recorrer la bodega, podrás apreciar el cuidado y la atención al detalle que ponemos en cada etapa del proceso de elaboración del vino, desde la fermentación hasta el embotellado.'
+    text: 'Sumérgete en nuestra bodega, donde el vino toma vida en su máximo esplendor. En este ambiente controlado, nuestras barricas de roble transforman el vino, añadiendo capas de sabor y aroma. La bodega es el núcleo de nuestra pasión por la vinificación, donde cada barrica y botella refleja años de experiencia y dedicación. Al visitar la bodega, descubrirás el esmero y el detalle en cada etapa, desde la fermentación hasta el embotellado, que hacen de nuestro vino algo especial.',
   },
 ];
 
@@ -42,10 +42,11 @@ const AboutPage: React.FC = () => {
                     <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  font-semibold cormorant-garamond-semibold-italic">Nuestra Historia</h2>
                     <div className='w-full sm:w-5/6 md:w-3/4'>
                     <p className="text-sm sm:text-sm md:text-base lg:text-lg  cormorant-garamond">
-                        Somos un equipo apasionado dedicado a traerte los mejores vinos de todo el mundo. Nuestro viaje comenzó con un amor por el vino y un deseo de compartir ese amor con los demás. Cada botella en nuestra colección cuenta una historia única, inspirada en las vidas de personas extraordinarias. Únete a nosotros para celebrar su legado a través de los ricos sabores y aromas de nuestros vinos.
+                      Somos un equipo apasionado dedicado a traerte los mejores vinos de nuestra tierra. <strong>CRVinosMX</strong> comenzó este viaje con amor por el vino, y por el deseo de compartir ese amor con los demás. Cada botella de nuestra de colección cuenta una historia única, inspirada en la vida de hombres y mujeres excepcionales. Celebra el legado de personas extraordinarias a través de los ricos sabores y aromas de <strong>CRVinosMX</strong>.
                     </p>
                     <p className="text-sm sm:text-sm md:text-base lg:text-lg  cormorant-garamond mt-4">
-                        Nuestra historia comenzó en el corazón de México, donde el suelo rico y el clima perfecto crean las condiciones ideales para cultivar uvas excepcionales. A lo largo de los años, hemos perfeccionado nuestro oficio, combinando técnicas tradicionales con innovaciones modernas para producir vinos que son tanto atemporales como contemporáneos. Nuestro compromiso con la calidad y la excelencia es inquebrantable, y nos enorgullecemos de cada botella que lleva nuestro nombre. Desde el viñedo hasta tu copa, te invitamos a experimentar la pasión y dedicación que se pone en cada sorbo de nuestro vino.
+                    La historia de <strong>CRVinosMX</strong> comenzó en el corazón de México, donde el suelo fértil y el clima perfecto crean las condiciones ideales para cultivar uvas estupendas. A lo largo de los años hemos perfeccionado el cultivo de la vid y la elaboración del vino, combinando técnicas tradicionales con innovaciones modernas para producir vinos contemporáneos que se tornan atemporales. La calidad y la excelencia son compromiso inquebrantable de <strong>CRVinosMX</strong>  , y nos enorgullecemos de cada botella que lleva este nombre. Desde el viñedo hasta tu copa, te invitamos a experimentar con pasión cada sorbo de nuestro vino.
+
                     </p>
                     </div>
                 </div>

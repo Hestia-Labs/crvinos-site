@@ -45,7 +45,7 @@ const MailingListForm: React.FC = () => {
 
   return (
     <div className="w-full border-crred border-b py-6">
-      <h3 className="text-crred md:text-2xl text-start">Únete a nuestra lista</h3>
+      <h3 className="text-crred md:text-2xl text-start">Forma parte de nuestra comunidad</h3>
       <form onSubmit={handleSubmit} className='flex flex-row items-center space-x-3 mt-4 w-full'>
         <input
           type="email"

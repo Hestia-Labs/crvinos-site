@@ -17,7 +17,7 @@ const Events: React.FC = () => {
     useEffect(() => {
         const loadEvents = async () => {
             const fetchedEvents = await getEvents({ shortVersion: true }) as EventShort[];
-
+            console.log("fetchedEvents: ", fetchedEvents);
             const now = new Date();
             const sortedEvents = fetchedEvents.sort((a: EventShort, b: EventShort) => {
                 const dateA = new Date(a.endDate);

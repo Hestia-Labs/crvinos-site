@@ -27,7 +27,7 @@ const Map: React.FC = () => {
                 className="flex flex-col items-start justify-center h-full sm:w-40 w-30 lg:w-40 "
             >
                 <h3 className="text-crred font-semibold sm:text-xs text-xxs lg:text-sm">Nuestra Ubicación:</h3>
-                <p className="text-crred font-semibold sm:text-xxs text-xxxs lg:text-xs break-words">Camino Tejocote a San Jose La Laja km 3.2, Tequisquiapan, Qro., Mexico </p>
+                <p className="text-crred font-semibold sm:text-xxs text-xxxs lg:text-xs break-words">Camino Tejocote a San José La Laja km 3.2, Tequisquiapan, Qro., México </p>
             </div>
         </div>
     );

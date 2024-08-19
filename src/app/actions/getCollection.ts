@@ -16,12 +16,14 @@ interface CollectionData {
     }[];
 }
 
+
+
 const clientConfig = {
-    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-    apiVersion: process.env.SANITY_API_VERSION,
-    token: process.env.SANITY_API_TOKEN,
-    useCdn: false,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET   || '',
+  apiVersion: process.env.SANITY_API_VERSION  || '',
+  token: process.env.SANITY_API_TOKEN   || '',
+  useCdn: false,
 };
 
 const client = createClient(clientConfig);
@@ -43,9 +45,9 @@ export const fetchCollectionData = async (selectedOption: string): Promise<Colle
     `;
     const params = { name: selectedOption };
     try {
-        return await client.fetch(query, params, { cache: "no-store" });
-    } catch (error) {
-        console.error("Failed to fetch collection data:", error);
-        return null;
+        return await client.fetch(query, params);
+    } catch (e) {
+        console.log("Failed to fetch collection data:", e);
+      return null;
     }
 };

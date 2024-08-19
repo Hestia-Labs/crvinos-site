@@ -55,8 +55,7 @@ export async function getEvents({
 				${fields}
 			} ${limit}
 		`,
-		{},
-		{ cache: "no-store" }
+		{}
 	);
 
 	if (shortVersion) {

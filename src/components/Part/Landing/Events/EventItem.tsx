@@ -38,7 +38,8 @@ const EventItem: React.FC<EventItemProps> = ({ imageUrl, title, description, dat
     };
 
     const formatTime = (timeString: string) => {
-        const [hours, minutes] = timeString.split(':');
+        if (!timeString) return '';
+        const [hours, minutes] = timeString?.split(':');
         const date = new Date();
         date.setHours(parseInt(hours), parseInt(minutes));
         const options: Intl.DateTimeFormatOptions = {

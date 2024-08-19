@@ -21,7 +21,7 @@ interface EmblaCarouselProps {
 }
 
 const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, options }) => {
-  const autoplayOptions = { delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true };
+  const autoplayOptions = { delay: 7000, stopOnInteraction: false, stopOnMouseEnter: true };
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay(autoplayOptions)]);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);

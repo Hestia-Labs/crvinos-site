@@ -23,6 +23,7 @@ const Catalog: React.FC = () => {
     useEffect(() => {
         const fetchWines = async () => {
             const fetchedWines = await getDistinctCollectionWines();
+            console.log("fetchedWines: ", fetchedWines);
             setWines(fetchedWines as WineShort[]);
             setLoading(false);
         };

@@ -20,7 +20,7 @@ export default function Navbar({ red, relative }: NavbarProps) {
 
     const navItems = [
         { name: 'Nosotros', route: "about", available: true },
-        { name: 'Catalogo', route: "catalog", available: true },
+        { name: 'Catálogo', route: "catalog", available: true },
         { name: 'Contacto', route: "contact", available: true },
         { name: 'Enoturismo', route: "enoturism", available: true }
     ];

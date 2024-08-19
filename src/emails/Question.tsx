@@ -9,8 +9,8 @@ interface QuestionEmailProps {
 
 const defaultSenderEmail = "no-reply@example.com";
 const defaultQuestion = "No question provided.";
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://crvinos-site.pages.dev";
-const defaultName = "Fuákata";
+const baseUrl = process.env.SITE_URL ? process.env.SITE_URL : "https://crvinos-site.pages.dev";
+const defaultName = "CRVinos";
 
 export default function QuestionEmail({
   senderEmail = defaultSenderEmail,

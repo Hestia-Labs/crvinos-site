@@ -67,7 +67,7 @@ const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Tu Nombre"
-                  className="border border-crred p-2 rounded"
+                  className="border border-crred p-2 rounded bg-transparent placeholder-text-crred-50"
                   required
                 />
                 <input
@@ -76,7 +76,7 @@ const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Tu Correo Electrónico"
-                  className="border border-crred p-2 rounded"
+                  className="border border-crred p-2 rounded bg-transparent placeholder-text-crred-50"
                   required
                 />
                 {/* <input
@@ -85,7 +85,7 @@ const Contact: React.FC = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Tu Número de Teléfono"
-                  className="border border-crred p-2 rounded"
+                  className="border border-crred p-2 rounded bg-transparent placeholder-text-crred-50"
                   required
                 /> */}
                 <textarea
@@ -93,7 +93,7 @@ const Contact: React.FC = () => {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tu Mensaje"
-                  className="border border-crred p-2 rounded"
+                  className="border border-crred p-2 rounded bg-transparent placeholder-text-crred-50"
                   rows={5}
                   required
                 />
