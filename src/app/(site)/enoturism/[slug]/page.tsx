@@ -11,24 +11,24 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
     .join(' ');
 
   return {
-    title: `CRVinosMX | Vinos de la más alta calidad | Evento - ${formattedSlug}`,
-    description: "Descubre los detalles de nuestros eventos exclusivos en CRVinosMX. Participa en catas de vino, visitas a la bodega y otros eventos especiales.",
+    title: `CR Vinos MX | Vinos de la más alta calidad | Evento - ${formattedSlug}`,
+    description: "Descubre los detalles de nuestros eventos exclusivos en CR Vinos MX. Participa en catas de vino, visitas a la bodega y otros eventos especiales.",
     icons: {
       icon: "/favicon.ico",
       apple: "/img/apple-touch-icon.png",
     },
-    keywords: ['CRVinosMX', 'evento', 'catas de vino', 'visitas a la bodega', 'eventos especiales'],
+    keywords: ['CR Vinos MX', 'evento', 'catas de vino', 'visitas a la bodega', 'eventos especiales'],
     openGraph: {
-      title: `CRVinosMX | Vinos de la más alta calidad | Evento - ${formattedSlug}`,
-      description: "Descubre los detalles de nuestros eventos exclusivos en CRVinosMX.",
+      title: `CR Vinos MX | Vinos de la más alta calidad | Evento - ${formattedSlug}`,
+      description: "Descubre los detalles de nuestros eventos exclusivos en CR Vinos MX.",
       url: `${siteUrl}/events/${params.slug}`,
-      siteName: "CRVinosMX",
+      siteName: "CR Vinos MX",
       images: [
         {
           url: `${siteUrl}/img/enoPreview.png`,
           width: 800,
           height: 600,
-          alt: "CRVinosMX",
+          alt: "CR Vinos MX",
         },
       ],
       locale: 'es_ES',
@@ -36,8 +36,8 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
     },
     twitter: {
       card: 'summary_large_image',
-      title: `CRVinosMX | Vinos de la más alta calidad | Evento - ${formattedSlug}`,
-      description: 'Descubre los detalles de nuestros eventos exclusivos en CRVinosMX.',
+      title: `CR Vinos MX | Vinos de la más alta calidad | Evento - ${formattedSlug}`,
+      description: 'Descubre los detalles de nuestros eventos exclusivos en CR Vinos MX.',
       images: [`${siteUrl}/img/enoPreview.png`],
     },
     alternates: {
@@ -50,7 +50,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
       google: 'google-verification-code',
     },
     appleWebApp: {
-      title: 'CRVinosMX',
+      title: 'CR Vinos MX',
       statusBarStyle: 'black-translucent',
     },
   };

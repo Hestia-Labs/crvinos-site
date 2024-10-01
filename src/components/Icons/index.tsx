@@ -4,17 +4,20 @@ interface IconProps {
   name: string;
   className?: string;
   link?: string;
-  [key: string]: any;  
   newPage?: boolean;
+
+  [key: string]: any;  
 }
 
 const Icon: React.FC<IconProps> = ({ name, className = '', link = '', newPage = false, ...props }) => {
+    const { newPage: __, ...filteredProps } = props;
+
     const svgElement = (
         <img
             src={`/img/icons/${name}.svg`}
-            className={className}
             alt={`${name} icon`}
-            {...props}
+            className={className}
+            {...filteredProps}   
         />
     );
 
@@ -32,3 +35,4 @@ const Icon: React.FC<IconProps> = ({ name, className = '', link = '', newPage = 
 };
 
 export default Icon;
+

@@ -5,24 +5,24 @@ import EventsPage from '@/components/Part/Events';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "CRVinosMX | Vinos de la más alta calidad | Enoturismo",
-  description: "Descubre los eventos de CRVinosMX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad. Participa en nuestras catas de vino, visitas a la bodega y otros eventos especiales.",
+  title: "CR Vinos MX | Vinos de la más alta calidad | Enoturismo",
+  description: "Descubre los eventos de CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad. Participa en nuestras catas de vino, visitas a la bodega y otros eventos especiales.",
   icons: {
     icon: "/favicon.ico",
     apple: "/img/apple-touch-icon.png",
   },
-  keywords: ['CRVinosMX', 'enoturismo', 'catas de vino', 'visitas a la bodega', 'eventos especiales'],
+  keywords: ['CR Vinos MX', 'enoturismo', 'catas de vino', 'visitas a la bodega', 'eventos especiales'],
   openGraph: {
-    title: "CRVinosMX | Vinos de la más alta calidad | Enoturismo",
-    description: "Descubre los eventos de CRVinosMX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
+    title: "CR Vinos MX | Vinos de la más alta calidad | Enoturismo",
+    description: "Descubre los eventos de CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
     url: `${siteUrl}/enoturism`,
-    siteName: "CRVinosMX",
+    siteName: "CR Vinos MX",
     images: [
       {
         url: `${siteUrl}/img/enoPreview.png`,
         width: 800,
         height: 600,
-        alt: "CRVinosMX",
+        alt: "CR Vinos MX",
       },
     ],
     locale: 'es_ES',
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CRVinosMX | Vinos de la más alta calidad | Enoturismo',
-    description: 'Descubre los eventos de CRVinosMX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.',
+    title: 'CR Vinos MX | Vinos de la más alta calidad | Enoturismo',
+    description: 'Descubre los eventos de CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.',
     images: [`${siteUrl}/img/enoPreview.png`],
   },
   alternates: {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     google: 'google-verification-code',
   },
   appleWebApp: {
-    title: 'CRVinosMX',
+    title: 'CR Vinos MX',
     statusBarStyle: 'black-translucent',
   },
 };

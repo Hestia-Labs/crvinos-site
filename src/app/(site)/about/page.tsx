@@ -6,24 +6,24 @@ const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const generateMetadata = (): Metadata => {
   return {
-    title: "CRVinosMX | Vinos de la más alta calidad | Sobre Nosotros",
-    description: "Conoce más sobre CRVinosMX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
+    title: "CR Vinos MX | Vinos de la más alta calidad | Sobre Nosotros",
+    description: "Conoce más sobre CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
     icons: {
       icon: "/favicon.ico",
       apple: "/img/apple-touch-icon.png",
     },
-    keywords: ['CRVinosMX', 'sobre nosotros', 'empresa mexicana', 'vinos de alta calidad'],
+    keywords: ['CR Vinos MX', 'sobre nosotros', 'empresa mexicana', 'vinos de alta calidad'],
     openGraph: {
-      title: "CRVinosMX | Vinos de la más alta calidad | Sobre Nosotros",
-      description: "Conoce más sobre CRVinosMX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
+      title: "CR Vinos MX | Vinos de la más alta calidad | Sobre Nosotros",
+      description: "Conoce más sobre CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
       url: `${siteUrl}/about`,
-      siteName: "CRVinosMX",
+      siteName: "CR Vinos MX",
       images: [
         {
           url: `${siteUrl}/img/aboutPreview.png`,
           width: 800,
           height: 600,
-          alt: "CRVinosMX",
+          alt: "CR Vinos MX",
         },
       ],
       locale: 'es_ES',
@@ -31,8 +31,8 @@ export const generateMetadata = (): Metadata => {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'CRVinosMX | Vinos de la más alta calidad | Sobre Nosotros',
-      description: 'Conoce más sobre CRVinosMX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.',
+      title: 'CR Vinos MX | Vinos de la más alta calidad | Sobre Nosotros',
+      description: 'Conoce más sobre CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.',
       images: [`${siteUrl}/img/aboutPreview.png`],
     },
     alternates: {
@@ -45,7 +45,7 @@ export const generateMetadata = (): Metadata => {
       google: 'google-verification-code',
     },
     appleWebApp: {
-      title: 'CRVinosMX',
+      title: 'CR Vinos MX',
       statusBarStyle: 'black-translucent',
     },
   };

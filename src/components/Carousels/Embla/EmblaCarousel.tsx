@@ -45,10 +45,10 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, options }) => {
               transition={{ duration: 0.5, delay: index * 0.3 }}
             >
               <div className="w-full flex flex-col justify-center items-center px-4 sm:px-10 md:px-20 space-y-4">
-                <h3 className=" text-xl md:text-2xl font-bold text-crred">{slide.title}</h3>
-                <p className=" text-[12px] md:text-sm cormorant-garamond-bold text-center text-crred">{slide.text}</p>
+                <h3 className=" text-xl md:text-4xl  text-crred">{slide.title}</h3>
+                <p className=" text-[12px] md:text-lg cormorant-garamond   text-crred">{slide.text}</p>
               </div>
-              <div className="flex w-full px-4 sm:px-10 md:px-20 pb-8">
+              <div className="flex w-full md:pt-8 px-4 sm:px-10 md:px-20 pb-8">
                 <Image
                   src={slide.image}
                   alt={slide.title}

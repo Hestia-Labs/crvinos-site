@@ -2,21 +2,23 @@
 import React, { useState } from 'react';
 import Icon from "../Icons";
 import { motion, AnimatePresence } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'; 
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 
 interface NavbarProps {
     red?: boolean;
+    redLogo?: boolean;
     relative?: boolean;
 }
 
-export default function Navbar({ red, relative }: NavbarProps) {
+export default function Navbar({ red, redLogo, relative }: NavbarProps) {
     const router = useRouter();
     const [open, setOpen] = useState(false);
 
     const textColor = red ? 'text-crred' : 'text-white';
     const borderColor = red ? 'border-crred' : 'border-white';
     const positionClass = relative ? 'relative' : 'absolute';
+    const logoColorClass = redLogo ? '-red' : '';
 
     const navItems = [
         { name: 'Nosotros', route: "about", available: true },
@@ -25,8 +27,10 @@ export default function Navbar({ red, relative }: NavbarProps) {
         { name: 'Enoturismo', route: "enoturism", available: true }
     ];
 
-    const handleNavigation = (route: string, available: boolean) => {
+    const handleNavigation = (route: string, available: boolean, event: React.MouseEvent) => {
+        event.preventDefault();  
         if (available) {
+            setOpen(false); 
             router.push(`/${route}`);
         }
     };
@@ -37,21 +41,21 @@ export default function Navbar({ red, relative }: NavbarProps) {
 
     return (
         <nav className={`w-full flex justify-between items-center px-8 py-2 bg-transparent z-50 ${positionClass} top-0 left-0 right-0 md:px-16 md:py-4`}>
-            <Icon name={`CRVinos${red ? '-red' : ''}`} className="h-20 w-20 md:h-32 md:w-32" link={"/"} />
-            <div className={`hidden md:flex border-b-2 ${borderColor} px-8`}>
-                <div className="flex py-2 space-x-5">
+            <Icon name={`CRVinos${logoColorClass}`} className="h-20 w-20 md:h-32 md:w-32" link={"/"} />
+            <div className={`hidden md:flex border-b-2 ${borderColor} px-8 `}>
+                <div className="flex py-2 space-x-5 ">
                     <div className='flex justify-center items-center md:text-sm text-xs space-x-8'>
                         {navItems.map((item, index) => (
                             <motion.div
                                 key={index}
-                                whileHover={{ y: item.available ? -3 : 0 }}
-                                whileTap={{ y: item.available ? -3 : 0 }}
+                                whileHover={{ y: item.available ? -2 : 0 }}
+                                whileTap={{ y: item.available ? -2 : 0 }}
                                 initial={false}
                                 animate={{ y: 0 }}
                                 exit={{ y: 0 }}
                                 transition={{ type: 'ease-in', stiffness: 300 }}
                                 className={`${textColor} ${!item.available ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                onClick={() => handleNavigation(item.route, item.available)}
+                                onClick={(event) => handleNavigation(item.route, item.available, event)}
                             >
                                 <a className={`${!item.available ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
                                     {item.name}
@@ -86,7 +90,7 @@ export default function Navbar({ red, relative }: NavbarProps) {
                                 key={index}
                                 href="#"
                                 className="text-white text-4xl mb-10 flex text-left"
-                                onClick={() => { handleNavigation(item.route, item.available); toggleMenu(); }}
+                                onClick={(event) => handleNavigation(item.route, item.available, event)}
                                 initial={{ y: 30, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ delay: 0.1 * index }}

@@ -42,7 +42,7 @@ const Contact: React.FC = () => {
 
   return (
     <div className='flex flex-col space-y-9'>
-      <Navbar relative red />
+      <Navbar relative red redLogo/>
       <div className='flex flex-col items-center justify-center w-full px-4 sm:px-10 md:px-20'>
         <div className='border-crred border-t-2 w-full flex flex-col justify-center items-center py-10 sm:py-15 md:py-20 space-y-9 relative'>
           <div className='  md:py-9 absolute top-0 right-0 mt-4 mr-4 text-right'>

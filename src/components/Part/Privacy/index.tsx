@@ -4,7 +4,7 @@ import React from 'react';
 const PrivacyPolicy: React.FC = () => {
   return (
     <div>
-      <Navbar red relative />
+      <Navbar redLogo red relative />
     
       <div className="privacy-policy-container px-6 sm:px-10 md:px-20 lg:px-32 py-8">
         

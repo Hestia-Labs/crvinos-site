@@ -11,24 +11,24 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
     .join(' ');
 
   return {
-    title: `CRVinosMX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug}`,
-    description: "Descubre los detalles de nuestros vinos de alta calidad en CRVinosMX. Cada vino tiene su propia historia y características únicas.",
+    title: `CR Vinos MX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug}`,
+    description: "Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX. Cada vino tiene su propia historia y características únicas.",
     icons: {
       icon: "/favicon.ico",
       apple: "/img/apple-touch-icon.png",
     },
-    keywords: ['CRVinosMX', 'vino', 'detalle del vino', 'alta calidad'],
+    keywords: ['CR Vinos MX', 'vino', 'detalle del vino', 'alta calidad'],
     openGraph: {
-      title: `CRVinosMX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug}`,
-      description: "Descubre los detalles de nuestros vinos de alta calidad en CRVinosMX.",
+      title: `CR Vinos MX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug}`,
+      description: "Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX.",
       url: `${siteUrl}/catalog/${params.slug}`,
-      siteName: "CRVinosMX",
+      siteName: "CR Vinos MX",
       images: [
         {
           url: `${siteUrl}/img/catalogPreview.png`,
           width: 800,
           height: 600,
-          alt: "CRVinosMX",
+          alt: "CR Vinos MX",
         },
       ],
       locale: 'es_ES',
@@ -36,8 +36,8 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
     },
     twitter: {
       card: 'summary_large_image',
-      title: `CRVinosMX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug}`,
-      description: 'Descubre los detalles de nuestros vinos de alta calidad en CRVinosMX.',
+      title: `CR Vinos MX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug}`,
+      description: 'Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX.',
       images: [`${siteUrl}/img/catalogPreview.png`],
     },
     alternates: {
@@ -50,7 +50,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
       google: 'google-verification-code',
     },
     appleWebApp: {
-      title: 'CRVinosMX',
+      title: 'CR Vinos MX',
       statusBarStyle: 'black-translucent',
     },
   };

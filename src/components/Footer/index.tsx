@@ -5,7 +5,8 @@ import Icon from '../Icons';
 import { useRouter } from 'next/navigation';
 import BasicButton from '@/components/Buttons/BasicButton';
 import MailingListForm from './MailingListForm';
-import {motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import Map from './Map';
 
 const Footer: React.FC = () => {
   const router = useRouter();
@@ -23,10 +24,10 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="flex flex-col w-full items-center justify-center bg-transparent text-white py-8 px-4 sm:px-10 md:px-20">
-      <div className="flex flex-col md:flex-row-reverse md:justify-evenly md:items-start w-full justify-center items-center border-crred border-t-2 py-5 space-y-6">
-        <div className="w-full md:items-start md:justify-end flex flex-col items-center space-y-6 px-8">
-          <div className="w-full border-crred border-b py-6 justify-start items-start">
-            <h3 className="text-crred md:text-2xl text-start">
+      <div className="flex flex-col md:flex-row-reverse md:justify-evenly md:items-center w-full justify-center items-center border-crred border-t-2 py-5 space-y-6">
+        <div className="w-full md:items-center md:justify-center flex flex-col items-center space-y-6 px-8">
+          <div className="w-full border-crred border-b py-6 justify-center items-start ">
+            <h3 className="text-crred md:text-2xl">
               ¿Preguntas o Comentarios?
             </h3>
             <BasicButton
@@ -41,9 +42,9 @@ const Footer: React.FC = () => {
           </div>
           <MailingListForm />
         </div>
-        <div className="flex flex-col-reverse md:flex-row justify-center items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 w-full">
+        <div className="flex flex-col-reverse md:flex-row justify-center items-center md:items-center space-y-4 md:space-y-0 md:space-x-8 w-full">
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <Icon name="CRVinos-red" red className="h-24 w-24 md:h-48 md:w-48" />
+            <Icon name="CRVinos-red"  className="h-24 w-24 md:h-48 md:w-48" />
             <div className="flex space-x-3 items-center justify-center">
               <Icon
                 link="https://www.facebook.com/profile.php?id=100078033250234&mibextid=LQQJ4d"
@@ -59,10 +60,11 @@ const Footer: React.FC = () => {
               />
             </div>
             <div className="text-crred text-xs md:text-sm lg:text-base text-center">
-              CRVinosMX ® | Todos los Derechos Reservados
+              CR Vinos MX ® | Todos los Derechos Reservados
             </div>
           </div>
-          <div className="flex flex-col items-center md:space-y-8 h-full">
+          <div className="flex flex-col items-center w-full md:space-y-8 h-full justify-center">
+            <Map />
             <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-4 py-4 md:py-0 text-xs md:text-sm lg:text-base text-center">
               {[
                 { name: 'Política de Privacidad', route: '/privacy' },
@@ -82,6 +84,7 @@ const Footer: React.FC = () => {
                 </button>
               ))}
             </div>
+            
             {/* <div onClick={handleLocationClick} className='flex cursor-pointer flex-col items-center w-full justify-center rounded-md   '>
               <div className='w-full items-start px-6'>
                 <h3 className="text-crred font-semibold sm:text-sm text-sm md:text-lg underline underline-offset-2">
@@ -102,3 +105,4 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
+

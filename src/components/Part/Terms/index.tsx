@@ -5,7 +5,7 @@ const TermsAndConditions: React.FC = () => {
   return (
     <div>
 
-      <Navbar red relative />
+      <Navbar redLogo red relative />
       <div className="terms-conditions-container px-6 sm:px-10 md:px-20 lg:px-32 py-8">
         
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-center text-crred mt-6 mb-8">Términos y Condiciones</h1>

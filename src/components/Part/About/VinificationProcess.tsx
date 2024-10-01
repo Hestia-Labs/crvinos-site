@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Icon from '@/components/Icons';
 
 const vinificationSteps = [
   {
@@ -10,9 +11,9 @@ const vinificationSteps = [
       El momento de la cosecha es crucial, ya que determina la frescura y la riqueza de los sabores que se desarrollarán en cada botella.
       A medida que recolectamos cada racimo, nos aseguramos de preservar la integridad de las uvas, evitando cualquier daño que pueda afectar el sabor final del vino.
     `,
-    image: '/img/grapes.jpg',
+    image: 'InfoVines',
     imageAlt: 'Desde la Cosecha',
-    reverse: false,
+    reverse: true,
   },
   {
     title: 'Proceso de Fermentación',
@@ -22,9 +23,9 @@ const vinificationSteps = [
       Durante la fermentación, monitoreamos cuidadosamente la temperatura y los niveles de azúcar para asegurar una conversión perfecta.
       Este paso es fundamental para establecer el perfil de sabor y la complejidad del vino, garantizando que cada botella ofrezca una experiencia sensorial excepcional.
     `,
-    image: '/img/wineTanks.jpeg',
+    image: 'InfoBarrel',
     imageAlt: 'Proceso de Fermentación',
-    reverse: true,
+    reverse: false,
   },
   {
     title: 'A Tu Mesa',
@@ -34,28 +35,34 @@ const vinificationSteps = [
       Cada sorbo revela el compromiso y la atención al detalle que hemos puesto en cada etapa de la vinificación.
       Ya sea que estés celebrando un evento especial o simplemente disfrutando de una cena tranquila, nuestro vino es el acompañamiento perfecto.
     `,
-    image: '/img/wineTable.jpeg',
+    image: 'InfoCup',
     imageAlt: 'A Tu Mesa',
-    reverse: false,
+    reverse: true,
   },
 ];
 
 
 const VinificationProcess = () => {
   return (
-    <div className="w-full space-y-12 px-8 sm:px-10 md:px-20 py-8">
-      <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold text-center text-crred">Proceso de Vinificación</h2>
+    <div className="w-full space-y-6 px-8 sm:px-10 md:px-20 py-8">
+      <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold text-center text-crred">
+        Proceso de Vinificación
+      </h2>
       {vinificationSteps.map((step, index) => (
         <div
           key={index}
-          className={`flex flex-col ${step.reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center justify-between md:items-start space-y-6 md:space-y-0 md:space-x-12 py-4`}
+          className={`flex flex-col ${step.reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center justify-between space-y-3 md:space-y-0 md:space-x-6 py-4`}
         >
-          <div className="w-full md:w-1/2 px-6">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-crred">{step.title}</h3>
-            <p className="text-xs sm:text-sm md:text-base mt-4 text-crred whitespace-pre-line">{step.description}</p>
+          <div className="w-full md:w-1/2 px-6 text-center md:text-left">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-crred">
+              {step.title}
+            </h3>
+            <p className="text-xs sm:text-sm md:text-base mt-4 text-crred whitespace-pre-line">
+              {step.description}
+            </p>
           </div>
-          <div className="w-full p-4 md:p-0 md:w-1/2 h-64">
-            <Image src={step.image} alt={step.imageAlt} width={0} height={0} sizes="100vw" className="w-full h-full object-cover" />
+          <div className="w-full md:p-0 md:w-1/2 flex justify-center">
+            <Icon name={step.image} className="h-60 w-60 md:h-80 md:w-80" alt={step.imageAlt} />
           </div>
         </div>
       ))}

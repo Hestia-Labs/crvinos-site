@@ -6,7 +6,7 @@ const NotFound: React.FC = () => {
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center ">
-      <Navbar red  />
+      <Navbar red redLogo />
       <div className="text-center py-20 px-4">
         <p className="text-crred font-bold text-6xl md:text-8xl italic mb-4">404</p>
         <h1 className="text-crred-title text-2xl md:text-4xl lg:text-6xl italic mb-6" style={{ letterSpacing: '0.1em', fontWeight: '400' }}>

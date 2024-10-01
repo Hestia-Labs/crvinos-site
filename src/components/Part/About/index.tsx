@@ -5,12 +5,13 @@ import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import EmblaCarousel from '@/components/Carousels/Embla/EmblaCarousel';
 import VinificationProcess from '@/components/Part/About/VinificationProcess';
+import Icon from '@/components/Icons';
 
 const carouselItems = [
   {
     title: 'El Viñedo',
     image: '/img/vinedo.jpg',
-    text: 'Explora la esencia de nuestro viñedo, un lugar donde la tradición y la naturaleza se fusionan. Cada uva es cuidada con pasión para crear vinos excepcionales. Pasea por nuestros campos y descubre el arte de la vinificación mientras te conectas con el entorno natural. Nuestro viñedo es un santuario de serenidad, donde la tierra nutre nuestras uvas bajo un cielo abierto. Cada visita es un viaje hacia la historia y la dedicación que ponemos en cada botella.',
+    text: 'Explora la esencia de nuestro viñedo, un lugar donde la tradición y la naturaleza se fusionan. Cada uva es cuidada con pasión para crear vinos excepcionales. Pasea por nuestros campos y descubre el arte de la vinificación mientras te conectas con el entorno natural. Nuestro viñedo es un santuario de serenidad, donde la tierra nutre nuestras uvas bajo un cielo abierto. Los atardeceres en el viñedo son particularmente mágicos, con cielos que se tiñen de colores vibrantes mientras el sol se despide, ofreciendo un espectáculo visual que complementa la tranquilidad del entorno. Cada visita es un viaje hacia la historia y la dedicación que ponemos en cada botella.',
   },
   {
     title: 'El Restaurante',
@@ -39,19 +40,22 @@ const AboutPage: React.FC = () => {
             <div className="absolute inset-0 bg-back opacity-15"></div>
             <div className="absolute bottom-0 left-0 text-back p-8 sm:p-10 md:p-12 lg:p-16 xl:p-24">
                 <div className='space-y-6'>
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  font-semibold cormorant-garamond-semibold-italic">Nuestra Historia</h2>
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl italic cormorant-garamond-italic">Nuestra Historia</h2>
                     <div className='w-full sm:w-5/6 md:w-3/4'>
                     <p className="text-sm sm:text-sm md:text-base lg:text-lg  cormorant-garamond">
-                      Somos un equipo apasionado dedicado a traerte los mejores vinos de nuestra tierra. <strong>CRVinosMX</strong> comenzó este viaje con amor por el vino, y por el deseo de compartir ese amor con los demás. Cada botella de nuestra de colección cuenta una historia única, inspirada en la vida de hombres y mujeres excepcionales. Celebra el legado de personas extraordinarias a través de los ricos sabores y aromas de <strong>CRVinosMX</strong>.
+                      Somos un equipo apasionado dedicado a traerte los mejores vinos de nuestra tierra. <strong>CR Vinos MX</strong> comenzó este viaje con amor por el vino, y por el deseo de compartir ese amor con los demás. Cada botella de nuestra de colección cuenta una historia única, inspirada en la vida de hombres y mujeres excepcionales. Celebra el legado de personas extraordinarias a través de los ricos sabores y aromas de <strong>CR Vinos MX</strong>.
                     </p>
                     <p className="text-sm sm:text-sm md:text-base lg:text-lg  cormorant-garamond mt-4">
-                    La historia de <strong>CRVinosMX</strong> comenzó en el corazón de México, donde el suelo fértil y el clima perfecto crean las condiciones ideales para cultivar uvas estupendas. A lo largo de los años hemos perfeccionado el cultivo de la vid y la elaboración del vino, combinando técnicas tradicionales con innovaciones modernas para producir vinos contemporáneos que se tornan atemporales. La calidad y la excelencia son compromiso inquebrantable de <strong>CRVinosMX</strong>  , y nos enorgullecemos de cada botella que lleva este nombre. Desde el viñedo hasta tu copa, te invitamos a experimentar con pasión cada sorbo de nuestro vino.
+                    La historia de <strong>CR Vinos MX</strong> comenzó en el corazón de México, donde el suelo fértil y el clima perfecto crean las condiciones ideales para cultivar uvas estupendas. A lo largo de los años hemos perfeccionado el cultivo de la vid y la elaboración del vino, combinando técnicas tradicionales con innovaciones modernas para producir vinos contemporáneos. La calidad y la excelencia son compromiso inquebrantable de <strong>CR Vinos MX</strong>  , y nos enorgullecemos de cada botella que lleva este nombre. Desde el viñedo hasta tu copa, te invitamos a experimentar con pasión cada sorbo de nuestro vino.
 
                     </p>
                     </div>
                 </div>
             </div>
         </motion.div>
+        <div className="relative -z-10 scale-[1.1]">
+          <Icon name="FullVines" className="absolute  h-80 w-full scale-[1.1] md:h-160  opacity-15" />
+        </div>
         <div className='px-8 sm:px-10 md:px-20 w-full relative'>
             <div className="w-full h-2 border-crred border-t-2"></div>
         </div>

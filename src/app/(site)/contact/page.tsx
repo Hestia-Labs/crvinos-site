@@ -5,24 +5,24 @@ import Contact from '@/components/Part/Contact';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "CRVinosMX | Vinos de la más alta calidad | Contacto",
-  description: "Ponte en contacto con CRVinosMX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad. Estamos aquí para responder a tus preguntas y ofrecerte la mejor experiencia.",
+  title: "CR Vinos MX | Vinos de la más alta calidad | Contacto",
+  description: "Ponte en contacto con CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad. Estamos aquí para responder a tus preguntas y ofrecerte la mejor experiencia.",
   icons: {
     icon: "/favicon.ico",
     apple: "/img/apple-touch-icon.png",
   },
-  keywords: ['CRVinosMX', 'contacto', 'vinos de alta calidad', 'empresa mexicana'],
+  keywords: ['CR Vinos MX', 'contacto', 'vinos de alta calidad', 'empresa mexicana'],
   openGraph: {
-    title: "CRVinosMX | Vinos de la más alta calidad | Contacto",
-    description: "Ponte en contacto con CRVinosMX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
+    title: "CR Vinos MX | Vinos de la más alta calidad | Contacto",
+    description: "Ponte en contacto con CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
     url: `${siteUrl}/contact`,
-    siteName: "CRVinosMX",
+    siteName: "CR Vinos MX",
     images: [
       {
         url: `${siteUrl}/img/contactPreview.png`,
         width: 800,
         height: 600,
-        alt: "CRVinosMX",
+        alt: "CR Vinos MX",
       },
     ],
     locale: 'es_ES',
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CRVinosMX | Vinos de la más alta calidad | Contacto',
-    description: 'Ponte en contacto con CRVinosMX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.',
+    title: 'CR Vinos MX | Vinos de la más alta calidad | Contacto',
+    description: 'Ponte en contacto con CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.',
     images: [`${siteUrl}/img/contactPreview.png`],
   },
   alternates: {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     google: 'google-verification-code',
   },
   appleWebApp: {
-    title: 'CRVinosMX',
+    title: 'CR Vinos MX',
     statusBarStyle: 'black-translucent',
   },
 };

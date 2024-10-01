@@ -50,7 +50,7 @@ const EventsPage: React.FC = () => {
 
     return (
         <div className="flex flex-col w-full items-center justify-center  ">
-            <Navbar red={true} relative={true} />
+            <Navbar redLogo red={true} relative={true} />
             <div className='px-4 sm:px-8 md:px-10 lg:px-20 w-full flex flex-col justify-center items-center'>
                 <div className='flex flex-col justify-start items-start w-full px-4 py-6'>
                     <h1 className="text-4xl sm:text-5xl md:text-6xl text-crred font-thin tracking-wide mb-2">Eventos</h1>

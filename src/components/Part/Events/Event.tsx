@@ -46,7 +46,7 @@ const EventPage: React.FC = () => {
 
     return (
         <div className="flex flex-col w-full items-center justify-center py-12 space-y-7">
-            <Navbar red={true} relative={true} />
+            <Navbar redLogo red={true} relative={true} />
             <div className="px-4 md:px-20 w-full flex flex-col justify-center items-center">
                 { (!event) ? <EventDescLoader /> :
                     <div className="w-full flex flex-col justify-center items-center py-8 border-crred border-t-2">

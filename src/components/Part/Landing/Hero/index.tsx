@@ -1,16 +1,15 @@
 'use client';
 
 import React from 'react';
-import { useTranslations } from 'next-intl';
+// import { useTranslations } from 'next-intl';
 import Video from 'next-video';
 import BasicButton from '@/components/Buttons/BasicButton';
 import crvinos from '../../../../../videos/crvinosbg.mov';
 import { useRouter } from 'next/navigation';
 import { Toaster } from 'sonner';
-import Map from './Map';
+
 
 const Hero: React.FC = () => {
-    const t = useTranslations();
     const router = useRouter();
     return (
         <div className='relative  w-full no-scrollbars'>
@@ -53,7 +52,6 @@ const Hero: React.FC = () => {
                     </BasicButton>
                 </div>
             </div>
-            <Map />
         </div>
     );
 };

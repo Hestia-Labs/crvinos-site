@@ -6,24 +6,24 @@ import Catalog from '@/components/Part/Catalog';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "CRVinosMX | Vinos de la más alta calidad | Catálogo",
-  description: "Explora el catálogo de CRVinosMX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.",
+  title: "CR Vinos MX | Vinos de la más alta calidad | Catálogo",
+  description: "Explora el catálogo de CR Vinos MX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.",
   icons: {
     icon: "/favicon.ico",
     apple: "/img/apple-touch-icon.png",
   },
-  keywords: ['CRVinosMX', 'catálogo', 'vinos de alta calidad', 'empresa mexicana'],
+  keywords: ['CR Vinos MX', 'catálogo', 'vinos de alta calidad', 'empresa mexicana'],
   openGraph: {
-    title: "CRVinosMX | Vinos de la más alta calidad | Catálogo",
-    description: "Explora el catálogo de CRVinosMX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.",
+    title: "CR Vinos MX | Vinos de la más alta calidad | Catálogo",
+    description: "Explora el catálogo de CR Vinos MX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.",
     url: `${siteUrl}/catalog`,
-    siteName: "CRVinosMX",
+    siteName: "CR Vinos MX",
     images: [
       {
         url: `${siteUrl}/img/catalogPreview.png`,
         width: 800,
         height: 600,
-        alt: "CRVinosMX",
+        alt: "CR Vinos MX",
       },
     ],
     locale: 'es_ES',
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CRVinosMX | Vinos de la más alta calidad | Catálogo',
-    description: 'Explora el catálogo de CRVinosMX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.',
+    title: 'CR Vinos MX | Vinos de la más alta calidad | Catálogo',
+    description: 'Explora el catálogo de CR Vinos MX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.',
     images: [`${siteUrl}/img/catalogPreview.png`],
   },
   alternates: {
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     google: 'google-verification-code',
   },
   appleWebApp: {
-    title: 'CRVinosMX',
+    title: 'CR Vinos MX',
     statusBarStyle: 'black-translucent',
   },
 };
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 const CatalogPage: React.FC = () => {
   return (
     <div className='flex flex-col'>
-      <Navbar red relative />
+      <Navbar    />
       <div className='flex flex-col w-full items-center justify-center space-y-7'>
         {/* <div className='flex flex-col justify-center items-center w-full py-8 px-36'>
           <h2 className="text-4xl text-crred tracking-wide mb-2">Colección de Vinos</h2>

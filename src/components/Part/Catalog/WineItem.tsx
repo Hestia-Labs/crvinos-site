@@ -44,7 +44,7 @@ const WineItem: React.FC<WineItemProps> = ({ wine, index, selectedOption, classN
   return (
     <Reveal key={wine.slug} width="auto">
       <motion.div 
-        className={`cursor-pointer relative flex items-center justify-center wine-${index} ${className}`}  
+        className={`p-5 cursor-pointer relative flex items-center justify-center wine-${index} ${className}`}  
         initial="init"
         animate="ani"
         transition={{ delay: 0.25, duration: 0.5 }}
@@ -55,7 +55,7 @@ const WineItem: React.FC<WineItemProps> = ({ wine, index, selectedOption, classN
         <motion.img 
           src={wine.photo} 
           alt={wine.alt} 
-          className="w-40 h-72 sm:w-48 sm:h-80 md:w-56 md:h-100 lg:w-64 lg:h-120 z-10 pointer-events-none object-contain center-image" 
+          className="w-40 h-72 sm:w-48 sm:h-80 md:w-56 md:h-100  z-10 pointer-events-none object-contain center-image" 
           variants={imageVariants}
         />
         <motion.div 
