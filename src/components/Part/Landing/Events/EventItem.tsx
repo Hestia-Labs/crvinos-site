@@ -4,11 +4,13 @@ import React from 'react';
 import Icon from '@/components/Icons';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { PortableText } from '@portabletext/react';
+import { PortableTextBlock } from '@portabletext/types';
 
 interface EventItemProps {
     imageUrl: string;
     title: string;
-    description: string;
+    description: PortableTextBlock[];
     endDate: string;
     date: string;
     time: string;
@@ -23,7 +25,7 @@ const EventItem: React.FC<EventItemProps> = ({ imageUrl, title, description, dat
 
     const handleClick = () => {
         if (isPastEvent) return;
-     
+
         if (slug) {
             router.push(`/enoturism/${slug}`);
         }
@@ -66,7 +68,7 @@ const EventItem: React.FC<EventItemProps> = ({ imageUrl, title, description, dat
             transition={{ type: 'ease-in', stiffness: 300 }}
             variants={isPastEvent ? {} : divVariants}
         >
-            <img src={imageUrl} alt={title} className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" />
+            <img src={imageUrl} alt={title} className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover shadow-lg rounded-t-md" />
             {isPastEvent && (
                 <div className="absolute inset-0 flex items-center justify-center bg-crred bg-opacity-15">
                     <p className="text-white text-lg sm:text-xl md:text-2xl cormorant-garamond-semibold">Evento Pasado</p>
@@ -76,7 +78,10 @@ const EventItem: React.FC<EventItemProps> = ({ imageUrl, title, description, dat
                 <div className='space-y-3'>
                     <div className='space-y-1'>
                         <p className="text-crred text-base sm:text-lg md:text-xl cormorant-garamond-light">{title}</p>
-                        <p className="text-crred text-xs sm:text-sm md:text-base">{description}</p>
+                        <p className="text-crred text-xs sm:text-sm md:text-base">
+                            <PortableText value={description.slice(0, 2)} />
+                            {description.length > 2 && '...'}
+                        </p>
                     </div>
                     <motion.div 
                         className='flex justify-start items-center space-x-2'

@@ -1,4 +1,4 @@
-
+import {PortableTextBlock} from '@portabletext/types'
 
 export interface EventShort {
     slug: string;
@@ -7,7 +7,7 @@ export interface EventShort {
     endDate: string;
     time: string;
     imageUrl: string;
-    description: string;
+    description: PortableTextBlock[];
 }
 export interface Event {
     id: number;
@@ -21,7 +21,7 @@ export interface Event {
     posterURL: string;
     posterAlt: string;
     attendanceCap: number;
-    description: string;
+    description: PortableTextBlock[];
     article?: string;
     photos: {
         imageUrl: string;

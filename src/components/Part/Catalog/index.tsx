@@ -94,7 +94,7 @@ const WineCatalog: React.FC<WineCatalogProps> = ({ initialSelectedOption = 'DBC'
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-72 md:h-96 lg:h-160 object-cover"
+              className="w-full h-100 md:h-160 object-cover"
               priority
               placeholder="blur"
               blurDataURL="/img/vinedo.jpg"
