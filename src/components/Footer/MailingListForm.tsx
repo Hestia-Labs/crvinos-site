@@ -1,9 +1,12 @@
-'use client';
+"use client";
 
 import React, { useState } from 'react';
 import BasicButton from '@/components/Buttons/BasicButton';
+import { useColor } from '@/contexts/ColorContext'; // Import the useColor hook
+import clsx from 'clsx';
 
 const MailingListForm: React.FC = () => {
+  const { isRed } = useColor(); // Get the current theme from the context
   const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -44,28 +47,50 @@ const MailingListForm: React.FC = () => {
   };
 
   return (
-    <div className="w-full border-crred border-b py-6">
-      <h3 className="text-crred md:text-2xl text-start">Forma parte de nuestra comunidad</h3>
-      <form onSubmit={handleSubmit} className='flex flex-row items-center space-x-3 mt-4 w-full'>
+    <div className={clsx('w-full border-b py-6', {
+      'border-back': isRed,
+      'border-crred': !isRed,
+    })}>
+      <h3 className={clsx('md:text-2xl text-start', {
+        'text-back': isRed,
+        'text-crred': !isRed,
+      })}>
+        Forma parte de nuestra comunidad
+      </h3>
+      <form onSubmit={handleSubmit} className="flex flex-row items-center space-x-3 mt-4 w-full">
         <input
           type="email"
           value={email}
           onChange={handleChange}
           placeholder="Tu Correo Electrónico"
-          className="border border-crred p-1 md:p-2 rounded text-crred placeholder:text-crred-50 w-full placeholder:text-xs/3 md:placeholder:text-base "
+          className={clsx('border p-1 md:p-2 rounded w-full placeholder:text-xs/3 md:placeholder:text-base', {
+            'border-back text-back placeholder:text-crred-50 placeholder:bg-back-90': isRed,
+            'border-crred text-crred placeholder:text-crred-50 placeholder:bg-back-90': !isRed,
+          })}
           required
         />
         <BasicButton
-            variant='bg-crred'
-            sizey='small'
-            sizex='small'
-          className='rounded-md border-crred border border-solid text-nowrap text-xs/3 md:text-base'
+          variant={isRed ? 'bg-back' : 'bg-crred'}
+          sizey="small"
+          sizex="small"
+          className={clsx('rounded-md border border-solid text-nowrap text-xs/3 md:text-base', {
+            'border-back text-crred': isRed,
+            'border-crred text-back': !isRed,
+          })}
         >
           {loading ? 'Subscribiendo...' : 'Suscribirme'}
         </BasicButton>
       </form>
-      {error && <p className="text-crred-light mt-2">{error}</p>}
-      {success && <p className="text-crred-light mt-2">Pronto sabrás de nosotros, ¡gracias!</p>}
+      {error && <p className={clsx('mt-2', {
+        'text-back': isRed,
+        'text-crred-light': !isRed,
+      })}>{error}</p>}
+      {success && <p className={clsx('mt-2', {
+        'text-back': isRed,
+        'text-crred-light': !isRed,
+      })}>
+        Pronto sabrás de nosotros, ¡gracias!
+      </p>}
     </div>
   );
 };

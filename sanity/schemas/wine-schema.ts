@@ -18,20 +18,20 @@ const collectionSchema = defineType({
       validation: (Rule) => Rule.required().error('La historia es obligatoria.'),
     }),
     defineField({
-        name: 'photo',
-        title: 'Foto',
-        type: 'image',
-        options: { hotspot: true },
-        fields: [
-            defineField({
-            name: 'alt',
-            title: 'Texto Alternativo',
-            type: 'string',
-            validation: (Rule) => Rule.required().error('Debe ingresar texto alternativo para la imagen.'),
-            }),
-        ],
-        validation: (Rule) => Rule.required().error('La foto es obligatoria.'),
+      name: 'photo',
+      title: 'Foto',
+      type: 'image',
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Texto Alternativo',
+          type: 'string',
+          validation: (Rule) => Rule.required().error('Debe ingresar texto alternativo para la imagen.'),
         }),
+      ],
+      validation: (Rule) => Rule.required().error('La foto es obligatoria.'),
+    }),
     defineField({
       name: 'wines',
       title: 'Vinos',
@@ -145,6 +145,40 @@ const wineSchema = defineType({
         source: 'name',
       },
       validation: (Rule) => Rule.required().error('El slug es obligatorio.'),
+    }),
+    defineField({
+      name: 'awards',
+      title: 'Premios',
+      type: 'array',
+      of: [
+        defineField({
+          name: 'award',
+          title: 'Premio',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'premioImage',
+              title: 'Imagen del Premio',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Texto Alternativo',
+                  type: 'string',
+                  validation: (Rule) => Rule.required().error('Debe ingresar texto alternativo para la imagen del premio.'),
+                }),
+              ],
+            }),
+            defineField({
+              name: 'premioLink',
+              title: 'Enlace del Premio',
+              type: 'url',
+              validation: (Rule) => Rule.required().error('El enlace del premio es obligatorio.'),
+            }),
+          ],
+        }),
+      ],
     }),
   ],
 });

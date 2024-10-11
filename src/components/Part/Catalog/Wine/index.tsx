@@ -11,12 +11,16 @@ import RecommendationsSection from '@/components/Part/Catalog/Wine/Recommendatio
 import Icon from '@/components/Icons';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import clsx from 'clsx';
+import BasicButton from '@/components/Buttons/BasicButton';
+import { toast } from 'sonner';
 
 const CatalogWine: React.FC = () => {
   const params = useParams<{ line: string, slug: string }>();
   const [wine, setWine] = useState<Wine | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [showFullDescription, setShowFullDescription] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState<number>(1); // State to manage wine quantity
   const router = useRouter();
 
   useEffect(() => {
@@ -71,6 +75,10 @@ const CatalogWine: React.FC = () => {
     };
   }, []);
 
+  const handleAddToCart = ({ producto }: { producto: string }): void => {
+    console.log(`Se ha añadido ${producto} al carrito`);
+    toast.success(`Se ha añadido ${producto} al carrito`);
+  };
   return (
     <div className='flex relative flex-col space-y-9'>
       <Navbar relative red redLogo />
@@ -82,48 +90,89 @@ const CatalogWine: React.FC = () => {
         {loading ? (
           <WineDescLoader />
         ) : (
-          <div className='mt-8 space-y-8'>
-            <div className='border-crred border-b-2 w-full'>
-              <h1 className='text-2xl sm:text-2xl md:text-3xl lg:text-5xl text-crred cormorant-garamond-semibold-italic tracking-wide mb-2'>{wine?.collection + " " + wine?.name}</h1>
-            </div>
-            <div className='flex flex-col relative space-y-8'>
-              <div className='flex flex-col md:flex-row-reverse relative w-full py-9 justify-between items-center px-5 h-full border-crred border-b-2'>
-                <div className='w-full md:w-1/3 flex justify-center items-center mb-8 md:mb-0'>
-                  <Image src={wine?.photo.asset.url as string} alt={wine?.photo.alt as string} priority className='h-72 sm:h-72 md:h-96 lg:h-160 w-auto' width={0} height={0} sizes="100vw" />
+          <div className='mt-8 space-y-8 w-full'>
+            <div className='flex flex-col relative space-y-8 w-full items-center'>
+              <div className='flex flex-col md:flex-row relative w-full py-9 justify-between items-center px-12 h-full border-crred border-b-2 space-y-8 md:space-y-0 md:space-x-8'>
+                <div className='flex md:w-1/3  justify-center items-center mb-8 md:mb-0 p-8 px-12'>
+                  <Image src={wine?.photo.asset.url as string} alt={wine?.photo.alt as string} priority className='h-72 sm:h-72 md:h-144  w-auto border border-crred p-5' width={0} height={0} sizes="100vw" />
                 </div>
-                <div className='w-full md:w-1/2 justify-start items-center space-y-4 sm:space-y-4 md:space-y-8'>
-                  {(showFullDescription ? wineDetails : halfWineDetails).map((detail, index) => (
-                    <div key={index} className='flex w-full relative justify-start items-start md:items-center space-x-12 sm:space-x-12 md:space-x-16'>
-                      <div className='text-crred text-start cormorant-garamond-semibold w-1/3 text-sm md:text-base lg:text-lg'>
-                        {detail.title}
+                <div className='flex flex-col md:w-4/6 justify-start items-start space-y-4 sm:space-y-4 md:space-y-10 py-5 '>
+                  <div className=''>
+                    <h1 className='text-2xl sm:text-2xl md:text-3xl lg:text-5xl text-crred italic cormorant-garamond-italic tracking-wide mb-2'>{wine?.collection + " " + wine?.name}</h1>
+                    <p className='text-crred text-lg sm:text-xl md:text-2xl '>$100 MXN</p>
+                  </div>
+                  <div className='w-full flex flex-col ' >
+                    <div className=' flex flex-col w-full items-start space-y-5 border-b border-crred  pb-7'>
+                      <div className='flex justify-center'>
+                        <div className='w-30 flex flex-row justify-between rounded-full border-crred border px-3 text-crred'>
+                          <button 
+                            className={clsx('hover:text-crred-50', {
+                              'cursor-not-allowed opacity-50': quantity === 1,
+                              'hover:scale-105': quantity > 1
+                            })}
+                            onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
+                            disabled={quantity === 1}
+                          >
+                            -
+                          </button>
+                          {quantity}
+                          <button 
+                            className='hover:text-crred-50 hover:scale-105'
+                            onClick={() => setQuantity(prev => prev + 1)}
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
-                      <div className='text-crred text-wrap text-left w-3/4 text-sm md:text-base lg:text-lg'>
-                        {detail.description}
-                      </div>
+                      <BasicButton 
+                        variant="bg-crred" 
+                        sizex="large" 
+                        sizey="medium" 
+                        className="w-96 border border-crred"
+                        onClick={() => handleAddToCart({ producto:wine?.collection + " " + wine?.name })}
+                      >
+                        Add to Cart
+                      </BasicButton>
                     </div>
-                  ))}
-                  <div className='block md:hidden'>
-                    {!showFullDescription ? (
-                      <motion.button 
-                        className='text-crred text-sm underline'
-                        onClick={() => setShowFullDescription(true)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        Ver más
-                      </motion.button>
-                    ) : (
-                      <motion.button 
-                        className='text-crred text-sm underline'
-                        onClick={() => setShowFullDescription(false)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        Ver menos
-                      </motion.button>
-                    )}
+                  </div>
+                  <div>
+                    <p className='text-crred  text-lg sm:text-xl md:text-3xl'>Detalles del Vino</p>
+                    <p className='text-crred text-base sm:text-lg md:text-xl mt-4 font-thin'>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. consectetur adipiscing elit.consectetur adipiscing elit. consectetur adipiscing elit.consectetur adipiscing elit.consectetur adipiscing elit. consectetur adipiscing elit.Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
                   </div>
                 </div>
+              </div>
+              {(showFullDescription ? wineDetails : halfWineDetails).map((detail, index) => (
+                <div key={index} className='flex w-full relative justify-start items-start md:items-center space-x-12 sm:space-x-12 md:space-x-16'>
+                  <div className='text-crred text-start cormorant-garamond-semibold w-1/3 text-sm md:text-base lg:text-lg'>
+                    {detail.title}
+                  </div>
+                  <div className='text-crred text-wrap text-left w-3/4 text-sm md:text-base lg:text-lg'>
+                    {detail.description}
+                  </div>
+                </div>
+              ))}
+              <div className='block md:hidden'>
+                {!showFullDescription ? (
+                  <motion.button 
+                    className='text-crred text-sm underline'
+                    onClick={() => setShowFullDescription(true)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Ver más
+                  </motion.button>
+                ) : (
+                  <motion.button 
+                    className='text-crred text-sm underline'
+                    onClick={() => setShowFullDescription(false)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Ver menos
+                  </motion.button>
+                )}
               </div>
             </div>
             <RecommendationsSection collection={wine?.collection} exclude={params.slug} />

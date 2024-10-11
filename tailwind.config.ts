@@ -28,6 +28,7 @@ const config: Config = {
         'back-50': 'rgba(255, 251, 247, 0.5)',
         'back-75': 'rgba(255, 251, 247, 0.75)',
         'back-90': 'rgba(255, 251, 247, 0.9)',
+        'back-95': 'rgba(255, 251, 247, 0.95)',
       },
       height: {
         '4screen/5': 'calc(400vh / 5)',

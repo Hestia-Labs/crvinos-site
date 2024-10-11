@@ -27,6 +27,16 @@ const shortFields = `
       url
     },
     alt
+  },
+  awards[0] {
+    premioImage {
+      asset->{
+        _id,
+        url
+      },
+      alt
+    },
+    premioLink
   }
 `;
 
@@ -51,8 +61,19 @@ const longFields = `
       url
     },
     alt
+  },
+  awards[] {
+    premioImage {
+      asset->{
+        _id,
+        url
+      },
+      alt
+    },
+    premioLink
   }
 `;
+
 
 export async function getWines({
   slug = undefined,
@@ -85,22 +106,23 @@ export async function getWines({
   return client.fetch(query, {});
 }
 
+
 export async function getDistinctCollectionWines(): Promise<WineShort[]> {
-    const query = groq`
-      {
-        "dbc": *[_type == "wine" && collection->name == "DBC"] | order(_createdAt desc)[0] {
-          ${shortFields}
-        },
-        "hermelinda": *[_type == "wine" && collection->name == "Hermelinda"] | order(_createdAt desc)[0] {
-          ${shortFields}
-        },
-        "recuento": *[_type == "wine" && collection->name == "Recuento"] | order(_createdAt desc)[0] {
-          ${shortFields}
-        }
+  const query = groq`
+    {
+      "dbc": *[_type == "wine" && collection->name == "DBC"] | order(_createdAt desc)[0] {
+        ${shortFields}
+      },
+      "hermelinda": *[_type == "wine" && collection->name == "Hermelinda"] | order(_createdAt desc)[0] {
+        ${shortFields}
+      },
+      "recuento": *[_type == "wine" && collection->name == "Recuento"] | order(_createdAt desc)[0] {
+        ${shortFields}
       }
-    `;
-  
-    const results = await client.fetch(query, {});
-  
-    return [ results.hermelinda, results.dbc, results.recuento].filter(Boolean);
-  }
+    }
+  `;
+
+  const results = await client.fetch(query, {});
+
+  return [ results.hermelinda, results.dbc, results.recuento].filter(Boolean);
+}

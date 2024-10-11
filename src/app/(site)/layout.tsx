@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import AgeVer from "@/components/Modals/AgeVer"; 
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+import Providers from "@/utils/Providers";
+import CartDrawer from "@/components/Cart/CartDrawer";
 
 
 export const metadata: Metadata = {
@@ -84,9 +86,12 @@ export default  function RootLayout({
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
           </head>
       <body className="font-cormorant bg-transparent">
-        <AgeVer />
-            {children}
-        <Footer />
+        <Providers>
+          <AgeVer />
+          <CartDrawer />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

@@ -4,6 +4,10 @@ import Icon from "../Icons";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation'; 
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { IoBagHandleOutline } from "react-icons/io5";
+import { useDrawer } from '@/contexts/DrawerContext';
+import { FaUser } from "react-icons/fa";
+
 
 interface NavbarProps {
     red?: boolean;
@@ -14,6 +18,7 @@ interface NavbarProps {
 export default function Navbar({ red, redLogo, relative }: NavbarProps) {
     const router = useRouter();
     const [open, setOpen] = useState(false);
+    const { openDrawer } = useDrawer();
 
     const textColor = red ? 'text-crred' : 'text-white';
     const borderColor = red ? 'border-crred' : 'border-white';
@@ -25,6 +30,11 @@ export default function Navbar({ red, redLogo, relative }: NavbarProps) {
         { name: 'Catálogo', route: "catalog", available: true },
         { name: 'Contacto', route: "contact", available: true },
         { name: 'Enoturismo', route: "enoturism", available: true }
+    ];
+
+    const iconItems = [
+        { icon: <IoBagHandleOutline className='text-xl text-back' />, action: () =>{ openDrawer('cart')} },
+        { icon:  <FaUser className='text-xl text-back' />, action: () =>{ openDrawer('login')} }
     ];
 
     const handleNavigation = (route: string, available: boolean, event: React.MouseEvent) => {
@@ -63,6 +73,23 @@ export default function Navbar({ red, redLogo, relative }: NavbarProps) {
                                 {!item.available && (
                                     <p className="text-xs text-gray-400">Próximamente</p>
                                 )}
+                            </motion.div>
+                        ))}
+                    </div>
+                    <div className="flex space-x-4">
+                        {iconItems.map((item, index) => (
+                            <motion.div
+                                key={index}
+                                onClick={item.action}
+                                className="cursor-pointer"
+                                whileHover={{ y: -2 }}
+                                whileTap={{ y: -2 }}
+                                initial={false}
+                                animate={{ y: 0 }}
+                                exit={{ y: 0 }}
+                                transition={{ type: 'ease-in', stiffness: 300 }}
+                            >
+                                {item.icon}
                             </motion.div>
                         ))}
                     </div>

@@ -4,14 +4,14 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 
 interface BasicButtonProps {
-    variant: 'transparent' | 'bg-back' | 'bg-crred';
+    variant: 'transparent' | 'bg-back' | 'bg-crred' | 'main' ;
     sizex?: 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge' | 'xxxxlarge';
     sizey?: 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge' | 'xxxxlarge';
     children: React.ReactNode;
     onClick?: () => void;
     className?: string;
     disabled?: boolean;
-    link?: string; // Added link prop
+    link?: string;  
 }
 
 const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', sizey = 'medium', children, onClick, className = '', disabled = false, link }) => {
@@ -45,8 +45,9 @@ const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', si
     const baseClassName = clsx(
         'rounded-full  transition-all duration-300 ease-in-out',
         {
-            'bg-transparent text-crred hover:bg-crred hover:text-white': variant === 'transparent',
-            'bg-back text-crred hover:bg-crred hover:text-back': variant === 'bg-back',
+            'bg-transparent text-crred hover:bg-crred hover:text-back': variant === 'transparent',
+            'bg-back text-crred hover:bg-transparent hover:text-back': variant === 'bg-back',
+            'bg-back text-crred hover:bg-crred hover:text-back': variant === 'main',
             'bg-crred text-back hover:bg-back hover:text-crred': variant === 'bg-crred',
             'opacity-50 cursor-not-allowed': disabled,
         },

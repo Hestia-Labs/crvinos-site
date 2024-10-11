@@ -4,16 +4,26 @@ import { createClient } from 'next-sanity';
 import { groq } from 'next-sanity';
 
 interface CollectionData {
+  name: string;
+  story: string;
+  photo: string;
+  alt: string;
+  wines: {
     name: string;
-    story: string;
     photo: string;
     alt: string;
-    wines: {
-        name: string;
-        photo: string;
-        alt: string;
-        slug: string;
-    }[];
+    slug: string;
+    awards: {
+        premioImage: {
+            asset: {
+                _id: string;
+                url: string;
+            };
+            alt: string;
+        };
+        premioLink: string;
+    }
+  }[];
 }
 
 
@@ -40,6 +50,16 @@ export const fetchCollectionData = async (selectedOption: string): Promise<Colle
           "photo": photo.asset->url,
           "alt": photo.alt,
           "slug": slug.current,
+          awards[0] {
+            premioImage {
+              asset->{
+                _id,
+                url
+              },
+              alt
+            },
+            premioLink
+          },
         }
       }
     `;

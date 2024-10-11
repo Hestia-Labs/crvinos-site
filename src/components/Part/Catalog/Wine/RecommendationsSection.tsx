@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import WineItem from '@/components/Part/Catalog/WineItem';
 import { getWines } from '@/app/actions/getWines';
-import { Wine } from '@/types/Wine';
+import { WineShort } from '@/types/Wine';
 import WineRecLoader from '@/components/Loaders/WineRecLoader'; 
 
 interface RecommendationsSectionProps {
@@ -12,7 +12,7 @@ interface RecommendationsSectionProps {
 }
 
 const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collection, exclude }) => {
-  const [recommendations, setRecommendations] = useState<Wine[]>([]);
+  const [recommendations, setRecommendations] = useState<WineShort[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collect
         collection: collection,  
         count: 3,
         shortVersion: true,
-      }) as Wine[];
+      }) as WineShort[];
       setRecommendations(fetchedRecommendations);
       setLoading(false);
     };
@@ -44,7 +44,21 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collect
           {recommendations.map((wine, index) => (
             <WineItem 
               key={wine.slug}
-              wine={{ alt:wine.photo.alt, photo:wine.photo.asset.url, name:wine.name, slug:wine.slug}}
+              wine={{
+                slug: wine.slug,
+                photo: wine.photo.asset.url,
+                alt: wine.photo.alt,
+                name: wine.name,
+                awards: {
+                  premioImage: {
+                    asset: {
+                      url: wine.awards?.premioImage.asset.url || ''
+                    },
+                    alt: wine.awards?.premioImage.alt || ''
+                  },
+                  premioLink: wine.awards?.premioLink || ''
+                } 
+              }}
               index={index}
               selectedOption={wine.collection}
               link={`/catalog/${wine.collection.toLowerCase()}/${encodeURIComponent(wine.slug)}`}

@@ -6,22 +6,13 @@ import Video from 'next-video';
 import BasicButton from '@/components/Buttons/BasicButton';
 import crvinos from '../../../../../videos/crvinosbg.mov';
 import { useRouter } from 'next/navigation';
-import { Toaster } from 'sonner';
+
 
 
 const Hero: React.FC = () => {
     const router = useRouter();
     return (
         <div className='relative  w-full no-scrollbars'>
-            <Toaster
-                toastOptions={{
-                    classNames: {
-                        toast: 'bg-back',
-                        title: 'text-crred',
-                        icon: 'text-crred',
-                    },
-                }}
-            />
             <Video
                 src={crvinos}
                 autoPlay
@@ -47,7 +38,7 @@ const Hero: React.FC = () => {
                             </p>
                         </div>
                     </div>
-                    <BasicButton onClick={() => { router.push("/about") }} variant="bg-back" sizex='xlarge' className='border-crred border border-solid text-[12px] sm:text-sm md:text-base lg:text-base'>
+                    <BasicButton onClick={() => { router.push("/about") }} variant="main" sizex='xlarge' className='border-crred   border border-solid text-[12px] sm:text-sm md:text-base lg:text-base'>
                         Aprende más
                     </BasicButton>
                 </div>
