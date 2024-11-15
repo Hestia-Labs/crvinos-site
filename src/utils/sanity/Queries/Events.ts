@@ -49,7 +49,7 @@ export async function getEvents({
 
 	const events = await createClient(clientConfig).fetch(
 		`
-			*[_type == "event" ${
+			*[_type == "event" && published == true ${
 				eventId ? `&& _id == "${eventId}"` : slug ? `&& slug.current == "${slug}"` : ""
 			}] {
 				${fields}
