@@ -27,7 +27,7 @@ export default function QuestionEmail({
         <Container style={container}>
           <Section>
             <Img
-              src={`${baseUrl}/img/crvinos-email.png`}
+              src={`${baseUrl}/img/CRVino-logo.png`}
               width="auto"
               height="64"
               alt="Logo de CRVinos"

@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import BasicButton from '@/components/Buttons/BasicButton';
-import { useColor } from '@/contexts/ColorContext'; // Import the useColor hook
+import { useColor } from '@/contexts/ColorContext';  
 import clsx from 'clsx';
 
 const MailingListForm: React.FC = () => {
-  const { isRed } = useColor(); // Get the current theme from the context
+  const { isRed } = useColor();  
   const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,11 +47,8 @@ const MailingListForm: React.FC = () => {
   };
 
   return (
-    <div className={clsx('w-full border-b py-6', {
-      'border-back': isRed,
-      'border-crred': !isRed,
-    })}>
-      <h3 className={clsx('md:text-2xl text-start', {
+    <div className={'w-full'}>
+      <h3 className={clsx('text-xl md:text-4xl text-start italic', {
         'text-back': isRed,
         'text-crred': !isRed,
       })}>
@@ -63,18 +60,19 @@ const MailingListForm: React.FC = () => {
           value={email}
           onChange={handleChange}
           placeholder="Tu Correo Electrónico"
-          className={clsx('border p-1 md:p-2 rounded w-full placeholder:text-xs/3 md:placeholder:text-base', {
-            'border-back text-back placeholder:text-crred-50 placeholder:bg-back-90': isRed,
-            'border-crred text-crred placeholder:text-crred-50 placeholder:bg-back-90': !isRed,
+          className={
+            clsx(' p-2  w-full placeholder:text-xs/3 md:placeholder:text-base', {
+            'border-b border-back  bg-transparent text-back placeholder:text-back-75': isRed,
+            'border-crred border-b text-crred placeholder:text-gray-400 bg-transparent': !isRed,
           })}
           required
         />
         <BasicButton
-          variant={isRed ? 'bg-back' : 'bg-crred'}
+          variant={isRed ? 'transparent-foot' : 'bg-crred'}
           sizey="small"
           sizex="small"
           className={clsx('rounded-md border border-solid text-nowrap text-xs/3 md:text-base', {
-            'border-back text-crred': isRed,
+            'border-back text-back': isRed,
             'border-crred text-back': !isRed,
           })}
         >

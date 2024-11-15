@@ -27,45 +27,93 @@ const carouselItems = [
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="relative  ">
+    <div className='relative'>
       <Navbar />
-      <div className='space-y-9 relative h-full w-full overflow-hidden'>
+      <div className=' space-y-0 relative h-full w-full overflow-hidden'>
+        {/* Banner Section */}
         <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className='relative'
         >
-            <Image src="/img/barrels.jpg" alt="Banner Image" width={0} height={0} sizes="100vw" className="w-full h-160 object-cover" priority />
-            <div className="absolute inset-0 bg-back opacity-15"></div>
-            <div className="absolute bottom-0 left-0 text-back p-8 sm:p-10 md:p-12 lg:p-16 xl:p-24">
-                <div className='space-y-6'>
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl italic cormorant-garamond-italic">Nuestra Historia</h2>
-                    <div className='w-full sm:w-5/6 md:w-3/4'>
-                    <p className="text-sm sm:text-sm md:text-base lg:text-lg  cormorant-garamond">
-                      Somos un equipo apasionado dedicado a traerte los mejores vinos de nuestra tierra. <strong>CR Vinos MX</strong> comenzó este viaje con amor por el vino, y por el deseo de compartir ese amor con los demás. Cada botella de nuestra de colección cuenta una historia única, inspirada en la vida de hombres y mujeres excepcionales. Celebra el legado de personas extraordinarias a través de los ricos sabores y aromas de <strong>CR Vinos MX</strong>.
-                    </p>
-                    <p className="text-sm sm:text-sm md:text-base lg:text-lg  cormorant-garamond mt-4">
-                    La historia de <strong>CR Vinos MX</strong> comenzó en el corazón de México, donde el suelo fértil y el clima perfecto crean las condiciones ideales para cultivar uvas estupendas. A lo largo de los años hemos perfeccionado el cultivo de la vid y la elaboración del vino, combinando técnicas tradicionales con innovaciones modernas para producir vinos contemporáneos. La calidad y la excelencia son compromiso inquebrantable de <strong>CR Vinos MX</strong>  , y nos enorgullecemos de cada botella que lleva este nombre. Desde el viñedo hasta tu copa, te invitamos a experimentar con pasión cada sorbo de nuestro vino.
-
-                    </p>
-                    </div>
-                </div>
-            </div>
+          <Image
+            src='/img/barrels.jpg'
+            alt='Banner Image'
+            width={0}
+            height={0}
+            sizes='100vw'
+            className='w-full h-126 md:h-144 object-cover'
+            priority
+          />
+          <div className='absolute inset-0 bg-black opacity-40'></div>
+          <div className='absolute bottom-0 left-0 p-8 sm:p-12 md:p-16 lg:p-20'>
+            <h2 className='text-5xl sm:text-6xl md:text-7xl italic cormorant-garamond-italic text-white drop-shadow-md'>
+              Nuestra Historia
+            </h2>
+            <p className='text-xl sm:text-2xl md:text-3xl text-white mt-4 drop-shadow-md'>
+              Descubre nuestro legado en cada botella
+            </p>
+          </div>
         </motion.div>
-        <div className="relative -z-10 scale-[1.1]">
-          <Icon name="FullVines" className="absolute  h-80 w-full scale-[1.1] md:h-160  opacity-15" />
+        <div className='relative -z-10 mt-16'>
+          <Icon
+            name='FullVines'
+            className='absolute h-80 w-full md:h-160 opacity-15'
+          />
         </div>
-        <div className='px-8 sm:px-10 md:px-20 w-full relative'>
-            <div className="w-full h-2 border-crred border-t-2"></div>
+
+        <div className='px-8 space-y-10 md:space-y-0 sm:px-10 md:px-20 w-full flex flex-col items-center pb-10'>
+          <div className='max-w-6xl w-full flex flex-col md:flex-row-reverse items-center md:items-start mt-12 '>
+
+
+            <div className='md:w-1/2 text-left '>
+              <h3 className='text-2xl md:text-3xl font-semibold text-crred mb-6 cormorant-garamond'>
+                Nuestro Legado
+              </h3>
+              <p className='text-base sm:text-lg md:text-xl cormorant-garamond text-gray-700 leading-relaxed'>
+                Somos un equipo apasionado dedicado a traerte los mejores vinos de nuestra tierra.{' '}
+                <strong>CR Vinos MX</strong> comenzó este viaje con amor por el vino y el deseo de
+                compartir ese amor con los demás. Cada botella de nuestra colección cuenta una historia
+                única, inspirada en la vida de hombres y mujeres excepcionales.
+              </p>
+              <p className='text-base sm:text-lg md:text-xl cormorant-garamond text-gray-700 leading-relaxed mt-6'>
+                La historia de <strong>CR Vinos MX</strong> comenzó en el corazón de México, donde el
+                suelo fértil y el clima perfecto crean las condiciones ideales para cultivar uvas
+                excepcionales. A lo largo de los años, hemos perfeccionado el cultivo de la vid y la
+                elaboración del vino, combinando técnicas tradicionales con innovaciones modernas para
+                producir vinos contemporáneos. La calidad y la excelencia son nuestro compromiso
+                inquebrantable, y nos enorgullecemos de cada botella que lleva este nombre. Desde el
+                viñedo hasta tu copa, te invitamos a experimentar con pasión cada sorbo de nuestro vino.
+              </p>
+            </div>
+            {/* Image Section */}
+            <div className='md:w-1/2 mb-8 md:mb-0 md:pr-8'>
+              <Image
+                src='/img/crvinedo.png'  
+                alt='Nuestro Viñedo'
+                width={600}
+                height={400}
+                className='rounded-lg shadow-lg'
+              />
+            </div>
+          </div>
         </div>
-        <div className="w-full flex justify-center items-center px-8 sm:px-10 md:px-20">
+
+        {/* Decorative Divider */}
+       
+
+        {/* Carousel Section */}
+        <div className='px-8 sm:px-10 md:px-20 w-full relative mt-16'>
+          <div className='w-full h-2 border-crred border-t-2'></div>
+          <div className='w-full flex justify-center items-center mt-8'>
             <EmblaCarousel slides={carouselItems} options={{ loop: true }} />
+          </div>
+          <div className='w-full h-2 border-crred border-t-2 mt-8'></div>
         </div>
-        <div className='px-8 sm:px-10 md:px-20 w-full relative'>
-            <div className="w-full h-2 border-crred border-t-2"></div>
-        </div>
-        <VinificationProcess/>
+
+        {/* Vinification Process Section */}
+        <VinificationProcess />
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import Catalog from '@/components/Part/Catalog';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "CR Vinos MX | Vinos de la más alta calidad | Catálogo",
+  title: " Catálogo | CR Vinos MX | Vinos de la más alta calidad ",
   description: "Explora el catálogo de CR Vinos MX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.",
   icons: {
     icon: "/favicon.ico",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 const CatalogPage: React.FC = () => {
   return (
     <div className='flex flex-col'>
-      <Navbar    />
+      <Navbar darkenBg   />
       <div className='flex flex-col w-full items-center justify-center space-y-7'>
         {/* <div className='flex flex-col justify-center items-center w-full py-8 px-36'>
           <h2 className="text-4xl text-crred tracking-wide mb-2">Colección de Vinos</h2>

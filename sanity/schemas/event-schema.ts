@@ -86,7 +86,8 @@ const eventSchema = defineType({
     defineField({
       name: 'description',
       title: 'Descripción',
-      type: 'text',
+      type: 'array',
+      of: [{ type: 'block' }],
       validation: (Rule) => Rule.required().min(10).warning('La descripción es demasiado corta.'),
     }),
     defineField({

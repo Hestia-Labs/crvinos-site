@@ -1,12 +1,15 @@
 export interface WinePhoto {
-    asset: {
-      _id: string;
-      url: string;
-    };
-    alt: string;
+  asset: {
+    _id: string;
+    url: string;
+  };
+  alt: string;
 }
 
 export interface WineAward {
+  premioOrganization: string;
+  premioYear: string;
+  premioName: string;
   premioImage: {
     asset: {
       _id: string;
@@ -17,7 +20,11 @@ export interface WineAward {
   premioLink: string;
 }
 
-  
+export interface WineProfile {
+  image: WinePhoto;
+  name: string;
+}
+
 export interface WineShort {
   _id: string;
   collection: string;
@@ -25,12 +32,13 @@ export interface WineShort {
   name: string;
   photo: WinePhoto;
   awards?: WineAward;
+  profile?: WineProfile[];
 }
-  
-  
+
 export interface Wine {
   _id: string;
   collection: string;
+  description: string;
   slug: string;
   photo: WinePhoto;
   name: string;
@@ -45,6 +53,7 @@ export interface Wine {
   temperature: string;
   alcoholPercentage: string;
   awards?: WineAward[];
+  profile?: WineProfile[];
 }
 
 export interface GetWinesParams {
@@ -52,6 +61,6 @@ export interface GetWinesParams {
   count?: number;
   shortVersion?: boolean;
   exclude?: string;
-  collection?: string; 
+  collection?: string;
   distinctCollections?: boolean;
 }

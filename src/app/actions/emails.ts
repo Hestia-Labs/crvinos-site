@@ -13,7 +13,7 @@ export async function sendQuestion(
 ) {
     try {
         await resend.emails.send({
-            from: 'onboarding@resend.dev',
+            from: 'contacto@crvinosmx.com',
             to: adminEmail,
             subject: `Nuevo Mensaje Enviado | ${senderName}`,
             react: (

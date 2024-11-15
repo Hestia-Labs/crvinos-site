@@ -11,7 +11,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
     .join(' ');
 
   return {
-    title: `CR Vinos MX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug}`,
+    title: ` ${formattedSlug.toLocaleUpperCase()} | CR Vinos MX | Vinos de la más alta calidad `,
     description: "Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX. Cada vino tiene su propia historia y características únicas.",
     icons: {
       icon: "/favicon.ico",
@@ -19,7 +19,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
     },
     keywords: ['CR Vinos MX', 'vino', 'detalle del vino', 'alta calidad'],
     openGraph: {
-      title: `CR Vinos MX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug}`,
+      title: `CR Vinos MX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug.toLocaleUpperCase()}`,
       description: "Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX.",
       url: `${siteUrl}/catalog/${params.slug}`,
       siteName: "CR Vinos MX",

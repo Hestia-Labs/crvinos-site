@@ -5,7 +5,7 @@ import EventsPage from '@/components/Part/Events';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "CR Vinos MX | Vinos de la más alta calidad | Enoturismo",
+  title: "Enoturismo | CR Vinos MX | Vinos de la más alta calidad  ",
   description: "Descubre los eventos de CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad. Participa en nuestras catas de vino, visitas a la bodega y otros eventos especiales.",
   icons: {
     icon: "/favicon.ico",

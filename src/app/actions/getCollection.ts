@@ -14,6 +14,9 @@ interface CollectionData {
     alt: string;
     slug: string;
     awards: {
+        premioOrganization: string;
+        premioYear: string;
+        premioName: string;
         premioImage: {
             asset: {
                 _id: string;
@@ -51,6 +54,9 @@ export const fetchCollectionData = async (selectedOption: string): Promise<Colle
           "alt": photo.alt,
           "slug": slug.current,
           awards[0] {
+            premioOrganization,
+            premioYear,
+            premioName,
             premioImage {
               asset->{
                 _id,

@@ -50,6 +50,9 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collect
                 alt: wine.photo.alt,
                 name: wine.name,
                 awards: {
+                  premioName: wine.awards?.premioName || '',
+                  premioOrganization: wine.awards?.premioOrganization || '',
+                  premioYear: wine.awards?.premioYear || '',
                   premioImage: {
                     asset: {
                       url: wine.awards?.premioImage.asset.url || ''

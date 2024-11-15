@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "CRVinos | Términos y Condiciones de Uso",
+  title: "Términos y Condiciones de Uso | CRVinos",
   description: "Lee nuestros términos y condiciones para entender las reglas y regulaciones de uso de CRVinos. Estos términos describen los derechos y responsabilidades tanto de los usuarios como de la empresa.",
   icons: {
     icon: "/favicon.ico",

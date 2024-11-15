@@ -6,7 +6,7 @@ const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const generateMetadata = (): Metadata => {
   return {
-    title: "CR Vinos MX | Vinos de la más alta calidad | Sobre Nosotros",
+    title: " Sobre Nosotros | CR Vinos MX ",
     description: "Conoce más sobre CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
     icons: {
       icon: "/favicon.ico",

@@ -8,6 +8,7 @@ import { DrawerProvider } from "@/contexts/DrawerContext"
 import { CartProvider } from "@/contexts/CartContext"
 import { ColorProvider } from "@/contexts/ColorContext"
 import { Toaster } from "sonner"
+import { AuthProvider } from "@/contexts/AuthContext"
 
 
 
@@ -31,6 +32,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         <DrawerProvider>
             <ColorProvider>
                 <CartProvider>
+                  <AuthProvider>
                     <Toaster
                         toastOptions={{
                             classNames: {
@@ -41,6 +43,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
                         }}
                     />
                     {children}
+                    </AuthProvider>
                 </CartProvider>
             </ColorProvider>
         </DrawerProvider>

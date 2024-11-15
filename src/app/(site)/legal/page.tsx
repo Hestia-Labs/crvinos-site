@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "CRVinos| Vinos de Alta Calidad | Aviso Legal",
+  title: " Aviso Legal | CRVinos| Vinos de Alta Calidad ",
   description: "Lee nuestro aviso legal para entender las condiciones de uso de CRVinos. Este aviso proporciona información sobre los términos legales y las condiciones bajo las cuales operamos.",
   icons: {
     icon: "/favicon.ico",

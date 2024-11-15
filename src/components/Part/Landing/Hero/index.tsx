@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
                 <div className="flex flex-col items-center justify-between py-36 min-h-screen px-4 md:px-8 lg:px-16">
                     <div className="text-center space-y-2">
                         <div className='space-y-1  flex flex-col items-center'>
-                            <p className='text-crred   md:text-lg lg:text-xl xl:text-2xl italic'>
+                            <p className='text-back  md:text-lg lg:text-xl xl:text-2xl italic'>
                                 Sabor 100% Mexicano
                             </p>
                             <h1 className='text-crred-title text-3xl sm:text-5xl md:text-7xl lg:text-8xl cormorant-garamond-semibold-italic whitespace-nowrap'>

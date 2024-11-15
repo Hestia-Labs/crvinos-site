@@ -20,16 +20,16 @@ const CartDrawer: React.FC = () => {
       <AnimatePresence>
         {activeDrawer === 'cart' && (
           <motion.div
-            className={`fixed top-0 right-0 w-126 h-full bg-back shadow-lg z-[9999]`}
+            className={`fixed top-0 right-0 w-full max-w-md h-full bg-back shadow-lg z-[9999]`}
             initial={{ x: '100%' }}
             animate={{ x: isOpen ? '0%' : '100%' }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.3 }}
           >
-            <div className="p-4  h-full flex flex-col ">
-              <div className='flex flex-row justify-between w-full text-crred items-center mb-2 '>
+            <div className="p-4 h-full flex flex-col">
+              <div className='flex flex-row justify-between w-full text-crred items-center mb-2'>
                   <h2 className="text-lg">Tu Carrito ({totalItems})</h2>
-                  <button onClick={closeDrawer} className=" text-xl font-thin hover:text-crred-75">
+                  <button onClick={closeDrawer} className="text-xl font-thin hover:text-crred-75">
                       <TfiClose />
                   </button>
               </div>
@@ -47,11 +47,11 @@ const CartDrawer: React.FC = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <div className='flex flex-row justify-center items-center'>
-                            <img src={item.image} alt={item.name} className="w-24 h-36 object-contain" />
-                            <div className=' space-y-4 text-crred '>
-                                <p >{item.name}</p>
+                            <img src={item.image} alt={item.name} className="w-20 h-28 object-contain" />
+                            <div className='space-y-4 text-crred ml-4'>
+                                <p>{item.name}</p>
                                 <p>${item.price.toFixed(2)}</p>
-                                <div className='w-24 flex flex-row justify-between rounded-full border-crred border px-3'>
+                                <div className='w-28 flex flex-row justify-between rounded-full border-crred border px-3 py-1'>
                                     <button
                                         className="hover:text-crred-50"
                                         onClick={() => {
@@ -89,8 +89,20 @@ const CartDrawer: React.FC = () => {
               </div>
 
               <div className="mt-4">
-                <BasicButton variant="bg-crred" sizex="large" sizey="medium" className="w-full border border-crred">
+                <BasicButton 
+                  variant="bg-crred" 
+                  sizex="large" 
+                  sizey="medium" 
+                  className={`w-full border border-crred ${cartItems.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={cartItems.length === 0}
+                >
                   Pagar
+                </BasicButton>
+              </div>
+
+              <div className="mt-2">
+                <BasicButton onClick={closeDrawer} variant="cart" sizex="large" sizey="medium" className="w-full border border-crred">
+                  Seguir Viendo
                 </BasicButton>
               </div>
             </div>

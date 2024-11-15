@@ -29,6 +29,10 @@ const config: Config = {
         'back-75': 'rgba(255, 251, 247, 0.75)',
         'back-90': 'rgba(255, 251, 247, 0.9)',
         'back-95': 'rgba(255, 251, 247, 0.95)',
+        'accred': '#631E3A',
+        'accred-50': 'rgba(99, 30, 58, 0.5)',
+        'accred-75': 'rgba(99, 30, 58, 0.75)',
+        'accred-90': 'rgba(99, 30, 58, 0.9)',
       },
       height: {
         '4screen/5': 'calc(400vh / 5)',
@@ -44,7 +48,6 @@ const config: Config = {
         '144': '36rem',
         '160': '40rem',
         '192': '48rem',
-
       },
       width: {
         '4screen/5': 'calc(400vh / 5)',
@@ -61,7 +64,6 @@ const config: Config = {
         '144': '36rem',
         '160': '40rem',
         '192': '48rem',
-
       },
       fontSize: {
         'xxs': ['0.75rem', { lineHeight: '1rem' }], /* 12px, 16px */

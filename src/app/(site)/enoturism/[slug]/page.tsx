@@ -11,7 +11,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
     .join(' ');
 
   return {
-    title: `CR Vinos MX | Vinos de la más alta calidad | Evento - ${formattedSlug}`,
+    title: ` Evento - ${formattedSlug} |CR Vinos MX | Vinos de la más alta calidad`,
     description: "Descubre los detalles de nuestros eventos exclusivos en CR Vinos MX. Participa en catas de vino, visitas a la bodega y otros eventos especiales.",
     icons: {
       icon: "/favicon.ico",

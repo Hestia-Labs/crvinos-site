@@ -54,12 +54,18 @@ const wineSchema = defineType({
       validation: (Rule) => Rule.required().error('El nombre es obligatorio.'),
     }),
     defineField({
+      name: 'description',
+      title: 'Descripción',
+      type: 'text',
+      validation: (Rule) => Rule.required().error('La Descripción es obligatoria.'),
+    }),
+    defineField({
       name: 'collection',
       title: 'Colección',
       type: 'reference',
       to: [{ type: 'collection' }],
       options: {
-        disableNew: true, // To ensure new collections are not created directly from the wine schema
+        disableNew: true,
       },
     }),
     defineField({
@@ -157,6 +163,24 @@ const wineSchema = defineType({
           type: 'object',
           fields: [
             defineField({
+              name: 'premioOrganization',
+              title: 'Organizacion del Premio',
+              type: 'string',
+              validation: (Rule) => Rule.required().error('La organizacion del premio es obligatorio.'),
+            }),
+            defineField({
+              name: 'premioYear',
+              title: 'Año del Premio',
+              type: 'string',
+              validation: (Rule) => Rule.required().error('El año del premio es obligatorio.'),
+            }),
+            defineField({
+              name: 'premioName',
+              title: 'Nombre del Premio',
+              type: 'string',
+              validation: (Rule) => Rule.required().error('El nombre del premio es obligatorio.'),
+            }),
+            defineField({
               name: 'premioImage',
               title: 'Imagen del Premio',
               type: 'image',
@@ -175,6 +199,40 @@ const wineSchema = defineType({
               title: 'Enlace del Premio',
               type: 'url',
               validation: (Rule) => Rule.required().error('El enlace del premio es obligatorio.'),
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'profile',
+      title: 'Perfil',
+      type: 'array',
+      of: [
+        defineField({
+          name: 'profileItem',
+          title: 'Elemento del Perfil',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'image',
+              title: 'Imagen',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Texto Alternativo',
+                  type: 'string',
+                  validation: (Rule) => Rule.required().error('Debe ingresar texto alternativo para la imagen.'),
+                }),
+              ],
+            }),
+            defineField({
+              name: 'name',
+              title: 'Nombre',
+              type: 'string',
+              validation: (Rule) => Rule.required().error('El nombre es obligatorio.'),
             }),
           ],
         }),

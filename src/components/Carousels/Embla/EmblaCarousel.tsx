@@ -46,7 +46,7 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, options }) => {
             >
               <div className="w-full flex flex-col justify-center items-center px-4 sm:px-10 md:px-20 space-y-4">
                 <h3 className=" text-xl md:text-4xl  text-crred">{slide.title}</h3>
-                <p className=" text-[12px] md:text-lg cormorant-garamond   text-crred">{slide.text}</p>
+                <p className=" text-[12px] md:text-lg cormorant-garamond text-gray-700">{slide.text}</p>
               </div>
               <div className="flex w-full md:pt-8 px-4 sm:px-10 md:px-20 pb-8">
                 <Image
@@ -55,7 +55,7 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, options }) => {
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="w-full h-72 sm:h-96 lg:h-144 object-cover"
+                  className="w-full h-72 sm:h-96 lg:h-144 object-cover rounded-lg shadow-lg"
                   typeof='image/webp'
                 />
               </div>

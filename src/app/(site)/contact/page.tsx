@@ -5,7 +5,7 @@ import Contact from '@/components/Part/Contact';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "CR Vinos MX | Vinos de la más alta calidad | Contacto",
+  title: " Contacto | CR Vinos MX | Vinos de la más alta calidad ",
   description: "Ponte en contacto con CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad. Estamos aquí para responder a tus preguntas y ofrecerte la mejor experiencia.",
   icons: {
     icon: "/favicon.ico",

@@ -7,7 +7,7 @@ export const runtime = 'edge';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CRVinos | Admin",
+  title: "Admin | CRVinos",
   description: "Pagina de Administración de CRVinos",
   icons: {
     icon: "/favicon.ico",

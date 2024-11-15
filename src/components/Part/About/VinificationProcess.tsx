@@ -57,7 +57,7 @@ const VinificationProcess = () => {
             <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-crred">
               {step.title}
             </h3>
-            <p className="text-xs sm:text-sm md:text-base mt-4 text-crred whitespace-pre-line">
+            <p className="text-xs sm:text-sm md:text-base mt-4 text-gray-700 whitespace-pre-line">
               {step.description}
             </p>
           </div>

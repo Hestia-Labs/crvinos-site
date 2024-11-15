@@ -4,11 +4,11 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 
 interface BasicButtonProps {
-    variant: 'transparent' | 'bg-back' | 'bg-crred' | 'main' ;
+    variant: 'transparent' | 'bg-back' | 'bg-crred' | 'main' | 'cart' | 'transparent-foot' | 'bg-gray-300';
     sizex?: 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge' | 'xxxxlarge';
     sizey?: 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge' | 'xxxxlarge';
     children: React.ReactNode;
-    onClick?: () => void;
+    onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
     className?: string;
     disabled?: boolean;
     link?: string;  
@@ -17,11 +17,14 @@ interface BasicButtonProps {
 const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', sizey = 'medium', children, onClick, className = '', disabled = false, link }) => {
     const router = useRouter();
 
-    const handleClick = () => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         if (link) {
             router.push(link);
         } else if (onClick) {
-            onClick();
+            if (event) {
+                event.preventDefault();
+            }
+            onClick(event);
         }
     };
 
@@ -43,12 +46,15 @@ const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', si
     });
 
     const baseClassName = clsx(
-        'rounded-full  transition-all duration-300 ease-in-out',
+        'rounded-full transition-all duration-300 ease-in-out',
         {
             'bg-transparent text-crred hover:bg-crred hover:text-back': variant === 'transparent',
+            'bg-transparent text-back hover:bg-back-75 hover:text-accred': variant === 'transparent-foot',
+            'bg-transparent text-crred hover:bg-crred-75 hover:text-back': variant === 'cart',
             'bg-back text-crred hover:bg-transparent hover:text-back': variant === 'bg-back',
             'bg-back text-crred hover:bg-crred hover:text-back': variant === 'main',
             'bg-crred text-back hover:bg-back hover:text-crred': variant === 'bg-crred',
+            'bg-gray-300 text-black hover:bg-gray-400 hover:text-white': variant === 'bg-gray-300',  
             'opacity-50 cursor-not-allowed': disabled,
         },
         sizeClassName,

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Icon from '@/components/Icons';
 import { sendQuestion } from '@/app/actions/emails';
 import { useColor } from '@/contexts/ColorContext'; // Import the useColor hook
+import LoadingScreen from '@/components/Loaders/LoadingScreen';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
@@ -13,11 +14,12 @@ const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const { redOn } = useColor(); // Destructure redOn from the color context
+  const { redOn, redOff } = useColor(); // Destructure redOn from the color context
 
   // Set red theme when component mounts
   useEffect(() => {
     redOn(); // Activate red theme on component mount
+    return () => redOff(); // Deactivate red theme on component unmount
   }, [redOn]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -48,15 +50,16 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className='flex flex-col bg-[#631E3A] overflow-x-hidden'>
+    <div className='flex flex-col bg-accred overflow-x-hidden'>
       <div className="relative w-full">
-        <Icon name="ContactVines" className="absolute h-80 w-full scale-[1.1] md:h-160 opacity-10" />
+        <Icon name="ContactVines" className="absolute h-80 w-full    md:h-160 opacity-10" />
       </div>
       <Navbar relative />
+      <LoadingScreen animationDuration={3} displayDuration={1} />
       <div className='flex flex-col items-center justify-center w-full px-4 sm:px-10 md:px-20'>
         
         <div className='flex flex-col justify-center items-center w-full space-y-6 py-24'>
-          <h2 className="text-2xl sm:text-3xl md:text-8xl text-back font-light tracking-wide mb-4">Contáctanos</h2>
+          <h1 className="text-2xl sm:text-3xl md:text-8xl text-back font-light tracking-wide mb-4">Contáctanos</h1>
           <p className="text-back font-light italic text-4xl">¡Nos encantaría saber de ti!</p>
         </div>
         <div className='border-back border-t-2 w-full flex flex-col justify-center items-center py-10 sm:py-15 md:py-20 space-y-12 relative mb-8'>

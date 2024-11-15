@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "CRVinos| Vinos de Alta Calidad | Política de Privacidad",
+  title: "Política de Privacidad | CRVinos| Vinos de Alta Calidad",
   description: "Lee nuestra política de privacidad para entender cómo manejamos tu información personal en CRVinos. Esta política describe los tipos de información que recopilamos, cómo la usamos y las medidas que tomamos para proteger tu privacidad.",
   icons: {
     icon: "/favicon.ico",

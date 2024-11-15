@@ -25,68 +25,16 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // Example test data for development purposes
-  const testItems: CartItem[] = [
-    {
-      id: '1',
-      name: 'Test Wine 1',
-      price: 15.99,
-      quantity: 1,
-      image: '/img/dbcT.png'
-    },
-    {
-      id: '2',
-      name: 'Test Wine 2',
-      price: 25.49,
-      quantity: 2,
-      image: '/img/dbcT.png'
-    },
-    {
-        id: '3',
-        name: 'Test Wine 2',
-        price: 25.49,
-        quantity: 2,
-        image: '/img/dbcT.png'
-    },
-    {
-        id: '4',
-        name: 'Test Wine 2',
-        price: 25.49,
-        quantity: 2,
-        image: '/img/dbcT.png'
-    },
-    {
-        id: '5',
-        name: 'Test Wine 2',
-        price: 25.49,
-        quantity: 2,
-        image: '/img/dbcT.png'
-    },
-    {
-        id: '6',
-        name: 'Test Wine 2',
-        price: 25.49,
-        quantity: 2,
-        image: '/img/dbcT.png'
-    },
-    {
-        id: '7',
-        name: 'Test Wine 2',
-        price: 25.49,
-        quantity: 2,
-        image: '/img/dbcT.png'
-      }
-  ];
+  const testItems: CartItem[] = [];
 
-  // Load cart from localStorage on initial load or set default test data
+
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
       setCartItems(JSON.parse(storedCart));
     } else {
-      // Set test items if no cart is present in localStorage
       setCartItems(testItems);
-      localStorage.setItem('cart', JSON.stringify(testItems)); // Optionally store it
+      localStorage.setItem('cart', JSON.stringify(testItems)); 
     }
   }, []);
 
