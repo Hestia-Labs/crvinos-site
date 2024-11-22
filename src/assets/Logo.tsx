@@ -18,7 +18,7 @@ const Logo: React.FC<LogoProps> = ({
   const color = red ? "#8D131E" : "#FFFBF7";
 
   const svgElement = (
-    <svg className={className} width="500" height="300" viewBox="-10 -10 90 70" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} >
+    <svg className={className } width="500" height="300" viewBox="0 -5 100 60" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} >
         <path
                 d="M39.057 11.352a3.05 3.05 0 1 0 0-6.1 3.05 3.05 0 0 0 0 6.1"
                 fill={color}

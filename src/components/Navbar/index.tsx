@@ -79,7 +79,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
       />
 
       {/* Desktop Navigation */}
-      <div className={clsx('hidden md:flex border-b-2 px-8 z-20 pt-7 relative', { 'border-crred': red, 'border-white': !red })}>
+      <div className={clsx('hidden md:flex border-b-2  px-8 z-20 pt-8 relative', { 'border-crred': red, 'border-white': !red })}>
         <div className="flex py-2 space-x-5">
           <div className='flex justify-center items-center md:text-sm text-xs space-x-8'>
             {navItems.map((item, index) => {

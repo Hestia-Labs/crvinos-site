@@ -52,7 +52,7 @@ const Blog: React.FC = () => {
             Nuestro Blog
           </h2>
         </div>
-        <div className='w-full border-t border-crred py-4 sm:py-6 md:py-8 lg:py-10 flex flex-col items-center space-y-5'>
+        <div className='w-full border-t-2 border-crred py-4 sm:py-6 md:py-8 lg:py-10 flex flex-col items-center space-y-5'>
           {loading ? (
             <div className='w-full flex flex-col space-y-6 justify-center items-center'>
               {[...Array(visiblePosts)].map((_, index) => (
@@ -90,23 +90,27 @@ const Blog: React.FC = () => {
                   {/* Implement other categories if needed */}
                 </div>
               </div>
+              <div className='flex flex-col w-full justify-center items-center'>
+
+              
               {posts.slice(0, visiblePosts).map((post, index) => (
                 <div
                   key={index}
                   onClick={() => router.push(`/blog/${post.slug}`)}
-                  className='cursor-pointer flex flex-col sm:flex-row justify-between items-center w-full sm:w-3/4 md:w-10/12 h-full border-b border-crred mb-6 sm:mb-8 px-6 sm:px-8 md:px-3'
+                  className='cursor-pointer flex flex-col sm:flex-row justify-between items-center w-full sm:w-3/4 md:w-10/12 h-full border-b border-crred mb-6 sm:mb-8 px-6 sm:px-8 md:px-3 py-4'
                 >
                   <div className='flex flex-col items-start justify-between space-y-3 sm:space-y-4'>
-                    <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-crred'>{post.title}</h3>
+                    <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-crred w-3/4'>{post.title}</h3>
                     <div className='w-full h-32 overflow-hidden md:hidden'>
                       {post.bannerImage && (
                         <Image
                           src={post.bannerImage.asset.url}
                           alt={post.bannerImage.alt || post.title}
-                          width={500}
-                          height={500}
+                          width={0}
+                          height={0}
+                          sizes='100vw'
                           priority
-                          className='w-full h-full object-cover filter grayscale'
+                          className='w-full h-full rounded-lg object-cover filter grayscale'
                         />
                       )}
                     </div>
@@ -117,19 +121,21 @@ const Blog: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                  <div className='p-4 hidden md:block'>
+                  <div className='p-4 hidden md:block w-full sm:w-48 md:w-56 h-full sm:h-48 md:h-56'>
                     {post.bannerImage && (
                       <Image
                         src={post.bannerImage.asset.url}
                         alt={post.bannerImage.alt || post.title}
-                        width={224}
-                        height={224}
-                        className='w-full sm:w-48 md:w-56 h-full sm:h-48 md:h-56 rounded-lg object-cover filter grayscale'
+                        width={0}
+                        height={0}
+                        sizes='100vw'
+                        className=' w-full h-full rounded-lg object-cover filter grayscale'
                       />
                     )}
                   </div>
                 </div>
               ))}
+              </div>  
               {visiblePosts < posts.length && (
                 <div className='flex w-full justify-center items-center'>
                   <BasicButton

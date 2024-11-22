@@ -5,6 +5,7 @@ import Catalog from '@/components/Part/Landing/Catalog';
 import Navbar from '@/components/Navbar';
 import Icon from '@/components/Icons';
 import type { Metadata } from "next";
+import Blog from '@/components/Part/Landing/Blog';
 
 
 export const runtime = 'edge';
@@ -27,10 +28,11 @@ export default function Home() {
       <Navbar  darkenBg  red={false} />
       <Hero />
       <div className=' overflow-clip relative flex flex-col justify-center items-center w-full px-8 sm:px-10 md:px-20 space-y-3 mt-5'>
+        <Blog />
         <Catalog />
         <Events />
         {/* <Instagram />  */}
-        <Icon name="RightGrapes" className="-z-10 absolute -right-14 top-24 md:-top-4 h-80 w-80 md:h-144 md:w-144  opacity-90" />
+        <Icon name="RightGrapes" className="-z-10 absolute -right-14 top-100 md:top-80 h-80 w-80 md:h-144 md:w-144 opacity-90" />
         <Icon name="Vines" className="-z-10 absolute -left-14 bottom-1/3  md:bottom-1/4  h-80 w-80 md:h-144 md:w-144 opacity-90"/>
       </div>
     </div>

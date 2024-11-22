@@ -103,7 +103,7 @@ const WineItem: React.FC<WineItemProps> = ({ wine, index, selectedOption, classN
 
           {/* Background Overlay */}
           <motion.div
-            className="absolute inset-0 bg-crred opacity-5 overlay"
+            className="absolute inset-0 bg-crred opacity-5 rounded-md overlay"
             variants={backgroundVariants}
           ></motion.div>
 

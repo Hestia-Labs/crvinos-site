@@ -1,3 +1,4 @@
+'use client';
 // components/RecommendationsSection.tsx
 
 import React, { useEffect, useState } from 'react';

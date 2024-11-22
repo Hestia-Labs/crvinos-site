@@ -43,6 +43,7 @@ const config: Config = {
         'screen/5': 'calc(100vh / 5)',
         'screen/6': 'calc(100vh / 6)',
         '60': '15rem',
+        '86': '21.5rem',
         '100': '25rem',
         '126': '32rem',
         '144': '36rem',
@@ -59,6 +60,7 @@ const config: Config = {
         'screen/6': 'calc(100vh / 6)',
         '30': '7.5rem',
         '60': '15rem',
+        '86': '21.5rem',
         '100': '25rem',
         '126': '32rem',
         '144': '36rem',
@@ -66,9 +68,16 @@ const config: Config = {
         '192': '48rem',
       },
       fontSize: {
-        'xxs': ['0.75rem', { lineHeight: '1rem' }], /* 12px, 16px */
-        'xxxs': ['0.625rem', { lineHeight: '0.75rem' }], /* 10px, 12px */
-        'xxxxs': ['0.5rem', { lineHeight: '0.625rem' }], /* 8px, 10px */
+        'xxs': ['0.75rem', { lineHeight: '1rem' }],  
+        'xxxs': ['0.625rem', { lineHeight: '0.75rem' }],  
+        'xxxxs': ['0.5rem', { lineHeight: '0.625rem' }], 
+      },
+      inset: {
+        
+        '100': '25rem',
+        '126': '32rem',
+        '144': '36rem',
+        '160': '40rem',
       },
     },
   },

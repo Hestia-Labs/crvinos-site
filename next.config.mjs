@@ -34,6 +34,6 @@ const nextConfig = {
   },
 };
 
-const combinedConfig = (config) => withNextVideo(withNextIntl(config));
+const combinedConfig = async (config) =>{ return await withNextVideo(withNextIntl(config))};
 
 export default combinedConfig(nextConfig);

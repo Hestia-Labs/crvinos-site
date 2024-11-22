@@ -62,7 +62,7 @@ const MailingListForm: React.FC = () => {
           placeholder="Tu Correo Electrónico"
           className={
             clsx(' p-2  w-full placeholder:text-xs/3 md:placeholder:text-base', {
-            'border-b border-back  bg-transparent text-back placeholder:text-back-75': isRed,
+            'border-b border-back   text-back placeholder:text-back-75  bg-transparent': isRed,
             'border-crred border-b text-crred placeholder:text-gray-400 bg-transparent': !isRed,
           })}
           required
@@ -85,7 +85,7 @@ const MailingListForm: React.FC = () => {
       })}>{error}</p>}
       {success && <p className={clsx('mt-2', {
         'text-back': isRed,
-        'text-crred-light': !isRed,
+        'text-crred': !isRed,
       })}>
         Pronto sabrás de nosotros, ¡gracias!
       </p>}
