@@ -45,24 +45,7 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collect
           {recommendations.map((wine, index) => (
             <WineItem 
               key={wine.slug}
-              wine={{
-                slug: wine.slug,
-                photo: wine.photo.asset.url,
-                alt: wine.photo.alt,
-                name: wine.name,
-                awards: {
-                  premioName: wine.awards?.premioName || '',
-                  premioOrganization: wine.awards?.premioOrganization || '',
-                  premioYear: wine.awards?.premioYear || '',
-                  premioImage: {
-                    asset: {
-                      url: wine.awards?.premioImage.asset.url || ''
-                    },
-                    alt: wine.awards?.premioImage.alt || ''
-                  },
-                  premioLink: wine.awards?.premioLink || ''
-                } 
-              }}
+              wine={wine}
               index={index}
               selectedOption={wine.collection}
               link={`/catalog/${wine.collection.toLowerCase()}/${encodeURIComponent(wine.slug)}`}

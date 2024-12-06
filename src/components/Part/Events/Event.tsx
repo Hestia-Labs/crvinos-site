@@ -2,55 +2,56 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link'; // Added import for Link
 import { getEvents } from '@/app/actions/getEvents';
 import Navbar from '@/components/Navbar';
 import { Event } from '@/types/Event';
 import Icon from '@/components/Icons';
 import EventDescLoader from '@/components/Loaders/EventDescLoader';
 import { PortableText } from '@portabletext/react';
-import { PortableTextComponentProps } from 'next-sanity';
-import { PortableTextReactComponents } from 'next-sanity';
-import { PortableTextMarkComponentProps } from 'next-sanity';
+import { PortableTextComponentProps } from '@portabletext/react';
+import { PortableTextReactComponents } from '@portabletext/react';
+import { PortableTextMarkComponentProps } from '@portabletext/react';
 
 const myPortableTextComponents: Partial<PortableTextReactComponents> = {
   block: {
-    normal: ({ children }: PortableTextComponentProps<any>) => (
+    normal: ({ children }: PortableTextComponentProps) => (
       <p className="text-gray-700 text-lg">{children}</p>
     ),
-    h1: ({ children }: PortableTextComponentProps<any>) => (
+    h1: ({ children }: PortableTextComponentProps) => (
       <h1 className="text-2xl md:text-4xl text-crred tracking-wide mb-2">
         {children}
       </h1>
     ),
-    h2: ({ children }: PortableTextComponentProps<any>) => (
+    h2: ({ children }: PortableTextComponentProps) => (
       <h2 className="text-xl text-crred mb-2">{children}</h2>
     ),
-    blockquote: ({ children }: PortableTextComponentProps<any>) => (
+    blockquote: ({ children }: PortableTextComponentProps) => (
       <blockquote className="text-crred text-lg">{children}</blockquote>
     ),
   },
   list: {
-    bullet: ({ children }: PortableTextComponentProps<any>) => (
+    bullet: ({ children }: PortableTextComponentProps) => (
       <ul className="list-disc list-inside text-gray-700 text-lg ml-4">
         {children}
       </ul>
     ),
-    number: ({ children }: PortableTextComponentProps<any>) => (
+    number: ({ children }: PortableTextComponentProps) => (
       <ol className="list-decimal list-inside text-crred text-lg ml-4">
         {children}
       </ol>
     ),
   },
   listItem: {
-    bullet: ({ children }: PortableTextComponentProps<any>) => (
+    bullet: ({ children }: PortableTextComponentProps) => (
       <li className="text-gray-700 text-lg">{children}</li>
     ),
-    number: ({ children }: PortableTextComponentProps<any>) => (
+    number: ({ children }: PortableTextComponentProps) => (
       <li className="text-crred text-lg">{children}</li>
     ),
   },
   marks: {
-    link: ({ children, value }: PortableTextMarkComponentProps<any>) => {
+    link: ({ children, value }: PortableTextMarkComponentProps) => {
       const rel =
         value?.href && !value.href.startsWith('/') ? 'noreferrer noopener' : undefined;
       return (
@@ -66,25 +67,58 @@ const myPortableTextComponents: Partial<PortableTextReactComponents> = {
   },
 };
 
+const EventNotFound = () => {
+  return (
+    <div className="flex flex-col relative space-y-9">
+      <Navbar relative red redLogo />
+      <div className="flex relative w-full h-full px-4 sm:px-10 md:px-20 flex-col space-y-6">
+        <div className="mt-4 space-y-8 w-full">
+          <div className="flex flex-col relative space-y-8 w-full items-center">
+            <div className="flex flex-col items-center justify-center space-y-6 py-9 px-4 md:px-12 h-full">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl text-crred italic tracking-wide mb-2">
+                Evento no encontrado
+              </h1>
+              <p className="text-gray-700 text-base sm:text-lg md:text-xl font-thin text-center">
+                Lo sentimos, no pudimos encontrar el evento que estás buscando.
+              </p>
+              <Link href="/enoturism" className="text-crred underline">
+                Volver a eventos
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const EventPage: React.FC = () => {
   const params = useParams<{ slug: string }>();
   const [event, setEvent] = useState<Event | null>(null);
   const [isPastEvent, setIsPastEvent] = useState<boolean>(false);
+  const [notFoundState, setNotFoundState] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
     const fetchEvent = async () => {
-      const events = await getEvents({ eventId: params.slug });
-      if (events.length > 0) {
-        const fetchedEvent = events[0] as Event;
-        setEvent(fetchedEvent);
+      try {
+        const events = await getEvents({ eventId: params.slug });
+        if (events.length > 0) {
+          const fetchedEvent = events[0] as Event;
+          setEvent(fetchedEvent);
 
-        // Check if the event is in the past
-        const now = new Date();
-        const eventEndDate = new Date(fetchedEvent.dates.end);
-        if (eventEndDate < now) {
-          setIsPastEvent(true);
+          // Check if the event is in the past
+          const now = new Date();
+          const eventEndDate = new Date(fetchedEvent.dates.end);
+          if (eventEndDate < now) {
+            setIsPastEvent(true);
+          }
+        } else {
+          setNotFoundState(true); // Added this line
         }
+      } catch (error) {
+        console.error('Error fetching event:', error);
+        setNotFoundState(true); // Handle error by showing not found
       }
     };
 
@@ -108,6 +142,10 @@ const EventPage: React.FC = () => {
     };
     return date.toLocaleTimeString('en-US', options);
   };
+
+  if (notFoundState || !event) {
+    return <EventNotFound />;
+  }
 
   return (
     <div className="flex flex-col w-full items-center justify-center py-12 space-y-7">

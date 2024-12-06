@@ -1,3 +1,5 @@
+// Blog.tsx
+
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -63,8 +65,8 @@ const Blog: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-full items-center justify-center border-crred border-t-2 py-12 space-y-9">
-      <div className='flex  flex-col md:flex-row h-full w-full justify-center items-start'>
+    <div  id="blog-section" className="flex flex-col w-full items-center justify-center border-crred border-t-2 py-12 space-y-9">
+      <div className='flex flex-col md:flex-row h-full w-full justify-center items-start'>
         <div className='flex flex-col justify-center items-start w-full md:w-1/3 space-y-2'>
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-crred font-light tracking-wide mb-2">Nuestro Blog</h2>
           <div className="w-full mb-8">
@@ -73,15 +75,15 @@ const Blog: React.FC = () => {
               Sumérgete en historias que celebran la tradición vinícola y descubre los secretos detrás de cada copa.
             </p>
           </div>
-          <div className="flex w-full justify-start items-center mt-12  py-2">
-                <Link href="/blog">
-                  <div className="flex items-center space-x-2 transition duration-300 ease-in-out transform hover:translate-x-1 cursor-pointer border-b border-crred">
-                    <p className="font-cormorant  text-crred text-lg md:text-xl transition-colors duration-300 ease-in-out hover:text-crred-light ">
-                      Ver Todo
-                    </p>
-                  </div>
-                </Link>
+          <div className="flex w-full justify-start items-center mt-12 py-2">
+            <Link href="/blog">
+              <div className="flex items-center space-x-2 transition duration-300 ease-in-out transform hover:translate-x-1 cursor-pointer border-b border-crred">
+                <p className="font-cormorant text-crred text-lg md:text-xl transition-colors duration-300 ease-in-out hover:text-crred-light">
+                  Ver Todo
+                </p>
               </div>
+            </Link>
+          </div>
         </div>
         
         <div className="p-4 justify-end items-end w-full md:w-2/3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
@@ -92,24 +94,24 @@ const Blog: React.FC = () => {
           ) : (
             posts.slice(0, visiblePosts).map((post) => (
               <motion.div 
-                className='flex flex-col h-full cursor-pointer justify-center items-center' 
+                className='flex flex-col h-full cursor-pointer justify-center items-center group' 
                 key={post._id}
                 onClick={() => router.push(`/blog/${post.slug}`)}
               >
                 {post.bannerImage && (
                   <div className='w-full h-86 overflow-hidden'>
-                  <Image 
-                    src={post.bannerImage.asset.url} 
-                    alt={post.bannerImage.alt || ""} 
-                    width={320} 
-                    height={256} 
-                    sizes='100vw' 
-                    priority 
-                    className='  object-cover w-full h-full filter grayscale rounded-lg' 
-                  />
-                </div>
+                    <Image 
+                      src={post.bannerImage.asset.url} 
+                      alt={post.bannerImage.alt || ""} 
+                      width={320} 
+                      height={256} 
+                      sizes='100vw' 
+                      priority 
+                      className='object-cover w-full h-full filter grayscale rounded-lg transition-opacity duration-300 group-hover:opacity-75' 
+                    />
+                  </div>
                 )}
-                <div className='flex flex-col flex-grow p-4 mt-4  border-t border-crred'>
+                <div className='flex flex-col flex-grow p-4 mt-4 border-t border-crred'>
                   <h3 className="text-xl text-crred font-bold">
                     {post.title}
                   </h3>
@@ -122,9 +124,7 @@ const Blog: React.FC = () => {
             ))
           )}
         </div>
-
       </div>
-      
     </div>
   );
 };

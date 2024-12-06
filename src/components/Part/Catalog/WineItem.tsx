@@ -8,7 +8,9 @@ import Reveal from '@/components/Effects/reveal';
 import { FiPlus } from 'react-icons/fi';
 import { useCart } from '@/contexts/CartContext';
 import { useDrawer } from '@/contexts/DrawerContext';
+import { ShopifyWine } from '@/types/Wine';
 import { toast } from 'sonner';
+import {WineShort} from '@/types/Wine';
 
 interface WineAward {
   premioOrganization: string;
@@ -24,13 +26,7 @@ interface WineAward {
 }
 
 interface WineItemProps {
-  wine: {
-    slug: string;
-    photo: string;
-    alt: string;
-    name: string;
-    awards?: WineAward;
-  };
+  wine: WineShort;
   index: number;
   selectedOption: string;
   className?: string;
@@ -43,7 +39,7 @@ const WineItem: React.FC<WineItemProps> = ({ wine, index, selectedOption, classN
   const { addToCart } = useCart();
 
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const soldOut = true; // Set sold out state to true
+  const soldOut = wine.shopifyVariables ? !wine.shopifyVariables.availableForSale : true;
 
   const imageVariants = {
     nonHover: { scale: 1 },
@@ -74,9 +70,10 @@ const WineItem: React.FC<WineItemProps> = ({ wine, index, selectedOption, classN
     addToCart({
       id: wine.slug,
       name: `${selectedOption} ${wine.name}`,
-      price: 100,
+      price: wine.shopifyVariables?.price ? parseFloat(wine.shopifyVariables.price) : 0,
       quantity: 1,
-      image: wine.photo,
+      image: wine.photo.asset.url,
+      shopifyVariantId: wine.shopifyVariables?.shopifyVariantId ? wine.shopifyVariables?.shopifyVariantId : '',
     });
     setTimeout(() => openDrawer('cart'), 400);
   };
@@ -95,8 +92,8 @@ const WineItem: React.FC<WineItemProps> = ({ wine, index, selectedOption, classN
         >
           {/* Wine Image */}
           <motion.img
-            src={wine.photo}
-            alt={wine.alt}
+            src={wine.photo.asset.url}
+            alt={wine.photo.alt}
             className="w-40 h-72 sm:w-48 sm:h-80 md:w-56 md:h-100 z-10 pointer-events-none object-contain center-image"
             variants={imageVariants}
           />
@@ -168,7 +165,7 @@ const WineItem: React.FC<WineItemProps> = ({ wine, index, selectedOption, classN
             </p>
           </div>
           {!soldOut && (
-            <p className="text-crred text-sm sm:text-base md:text-lg">$100 MXN</p>
+            <p className="text-crred text-sm sm:text-base md:text-lg">${`${wine.shopifyVariables?.price} ${wine.shopifyVariables?.currencyCode}`}</p>
           )}
         </div>
       </div>

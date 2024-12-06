@@ -11,25 +11,27 @@ import WineDetails from '@/components/Part/Catalog/Wine/WineDetails'; // New cli
 import WineProfile from '@/components/Part/Catalog/Wine/WineProfile'; // New client component
 import BackToCatalogLink from '@/components/Part/Catalog/Wine/Backto'; // New client component
 import type { Metadata } from 'next';
+import { getProductVariantByWineId } from '@/utils/shopify';
 
-const siteUrl = process.env.SITE_URL || 'https://default-url.com';
+const siteUrl = process.env.SITE_URL || 'https://default-url.com'; 
 
-export const generateMetadata = ({ params }: { params: { slug: string } }): Metadata => {
+export const generateMetadata = ({ params }: { params: { line: string; slug: string; } }): Metadata => {
   const formattedSlug = params.slug
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .slice(0, -1)
     .join(' ');
 
   return {
-    title: ` ${formattedSlug.toLocaleUpperCase()} | CR Vinos MX | Vinos de la más alta calidad `,
+    title: `${params.line.toLocaleUpperCase()} ${formattedSlug.toLocaleUpperCase()} | CR Vinos MX | Vinos de la más alta calidad `,
     description: "Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX. Cada vino tiene su propia historia y características únicas.",
     icons: {
       icon: "/favicon.ico",
       apple: "/img/apple-touch-icon.png",
     },
-    keywords: ['CR Vinos MX', 'vino', 'detalle del vino', 'alta calidad'],
+    keywords: ['CR Vinos MX', 'vino', 'detalle del vino', 'alta calidad', params.line, formattedSlug],
     openGraph: {
-      title: `CR Vinos MX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug.toLocaleUpperCase()}`,
+      title: `${params.line.toLocaleUpperCase()} ${formattedSlug.toLocaleUpperCase()} | CR Vinos MX | Vinos de la más alta calidad `,
       description: "Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX.",
       url: `${siteUrl}/catalog/${params.slug}`,
       siteName: "CR Vinos MX",
@@ -66,17 +68,42 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
   };
 };
 
+const WineNotFound = () => {
+  return (
+    <div className="flex flex-col relative space-y-9">
+      <Navbar relative red redLogo />
+      <div className="flex relative w-full h-full px-4 sm:px-10 md:px-20 flex-col space-y-6">
+        <div className="mt-4 space-y-8 w-full">
+          <div className="flex flex-col relative space-y-8 w-full items-center">
+            <div className="flex flex-col items-center justify-center space-y-6 py-9 px-4 md:px-12 h-full">
+              
+              <h1 className="text-2xl sm:text-3xl md:text-4xl text-crred italic cormorant-garamond-italic tracking-wide mb-2">
+                Vino no encontrado
+              </h1>
+              <p className="text-gray-700 text-base sm:text-lg md:text-xl font-thin text-center">
+                Lo sentimos, no pudimos encontrar el vino que estás buscando.
+              </p>
+              <BackToCatalogLink />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const WinePage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = params;
   const wines: Wine[] = await getWines({ slug, shortVersion: false }) as Wine[];
+
   const wine = wines.length > 0 ? wines[0] : null;
 
   if (!wine) {
-    // Handle the case where the wine is not found
-    return <div>Wine not found</div>;
+    return <WineNotFound />;
   }
 
-  const soldOut = true; // Update this based on your data
+  const soldOut = wine.shopifyVariables ? !wine.shopifyVariables.availableForSale : true; 
+  
   const wineDetails = [
     { title: 'Tipología', description: wine.type },
     { title: 'Origen', description: wine.origin },
@@ -115,7 +142,7 @@ const WinePage = async ({ params }: { params: { slug: string } }) => {
                     {wine.collection + ' ' + wine.name}
                   </h1>
                   {!soldOut && (
-                    <p className="text-gray-700 text-lg sm:text-xl md:text-2xl ">$100 MXN</p>
+                    <p className="text-gray-700 text-lg sm:text-xl md:text-2xl ">${`${wine.shopifyVariables?.price} ${wine.shopifyVariables?.currencyCode}`}</p>
                   )}
                 </div>
                 {/* Quantity Selector and Add to Cart */}

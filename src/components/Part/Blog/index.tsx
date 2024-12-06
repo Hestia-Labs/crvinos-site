@@ -11,6 +11,7 @@ import {getBlogs} from '@/app/actions/getBlogs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { BlogPostShort } from '@/types/Blog';
+import LoadingScreen from '@/components/Loaders/LoadingScreen';
 
 const Blog: React.FC = () => {
   const [visiblePosts, setVisiblePosts] = useState<number>(3);
@@ -44,7 +45,7 @@ const Blog: React.FC = () => {
       <div className='relative w-full -z-10'>
         <Icon name='ContactVines' className='absolute h-80 w-full md:h-160 opacity-40' />
       </div>
-
+      <LoadingScreen animationDuration={3} displayDuration={1} />
       <Navbar clearBg redLogo red relative />
       <div className='flex flex-col w-full items-center justify-center space-y-7 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20'>
         <div className='flex flex-col justify-center items-center w-full space-y-6 py-8 sm:py-12 md:py-16 lg:py-20'>
