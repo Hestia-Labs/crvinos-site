@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity';
+import uniqid from 'uniqid';
 
 const collectionSchema = defineType({
   name: 'collection',
@@ -148,7 +149,7 @@ const wineSchema = defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'name',
+        source: (doc) =>`${doc.name}-${uniqid()}`,
       },
       validation: (Rule) => Rule.required().error('El slug es obligatorio.'),
     }),

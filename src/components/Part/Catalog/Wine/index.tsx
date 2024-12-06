@@ -69,6 +69,7 @@ const CatalogWine: React.FC = () => {
       price: 100,
       quantity: quantity,
       image: wine.photo.asset.url,
+      shopifyVariantId: wine.shopifyVariables?.shopifyVariantId ? wine.shopifyVariables?.shopifyVariantId : '',
     });
     setTimeout(() => openDrawer('cart'), 400);
   };

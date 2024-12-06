@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
           )}
         >
           {/* Left Column: Sections */}
-          <div className='flex flex-col md:flex-row justify-start items-start w-full md:w-1/2 space-y-6 md:space-y-0 md:space-x-8 px-2 md:px-0 mt-10 md:mt-0'>
+          <div className='flex flex-col md:flex-row justify-between md:px-12 items-start w-full md:w-1/2 space-y-6 md:space-y-0 md:space-x-8 px-2  mt-10 md:mt-0'>
             {sections.map((section, index) => (
               <div key={index} className='space-y-6'>
                 <h3 className='text-xl font-semibold md:text-4xl italic md:font-thin'>{section.title}</h3>
@@ -149,7 +149,7 @@ const Footer: React.FC = () => {
           {/* Right Column: Mailing List and Location */}
           <div
             className={clsx(
-              'flex flex-col justify-between items-start md:border-b-0  pb-5 md:border-l px-8 w-full md:w-1/2 space-y-12',
+              'flex flex-col justify-start md:justify-between items-start md:border-b-0  pb-5 md:border-l px-8 w-full md:w-1/2 space-y-12',
               {
                 'border-back': isRed,
                 'border-crred': !isRed,

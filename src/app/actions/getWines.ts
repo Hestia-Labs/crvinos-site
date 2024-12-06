@@ -5,6 +5,7 @@
 import { createClient } from 'next-sanity';
 import { groq } from 'next-sanity';
 import { Wine, WineShort } from '@/types/Wine'; 
+import {getProductVariantByWineId} from '@/utils/shopify';
 
 const clientConfig = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
@@ -117,10 +118,20 @@ export async function getWines({
       ${fields}
     }
   `;
+  const result = await client.fetch(query, {});
 
-  return client.fetch(query, {});
+  if (result.length > 0) {
+    const winesWithShopifyData = await Promise.all(
+      result.map(async (wine: any) => {
+        const shopifyVariables = await getProductVariantByWineId(wine.slug);
+        return { ...wine, shopifyVariables };
+      })
+    );
+    return winesWithShopifyData;
+  }
+
+  return result;
 }
-
 export async function getDistinctCollectionWines(): Promise<WineShort[]> {
   const query = groq`
     {

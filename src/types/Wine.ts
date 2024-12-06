@@ -33,6 +33,16 @@ export interface WineShort {
   photo: WinePhoto;
   awards?: WineAward;
   profile?: WineProfile[];
+  shopifyVariables?: ShopifyWine;
+}
+
+export interface ShopifyWine {
+  availableForSale?: boolean;
+  price?: string;
+  currencyCode?: string;
+  shopifyProductId?: string;
+  shopifyVariantId?: string;
+  quantityAvailable?: number;
 }
 
 export interface Wine {
@@ -54,6 +64,7 @@ export interface Wine {
   alcoholPercentage: string;
   awards?: WineAward[];
   profile?: WineProfile[];
+  shopifyVariables?: ShopifyWine;
 }
 
 export interface GetWinesParams {

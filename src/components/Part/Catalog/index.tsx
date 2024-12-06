@@ -8,32 +8,16 @@ import WineItem from './WineItem';
 import WineRecLoader from '@/components/Loaders/WineRecLoader';
 import Icon from '@/components/Icons';
 import clsx from 'clsx';
+import { WineShort } from '@/types/Wine';
+import LoadingScreen from '@/components/Loaders/LoadingScreen';
 
-interface Wine {
-  slug: string;
-  photo: string;
-  alt: string;
-  name: string;
-  awards?: {
-    premioOrganization: string;
-    premioYear: string;
-    premioName: string;
-    premioImage: {
-      asset: {
-        url: string;
-      };
-      alt: string;
-    };
-    premioLink: string;
-  };
-}
 
 interface CollectionData {
   name: string;
   photo: string;
   story: string;
   subtitle?: string; 
-  wines: Wine[];
+  wines: WineShort[];
 }
 
 interface WineCatalogProps {
@@ -99,7 +83,6 @@ const WineCatalog: React.FC<WineCatalogProps> = ({ initialSelectedOption = 'DBC'
 
   return (
     <div className="relative space-y-9 w-full" ref={ref}>
-
       <motion.div
         key={collectionData?.photo}
         initial={{ opacity: 0 }}

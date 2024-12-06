@@ -6,6 +6,8 @@ import Navbar from '@/components/Navbar';
 import Icon from '@/components/Icons';
 import type { Metadata } from "next";
 import Blog from '@/components/Part/Landing/Blog';
+import { getMenu } from '@/utils/shopify';
+
 
 
 export const runtime = 'edge';
@@ -22,7 +24,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const menu = await getMenu('main-menu');
+  console.log("Menu: ",menu);
   return ( 
     <div className="relative min-h-screen w-full bg-transparent no-scrollbars ">
       <Navbar  darkenBg  red={false} />

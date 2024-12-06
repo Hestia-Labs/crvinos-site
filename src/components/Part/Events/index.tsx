@@ -10,6 +10,7 @@ import { EventShort } from '@/types/Event';
 import { getEvents } from '@/app/actions/getEvents';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import LoadingScreen from '@/components/Loaders/LoadingScreen';
 
 const EventsPage: React.FC = () => {
   const [events, setEvents] = useState<{ upcoming: EventShort[]; past: EventShort[] }>({
@@ -45,7 +46,7 @@ const EventsPage: React.FC = () => {
   return (
     <div className='flex flex-col w-full items-center justify-center'>
       <Navbar />
-
+      <LoadingScreen animationDuration={3} displayDuration={1} />
       {/* Banner Section */}
       <div className='relative w-full'>
         <motion.div

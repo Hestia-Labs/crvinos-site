@@ -2,78 +2,76 @@
 
 import { createClient } from 'next-sanity';
 import { groq } from 'next-sanity';
+import { getProductVariantByWineId } from '@/utils/shopify'; 
+import { ShopifyWine, WineShort } from '@/types/Wine';
 
 interface CollectionData {
   name: string;
   story: string;
   photo: string;
   alt: string;
-  wines: {
-    name: string;
-    photo: string;
-    alt: string;
-    slug: string;
-    awards: {
-        premioOrganization: string;
-        premioYear: string;
-        premioName: string;
-        premioImage: {
-            asset: {
-                _id: string;
-                url: string;
-            };
-            alt: string;
-        };
-        premioLink: string;
-    }
-  }[];
+  wines: WineShort[];
 }
-
-
 
 const clientConfig = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET   || '',
-  apiVersion: process.env.SANITY_API_VERSION  || '',
-  token: process.env.SANITY_API_TOKEN   || '',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || '',
+  apiVersion: process.env.SANITY_API_VERSION || '',
+  token: process.env.SANITY_API_TOKEN || '',
   useCdn: false,
 };
 
 const client = createClient(clientConfig);
 
 export const fetchCollectionData = async (selectedOption: string): Promise<CollectionData | null> => {
-    const query = groq`
-      *[_type == "collection" && name == $name][0]{
+  const query = groq`
+    *[_type == "collection" && name == $name][0]{
+      name,
+      story,
+      "photo": photo.asset->url,
+      "alt": photo.alt,
+      "wines": wines[]->{
         name,
-        story,
-        "photo": photo.asset->url,
-        "alt": photo.alt,
-        "wines": wines[]->{
-          name,
-          "photo": photo.asset->url,
-          "alt": photo.alt,
-          "slug": slug.current,
-          awards[0] {
-            premioOrganization,
-            premioYear,
-            premioName,
-            premioImage {
-              asset->{
-                _id,
-                url
-              },
-              alt
-            },
-            premioLink
+        photo {
+          asset->{
+            _id,
+            url
           },
-        }
+          alt
+        },
+        "slug": slug.current,
+        awards[0] {
+          premioOrganization,
+          premioYear,
+          premioName,
+          premioImage {
+            asset->{
+              _id,
+              url
+            },
+            alt
+          },
+          premioLink
+        },
       }
-    `;
-    const params = { name: selectedOption };
-    try {
-        return await client.fetch(query, params);
-    } catch (e) {
-        console.log("Failed to fetch collection data:", e);
-      return null;
     }
+  `;
+  const params = { name: selectedOption };
+  try {
+    const collectionData = await client.fetch(query, params);
+    if (collectionData) {
+      // Fetch Shopify data for each wine
+      const winesWithShopifyData = await Promise.all(
+        collectionData.wines.map(async (wine: any) => {
+          const shopifyVariables = await getProductVariantByWineId(wine.slug);
+          return { ...wine, shopifyVariables };
+        })
+      );
+      return { ...collectionData, wines: winesWithShopifyData };
+    }
+    return null;
+  } catch (e) {
+    console.log("Failed to fetch collection data:", e);
+    return null;
+  }
 };

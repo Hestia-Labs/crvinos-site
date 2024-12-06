@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import EmblaCarousel from '@/components/Carousels/Embla/EmblaCarousel';
 import VinificationProcess from '@/components/Part/About/VinificationProcess';
 import Icon from '@/components/Icons';
+import LoadingScreen from '@/components/Loaders/LoadingScreen';
 
 const carouselItems = [
   {
@@ -30,6 +31,7 @@ const AboutPage: React.FC = () => {
     <div className='relative'>
       <Navbar />
       <div className=' space-y-0 relative h-full w-full overflow-hidden'>
+        <LoadingScreen animationDuration={3} displayDuration={1} />
         {/* Banner Section */}
         <motion.div
           initial={{ opacity: 0 }}
