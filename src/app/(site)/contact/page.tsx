@@ -47,6 +47,20 @@ export const metadata: Metadata = {
     title: 'CR Vinos MX',
     statusBarStyle: 'black-translucent',
   },
+  robots: {
+    index: true, 
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+    
+  },
 };
 
 const ContactPage: React.FC = () => {

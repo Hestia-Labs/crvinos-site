@@ -13,6 +13,9 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+
+
+
 export async function addItem(selectedVariantId: string, quantity: number = 1) {
     const cartId = cookies().get('cartId')?.value;
   
@@ -37,7 +40,7 @@ export async function getCurrentCart() {
     return undefined;
   }
     let cart = await getCart(cartId);
-    console.log("CART:" , cart);
+ 
     return cart;
 }
 
@@ -138,7 +141,7 @@ export async function removeItem(merchandiseId: string) {
 
 export async function createCartAndSetCookie() {
   let cart = await createCart();
-  console.log("CART:" , cart);
+ 
   cookies().set("cartId", cart.id!);
   return cart;
 }

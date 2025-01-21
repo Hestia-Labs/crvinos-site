@@ -12,41 +12,42 @@ import { PortableText } from '@portabletext/react';
 import { PortableTextComponentProps } from '@portabletext/react';
 import { PortableTextReactComponents } from '@portabletext/react';
 import { PortableTextMarkComponentProps } from '@portabletext/react';
+import Image from 'next/image';
 
 const myPortableTextComponents: Partial<PortableTextReactComponents> = {
   block: {
-    normal: ({ children }: PortableTextComponentProps) => (
+    normal: ({ children }) => (
       <p className="text-gray-700 text-lg">{children}</p>
     ),
-    h1: ({ children }: PortableTextComponentProps) => (
+    h1: ({ children }) => (
       <h1 className="text-2xl md:text-4xl text-crred tracking-wide mb-2">
         {children}
       </h1>
     ),
-    h2: ({ children }: PortableTextComponentProps) => (
+    h2: ({ children }) => (
       <h2 className="text-xl text-crred mb-2">{children}</h2>
     ),
-    blockquote: ({ children }: PortableTextComponentProps) => (
+    blockquote: ({ children }) => (
       <blockquote className="text-crred text-lg">{children}</blockquote>
     ),
   },
   list: {
-    bullet: ({ children }: PortableTextComponentProps) => (
+    bullet: ({ children }) => (
       <ul className="list-disc list-inside text-gray-700 text-lg ml-4">
         {children}
       </ul>
     ),
-    number: ({ children }: PortableTextComponentProps) => (
+    number: ({ children }) => (
       <ol className="list-decimal list-inside text-crred text-lg ml-4">
         {children}
       </ol>
     ),
   },
   listItem: {
-    bullet: ({ children }: PortableTextComponentProps) => (
+    bullet: ({ children }) => (
       <li className="text-gray-700 text-lg">{children}</li>
     ),
-    number: ({ children }: PortableTextComponentProps) => (
+    number: ({ children }) => (
       <li className="text-crred text-lg">{children}</li>
     ),
   },
@@ -171,9 +172,12 @@ const EventPage: React.FC = () => {
               </div>
             </div>
             <div className="relative w-full">
-              <img
+              <Image
                 src={event.posterURL}
                 alt={event.posterAlt}
+                width={0}
+                height={0}
+                sizes='100vw'
                 className={`w-full h-64 md:h-100 object-cover mb-4 cursor-pointer ${
                   isPastEvent ? 'grayscale' : ''
                 }`}

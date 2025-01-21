@@ -1,6 +1,7 @@
 // components/Icons/index.tsx
 
 import React from 'react';
+import Image from 'next/image';
 
 interface IconProps {
   name: string;
@@ -18,10 +19,13 @@ const Icon: React.FC<IconProps> = ({
   ...props
 }) => {
   const svgElement = (
-    <img
+    <Image
       src={`/img/icons/${name}.svg`}
       alt={`${name} icon`}
       className={className}
+      width={0}
+      height={0}
+      sizes="100vw"
       {...props}
     />
   );

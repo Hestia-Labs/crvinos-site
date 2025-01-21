@@ -30,6 +30,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
   const { totalItems } = useCart(); // Access totalItems from useCart
 
   const navItems = [
+    { name: 'Inicio', route: '', available: true },
     { name: 'Nosotros', route: 'about', available: true },
     { name: 'Catálogo', route: 'catalog', available: true },
     { name: 'Blog', route: 'blog', available: true },
@@ -209,7 +210,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
                 </TransitionLink>
               </motion.div>
             ))}
-            <motion.div
+            {/* <motion.div
               className={clsx(
                 'text-white text-4xl mb-10 flex text-left',
                 { 'font-semibold underline': pathname === '/account' }
@@ -231,7 +232,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
               >
                 Cuenta
               </TransitionLink>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
         )}
       </AnimatePresence>

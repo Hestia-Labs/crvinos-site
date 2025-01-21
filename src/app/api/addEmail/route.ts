@@ -16,14 +16,12 @@ export async function POST(request: NextRequest) {
 
   const { email }: RequestBody = await request.json();
 
-
   const lowerCaseEmail = email.toLowerCase();
-
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!lowerCaseEmail || !emailRegex.test(lowerCaseEmail)) {
-    return new Response(JSON.stringify({ error: 'Invalid or missing email' }), {
+    return new Response(JSON.stringify({ error: 'Correo electrónico inválido o faltante' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' }
     });
@@ -36,7 +34,7 @@ export async function POST(request: NextRequest) {
     .execute();
 
   if (existingEmail.length > 0) {
-    return new Response(JSON.stringify({ error: 'Email already exists' }), {
+    return new Response(JSON.stringify({ error: 'El correo electrónico ya existe' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' }
     });

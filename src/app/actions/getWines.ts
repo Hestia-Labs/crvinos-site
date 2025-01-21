@@ -7,6 +7,9 @@ import { groq } from 'next-sanity';
 import { Wine, WineShort } from '@/types/Wine'; 
 import {getProductVariantByWineId} from '@/utils/shopify';
 
+
+
+
 const clientConfig = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || '',

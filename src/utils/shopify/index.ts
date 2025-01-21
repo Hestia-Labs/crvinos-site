@@ -47,14 +47,11 @@ export async function shopifyFetch<T>({
           ...(query && { query }),
           ...(variables && { variables }),
         }),
-        cache,
-        ...(tags && { next: { tags } }),
+        // cache,
+        // ...(tags && { next: { tags } }),
       });
   
       const body = await result.json() as { errors?: any[]; data?: any };
-      console.log('Shopify Products Debug');
-        console.log('Products Data:', body);
-        console.log();
   
       if (body.errors) {
         throw body.errors[0];
@@ -182,6 +179,7 @@ export async function getProductsByCollection(handle: string) {
     variables: {
       handle: handle,
     },
+    cache: "no-cache",
   });
 
   const collection = res.body.data.collectionByHandle;
@@ -201,6 +199,7 @@ export async function getProductVariantByWineId(wineId: string): Promise<Shopify
     variables: {
       query: `tag:${wineId}`,
     },
+    tags: [TAGS.products],
     cache: "no-cache",
   });
 
@@ -237,7 +236,7 @@ export async function getProductVariantByWineId(wineId: string): Promise<Shopify
 export async function createCart() {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
-    cache: "no-store",
+    cache: "no-cache",
   });
 
   return res.body.data.cartCreate.cart;
@@ -273,7 +272,7 @@ export async function removeFromCart(
       cartId,
       lineIds,
     },
-    cache: "no-store",
+    cache: "no-cache",
   });
 
   return res.body.data;
@@ -289,7 +288,7 @@ export async function updateCart(
       cartId,
       lines,
     },
-    cache: "no-store",
+    cache: "no-cache",
   });
 
   return res.body.data;
@@ -307,8 +306,7 @@ export async function addToCart(
     },
     cache: "no-cache",
   });
-  console.log('Add to Cart Debug');
-  console.log('Add to Cart Data:', res.body.data);
+ 
 
   return res.body.data;
 }

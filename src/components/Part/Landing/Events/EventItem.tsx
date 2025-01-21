@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { PortableText } from '@portabletext/react';
 import { PortableTextBlock } from '@portabletext/types';
+import Image from 'next/image';
 
 interface EventItemProps {
     imageUrl: string;
@@ -69,10 +70,14 @@ const EventItem: React.FC<EventItemProps> = ({ imageUrl, title, description, dat
             variants={ divVariants}
         >
             <div className="relative">
-                <img 
-                    src={imageUrl} 
-                    alt={title} 
-                    className={`w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover shadow-lg rounded-t-md ${isPastEvent ? 'grayscale' : ''}`} 
+                <Image
+                    src={imageUrl}
+                    alt={title}
+                    layout="responsive"
+                    width={0}
+                    height={0}
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
+                    className={`w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover shadow-lg rounded-t-md ${isPastEvent ? 'grayscale' : ''}`}
                 />
                 {isPastEvent && (
                     <div className="absolute top-2 right-2 bg-gray-600 text-white px-2 py-1 text-xs font-bold rounded">

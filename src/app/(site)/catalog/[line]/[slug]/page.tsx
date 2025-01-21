@@ -13,17 +13,18 @@ import BackToCatalogLink from '@/components/Part/Catalog/Wine/Backto'; // New cl
 import type { Metadata } from 'next';
 import { getProductVariantByWineId } from '@/utils/shopify';
 
-const siteUrl = process.env.SITE_URL || 'https://default-url.com'; 
+const siteUrl = process.env.SITE_URL || 'https://crvinosmx.com'; 
 
-export const generateMetadata = ({ params }: { params: { line: string; slug: string; } }): Metadata => {
+export const generateMetadata = async ({ params }: { params: { line: string; slug: string; } }): Promise<Metadata> => {
+  
   const formattedSlug = params.slug
     .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .slice(0, -1)
     .join(' ');
-
+    const wines: Wine[] = await getWines({ slug:params.slug, shortVersion: false }) as Wine[];
   return {
-    title: `${params.line.toLocaleUpperCase()} ${formattedSlug.toLocaleUpperCase()} | CR Vinos MX | Vinos de la más alta calidad `,
+    title: `${params.line.charAt(0).toUpperCase() + params.line.slice(1)} ${formattedSlug} | CR Vinos MX | Vinos de la más alta calidad `,
     description: "Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX. Cada vino tiene su propia historia y características únicas.",
     icons: {
       icon: "/favicon.ico",
@@ -31,15 +32,15 @@ export const generateMetadata = ({ params }: { params: { line: string; slug: str
     },
     keywords: ['CR Vinos MX', 'vino', 'detalle del vino', 'alta calidad', params.line, formattedSlug],
     openGraph: {
-      title: `${params.line.toLocaleUpperCase()} ${formattedSlug.toLocaleUpperCase()} | CR Vinos MX | Vinos de la más alta calidad `,
+      title: `${params.line.charAt(0).toUpperCase() + params.line.slice(1)} ${formattedSlug} | CR Vinos MX | Vinos de la más alta calidad `,
       description: "Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX.",
       url: `${siteUrl}/catalog/${params.slug}`,
       siteName: "CR Vinos MX",
       images: [
         {
-          url: `${siteUrl}/img/catalogPreview.png`,
-          width: 800,
-          height: 600,
+          url: `${siteUrl}/img/crvinosmxLogo.jpg`,
+          width: 200,
+          height: 150,
           alt: "CR Vinos MX",
         },
       ],
@@ -48,9 +49,16 @@ export const generateMetadata = ({ params }: { params: { line: string; slug: str
     },
     twitter: {
       card: 'summary_large_image',
-      title: `CR Vinos MX | Vinos de la más alta calidad | Detalle del Vino - ${formattedSlug}`,
+      title: `${params.line.charAt(0).toUpperCase() + params.line.slice(1)} ${formattedSlug} | CR Vinos MX | Vinos de la más alta calidad `,
       description: 'Descubre los detalles de nuestros vinos de alta calidad en CR Vinos MX.',
-      images: [`${siteUrl}/img/catalogPreview.png`],
+      images: [
+        {
+          url: `${siteUrl}/img/crvinosmxLogo.jpg`,
+          width: 200,
+          height: 150,
+          alt: "CR Vinos MX",
+        }
+      ],
     },
     alternates: {
       canonical: `${siteUrl}/catalog/${params.slug}`,
@@ -119,10 +127,12 @@ const WinePage = async ({ params }: { params: { slug: string } }) => {
         {/* Back to Catalog Link */}
         <BackToCatalogLink />
         <div className="mt-4 space-y-8 w-full">
+        <Icon name="Vines" className="-z-10 absolute -left-10  md:top-10  h-100 w-100 md:h-144 md:w-144 opacity-70"/>
           <div className="flex flex-col relative space-y-8 w-full items-center">
             {/* Main Content */}
             <div className="flex flex-col md:flex-row relative w-full py-9 justify-center items-center md:items-start px-4 md:px-12 h-full border-crred border-b-2 space-y-8 md:space-y-0 md:space-x-8">
               {/* Left Column: Wine Image */}
+              
               <div className="flex md:w-1/3 justify-center items-center px-4">
                 <Image
                   src={wine.photo.asset.url}

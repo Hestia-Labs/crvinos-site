@@ -7,6 +7,7 @@ import { useCart } from '@/contexts/CartContext';
 import { TfiClose } from 'react-icons/tfi';
 import BasicButton from '@/components/Buttons/BasicButton';
 import Skeleton from 'react-loading-skeleton';
+import Image from 'next/image';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 const CartDrawer: React.FC = () => {
@@ -75,10 +76,12 @@ const CartDrawer: React.FC = () => {
                           transition={{ duration: 0.3 }}
                         >
                           <div className="flex flex-row justify-center items-center">
-                            <img src={item.image} alt={item.name} className="w-20 h-28 object-contain" />
+                            <Image src={item.image} alt={item.name} width={80} height={112} className=" w-24 h-32 object-contain" />
                             <div className="space-y-4 text-crred ml-4">
-                              <p>{item.name}</p>
-                              <p>${item.price.toFixed(2)}</p>
+                              <div className='space-y-0'>
+                                <p className="text-2xl italic font-light">{item.name}</p>
+                                <p className="text-xl text-gray-700 italic">${item.price.toFixed(2)}</p>
+                              </div>
                               <div className="w-28 flex flex-row justify-between rounded-full border-crred border px-3 py-1">
                                 <button
                                   className="hover:text-crred-50"

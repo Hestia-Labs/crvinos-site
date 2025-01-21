@@ -63,7 +63,7 @@ const MailingListForm: React.FC = () => {
           className={
             clsx(' p-2  w-full placeholder:text-xs/3 md:placeholder:text-base', {
             'border-b border-back   text-back placeholder:text-back-75  bg-transparent': isRed,
-            'border-crred border-b text-crred placeholder:text-gray-400 bg-transparent': !isRed,
+            ' border-crred-75 border-b text-gray-700 placeholder:text-gray-400 bg-transparent': !isRed,
           })}
           required
         />

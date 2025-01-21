@@ -11,6 +11,7 @@ import { useDrawer } from '@/contexts/DrawerContext';
 import { ShopifyWine } from '@/types/Wine';
 import { toast } from 'sonner';
 import {WineShort} from '@/types/Wine';
+import Image from 'next/image';
 
 interface WineAward {
   premioOrganization: string;
@@ -117,8 +118,11 @@ const WineItem: React.FC<WineItemProps> = ({ wine, index, selectedOption, classN
               onMouseEnter={() => setIsTooltipVisible(true)}
               onMouseLeave={() => setIsTooltipVisible(false)}
             >
-              <img
+              <Image
                 src={wine.awards.premioImage.asset.url}
+                width={0}
+                height={0}
+                sizes='100vw'
                 className="w-auto h-20 object-contain"
                 alt={wine.awards.premioImage.alt || 'Premio'}
               />

@@ -1,6 +1,5 @@
-'use client';
+
 import React from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import EmblaCarousel from '@/components/Carousels/Embla/EmblaCarousel';
@@ -32,15 +31,11 @@ const AboutPage: React.FC = () => {
       <Navbar />
       <div className=' space-y-0 relative h-full w-full overflow-hidden'>
         <LoadingScreen animationDuration={3} displayDuration={1} />
-        {/* Banner Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+        <div
           className='relative'
         >
           <Image
-            src='/img/barrels.jpg'
+            src='/img/grapesAbout.jpg'
             alt='Banner Image'
             width={0}
             height={0}
@@ -57,7 +52,7 @@ const AboutPage: React.FC = () => {
               Descubre nuestro legado en cada botella
             </p>
           </div>
-        </motion.div>
+        </div>
         <div className='relative -z-10 mt-16'>
           <Icon
             name='FullVines'

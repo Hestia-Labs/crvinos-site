@@ -3,6 +3,9 @@
 import { createClient } from "@sanity/client";
 import { EventShort, Event } from "@/types/Event";
 
+
+
+
 const clientConfig = {
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET   || '',

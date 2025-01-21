@@ -56,7 +56,7 @@ const EventsPage: React.FC = () => {
           className='relative'
         >
           <Image
-            src='/img/barrels.jpg' // Use the same image as in AboutPage
+            src='/img/farm.jpg' // Use the same image as in AboutPage
             alt='Eventos Banner'
             width={0}
             height={0}

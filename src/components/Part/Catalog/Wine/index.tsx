@@ -102,6 +102,7 @@ const CatalogWine: React.FC = () => {
               {/* Main Content */}
               <div className='flex flex-col md:flex-row relative w-full py-9 justify-center items-center md:items-start px-4 md:px-12 h-full border-crred border-b-2 space-y-8 md:space-y-0 md:space-x-8'>
                 {/* Left Column: Wine Image */}
+                
                 <div className='flex md:w-1/3 justify-center items-center px-4'>
                   <Image
                     src={wine?.photo.asset.url as string}
@@ -125,6 +126,7 @@ const CatalogWine: React.FC = () => {
                     )}
                   </div>
                   {/* Quantity Selector and Add to Cart */}
+                  
                   <div className='w-full flex flex-col'>
                     <div className='flex flex-col w-full items-start space-y-5 border-b border-crred pb-7'>
                       <div className='flex flex-row items-center space-x-4'>

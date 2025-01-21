@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { fetchRandomPhotos } from '@/app/actions/fetchRandomPhotos';
 import { EventShort } from '@/types/Event';  
 import InstagramLoader from '@/components/Loaders/InstagramLoader';
@@ -9,16 +10,7 @@ const Instagram: React.FC = () => {
     const [photos, setPhotos] = useState<EventShort[]>([]);  
     const [loading, setLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        const loadPhotos = async () => {
-            const fetchedPhotos = await fetchRandomPhotos(5, "wine");
-            setPhotos(fetchedPhotos);
-            if (fetchedPhotos.length > 0)
-                setLoading(false);
-        };
-
-        loadPhotos();
-    }, []);
+    
 
     return (
         <div className="p-6 border-crred border-t-2 w-full">
@@ -33,10 +25,13 @@ const Instagram: React.FC = () => {
                     photos.map(photo => (
                         <div key={photo.slug} className="overflow-hidden flex rounded-lg shadow-sm shadow-gray-300/50  cursor-pointer">
                             <div className="px-1 py-1 sm:p-3">
-                                <img 
+                                <Image 
                                     src={photo.imageUrl} 
                                     alt={`Instagram ${photo.slug}`} 
                                     className="w-44 h-44 sm:w-48 sm:h-48 object-cover transition-transform duration-300 ease-in-out hover:scale-105" 
+                                    width={192}
+                                    height={192}
+                                    sizes="(max-width: 640px) 11rem, (max-width: 768px) 12rem, 12rem"
                                 />
                             </div>
                         </div>

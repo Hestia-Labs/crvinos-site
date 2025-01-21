@@ -1,98 +1,128 @@
-
 import "@/styles/globals.css";
 import Footer from "@/components/Footer";
-import AgeVer from "@/components/Modals/AgeVer"; 
-import type { Metadata } from "next";
-import "@/styles/globals.css";
+import AgeVerification from "@/components/Modals/AgeVerification";
+import type { Metadata, Viewport } from "next";
 import Providers from "@/utils/Providers";
 import CartDrawer from "@/components/Cart/CartDrawer";
+import { Cormorant_Garamond } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google'
+
+// Ensure this matches your actual site URL. If using environment variables, 
+// make sure they are available at build time or use NEXT_PUBLIC_ prefix.
+const siteUrl = process.env.SITE_URL || "https://crvinosmx.com";
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+});
+
+export const viewport: Viewport = {
+  themeColor: "#fffbf7",
+  colorScheme: "light",
+  width: 'device-width',
+  initialScale: 1.0
+}
 
 
 export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: true,
-    nocache: true,
-    googleBot: {
-      index: true,
-      follow: false,
-      noimageindex: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+  applicationName: "CRVinos",
+  generator: "Next.js",
+  keywords: ["Vinos mexicanos", "Vinos de calidad", "CRVinos", "Vino Mexicano"],
+  authors: [{ name: "CRVinosMX" }],
+  creator: "CRVinos",
+  publisher: "CRVinos",
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: siteUrl,
+    languages: {
+      "es-MX": siteUrl,
     },
   },
   openGraph: {
     title: "CRVinos",
     description: "Explora nuestra selección de vinos mexicanos de alta calidad.",
+    url: siteUrl,
+    siteName: "CRVinos",
     images: [
       {
-        url: `${process.env.SITE_URL}/img/CRVino-logo.png`,
+        url: `${siteUrl}/img/crvinosmxLogo.jpg`,
         width: 800,
         height: 600,
         alt: "CRVinos",
       },
     ],
     type: "website",
-    url: `${process.env.SITE_URL}/`,
-  },
-};
+    locale: "es_MX",
 
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CRVinos",
+    description: "Explora nuestra selección de vinos mexicanos de alta calidad.",
+    images: [`${siteUrl}/img/crvinosmxLogo.jpg`],
+  },
+  icons: {
+    icon: [
+      { url: `${siteUrl}/img/favicon-32x32.png`, type: "image/png", sizes: "32x32" },
+      { url: `${siteUrl}/img/favicon-16x16.png`, type: "image/png", sizes: "16x16" },
+    ],
+    apple: `${siteUrl}/img/apple-touch-icon.png`,
+    other: {
+      rel: "mask-icon",
+      url: `${siteUrl}/img/safari-pinned-tab.svg"`,
+      color: "#5bbad5",
+    },
+  },
+  manifest: "/site.webmanifest",
+};
 
 export const runtime = 'edge';
 
-export default  function RootLayout({
+export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "CRVinos",
-        "url": `${process.env.SITE_URL}`,
-        "logo": `${process.env.SITE_URL}/img/CRVino-logo.png`,
-        "sameAs": [
-          "https://www.facebook.com/profile.php?id=100078033250234&mibextid=LQQJ4d",
-          "https://www.instagram.com/crvinosmx/"
-        ],
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+52 993 166 7349",
-          "contactType": "Customer Service"
-        }
-      };
-    
-      return (
-        <html lang="es">
-          <head>
-            <link rel="icon" href="/favicon.ico" />
-            <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png"/>
-            <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png"/>
-            <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png"/>
-            <link rel="manifest" href="/site.webmanifest"/>
-            <link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5"/>
-            <meta name="msapplication-TileColor" content="#fffbf7" />
-            <meta name="theme-color" content="#fffbf7" />
-            <meta name="description" content="CRvinos es una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad." />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <meta name="robots" content="index, follow" />
-            <meta property="og:title" content="CRVinos" />
-            <meta property="og:description" content="Explora nuestra selección de vinos mexicanos de alta calidad." />
-            <meta property="og:image" content={`${process.env.SITE_URL}/img/CRVino-logo.png`} />
-            <meta property="og:url" content={`${process.env.SITE_URL}/`} />
-            <meta property="og:type" content="website" />
-            <link rel="canonical" href={`${process.env.SITE_URL}/`} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-          </head>
-      <body className="font-cormorant bg-transparent">
+}) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CRVinos",
+    "url": siteUrl,
+    "logo": `${siteUrl}/img/crvinosmxLogo.jpg`,
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=100078033250234&mibextid=LQQJ4d",
+      "https://www.instagram.com/crvinosmx/"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+52 993 166 7349",
+      "contactType": "Customer Service"
+    }
+  };
+
+  return (
+    <html lang="es">
+      <head>
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      
+      <body className={cormorantGaramond.className + " bg-transparent"}>
         <Providers>
-          <AgeVer />
+          <AgeVerification />
           <CartDrawer />
           {children}
           <Footer />
         </Providers>
       </body>
+      <GoogleAnalytics gaId="G-MBBBLXL0L8" />
     </html>
+
   );
 }

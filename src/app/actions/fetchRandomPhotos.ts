@@ -2,6 +2,8 @@
 
 import { Event, EventShort } from "@/types/Event";
 
+
+
 export const fetchRandomPhotos = async (count: number, query: string): Promise<EventShort[]> => {
     try {
         const response = await fetch(`https://api.unsplash.com/photos/random?query=${query}&count=${count}&client_id=${process.env.UNSPLASH_ACCESS_KEY}`);

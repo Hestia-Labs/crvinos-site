@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Catalog from '@/components/Part/Catalog';
 import LoadingScreen from '@/components/Loaders/LoadingScreen';
+import { fetchCollectionData } from '@/app/actions/getCollection';
 
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
@@ -49,9 +50,31 @@ export const metadata: Metadata = {
     title: 'CR Vinos MX',
     statusBarStyle: 'black-translucent',
   },
+  robots: {
+    index: true, 
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+    
+  },
 };
 
-const CatalogPage: React.FC = () => {
+export default async function CatalogPage({
+  searchParams,
+}: {
+  searchParams: { line?: string };
+}) {
+
+  const line = searchParams?.line?.toLowerCase() || 'dbc';
+
+  const collectionData = await fetchCollectionData(line);
   return (
     <div className='flex flex-col'>
       <Navbar darkenBg   />
@@ -65,10 +88,12 @@ const CatalogPage: React.FC = () => {
           <div className="w-full h-2 border-crred border-t-2"></div>
         </div> */}
         <LoadingScreen animationDuration={3} displayDuration={1} />
-        <Catalog />
+        <Catalog 
+          initialSelectedOption={line.toUpperCase()}
+          serverCollectionData={collectionData}
+        />
       </div>
     </div>
   );
 };
 
-export default CatalogPage;

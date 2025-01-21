@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${siteUrl}/legal`,
     languages: {
-      'es-ES': `${siteUrl}/legal`,
+      'es-MX': `${siteUrl}/legal`,
     },
   },
   verification: {
@@ -46,6 +46,20 @@ export const metadata: Metadata = {
   appleWebApp: {
     title: 'CRVinos',
     statusBarStyle: 'black-translucent',
+  },
+  robots: {
+    index: true, 
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+    
   },
 };
 

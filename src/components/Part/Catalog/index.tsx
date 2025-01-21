@@ -1,97 +1,87 @@
 'use client';
-import React, { useEffect, useState, useMemo } from 'react';
+
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { fetchCollectionData } from '@/app/actions/getCollection';
 import Image from 'next/image';
+import clsx from 'clsx';
+
+import Icon from '@/components/Icons';
 import WineItem from './WineItem';
 import WineRecLoader from '@/components/Loaders/WineRecLoader';
-import Icon from '@/components/Icons';
-import clsx from 'clsx';
 import { WineShort } from '@/types/Wine';
-import LoadingScreen from '@/components/Loaders/LoadingScreen';
-
 
 interface CollectionData {
   name: string;
   photo: string;
   story: string;
-  subtitle?: string; 
+  subtitle?: string;
   wines: WineShort[];
 }
 
 interface WineCatalogProps {
-  initialSelectedOption?: string;
+  initialSelectedOption?: string;             // e.g. 'DBC'
+  serverCollectionData?: CollectionData | null; // Data from the server
 }
 
-const WineCatalog: React.FC<WineCatalogProps> = ({ initialSelectedOption = 'DBC' }) => {
+const WineCatalog: React.FC<WineCatalogProps> = ({
+  initialSelectedOption = 'DBC',
+  serverCollectionData,
+}) => {
+  // The possible lines (collection names)
   const options = useMemo(() => ['DBC', 'Hermelinda', 'Recuento'], []);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const ref = React.useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const mainControls = useAnimation();
-  const line = searchParams.get('line')?.toLowerCase();
 
-  const [selectedOption, setSelectedOption] = useState<string>(
-    options.find(option => option.toLowerCase() === line) || initialSelectedOption
+  // We'll store the selected line in state (initially from props)
+  const [selectedOption, setSelectedOption] = useState<string>(initialSelectedOption);
+
+  const router = useRouter();
+
+  const mainControls = useAnimation();
+
+  // Local state for the fetched data. We set it from serverCollectionData
+  const [collectionData, setCollectionData] = useState<CollectionData | null>(
+    serverCollectionData || null
   );
 
-  const [collectionData, setCollectionData] = useState<CollectionData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  // If `serverCollectionData` is null or undefined, consider we are "loading"
+  const [loading, setLoading] = useState<boolean>(!serverCollectionData);
 
-
+  // You can define the fallback subtitles here
   const subtitles: { [key: string]: string } = {
-    DBC: 'Sumérgete en la elegancia atemporal y sofisticación que define a nuestra prestigiosa colección DBC',
+    DBC: 'Sumérgete en la elegancia atemporal y sofisticación que define nuestra prestigiosa colección DBC',
     Hermelinda: 'Un homenaje apasionado al legado perdurable de Hermelinda, capturado en cada copa',
     Recuento: 'Permite que Recuento te lleve a revivir memorias y forjar nuevas historias en cada degustación',
   };
-  
 
+
+
+  // If serverCollectionData changes (meaning the page re-rendered on server),
+  // update local state accordingly
   useEffect(() => {
-    if (isInView) {
-      mainControls.start('visible');
-    }
-  }, [isInView, mainControls]);
+    setCollectionData(serverCollectionData || null);
+    setLoading(!serverCollectionData);
+  }, [serverCollectionData]);
 
-  useEffect(() => {
-    let isMounted = true;
-    const fetchData = async () => {
-      setLoading(true);
-      const data = await fetchCollectionData(selectedOption);
-      if (isMounted && data) {
-        setCollectionData(data);
-        setLoading(false);
-      }
-    };
-    fetchData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [selectedOption]);
-
+  // Handle user clicking a different line
   const handleOptionClick = (option: string) => {
     if (selectedOption !== option) {
-      router.push(`?line=${option.toLowerCase()}`, { scroll: false });
       setSelectedOption(option);
+      // Trigger a server re-fetch by pushing new query param 
+      router.push(`?line=${option.toLowerCase()}`, { scroll: false });
     }
   };
 
- 
-  const subtitle = collectionData?.subtitle || subtitles[collectionData?.name || ''] || 'Disfruta de nuestros vinos excepcionales';
+  // Derive subtitle from collectionData or fallback dictionary
+  const subtitle = collectionData?.subtitle || subtitles[collectionData?.name || ''] 
+    || 'Disfruta de nuestros vinos excepcionales';
 
   return (
-    <div className="relative space-y-9 w-full" ref={ref}>
-      <motion.div
-        key={collectionData?.photo}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+    <div className="relative space-y-9 w-full" >
+      <div
         className="relative"
       >
         {loading ? (
-          <div className="w-full  h-126 md:h-144 bg-gray-300 animate-pulse"></div>
+          <div className="w-full h-126 md:h-144 bg-gray-300 animate-pulse"></div>
         ) : (
           <>
             <Image
@@ -105,7 +95,7 @@ const WineCatalog: React.FC<WineCatalogProps> = ({ initialSelectedOption = 'DBC'
               style={{ filter: 'brightness(0.6)' }}
             />
             <div className="absolute bottom-0 left-0 text-back p-6 md:p-12 lg:p-24">
-              <h2 className="text-5xl md:text-6xl lg:text-8xl font-semibold cormorant-garamond-semibold-italic text-white drop-shadow-md">
+              <h2 className="text-5xl md:text-6xl lg:text-8xl font-semibold italic text-white drop-shadow-md">
                 {collectionData?.name || ''}
               </h2>
               <p className="text-lg md:text-xl lg:text-2xl text-white mt-4 drop-shadow-md max-w-3xl">
@@ -114,9 +104,9 @@ const WineCatalog: React.FC<WineCatalogProps> = ({ initialSelectedOption = 'DBC'
             </div>
           </>
         )}
-      </motion.div>
+      </div>
 
-      {/* Collection Description Section */}
+      {/* Collection Description */}
       {!loading && collectionData?.story && (
         <div className="px-8 sm:px-10 md:px-20 w-full flex flex-col items-center pb-3">
           <div className="max-w-4xl text-center space-y-6 mt-12">
@@ -124,16 +114,16 @@ const WineCatalog: React.FC<WineCatalogProps> = ({ initialSelectedOption = 'DBC'
               &ldquo;{collectionData.story}&rdquo;
             </p>
           </div>
-          <div className="absolute   right-0 -z-10">
-          <Icon name="VineLeaf" className="h-80 w-full opacity-40 " />
-      </div>
+          <div className="absolute right-0 -z-10">
+            <Icon name="VineLeaf" className="h-80 w-full opacity-40" />
+          </div>
         </div>
       )}
-       
+
       {/* Options Selector */}
       <div className="flex justify-center py-4 w-full">
         <div className="flex space-x-4">
-          {options?.map(option => (
+          {options?.map((option) => (
             <motion.button
               key={option}
               className={clsx(

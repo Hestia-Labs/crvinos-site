@@ -13,7 +13,7 @@ import InfoCupIcon from '@/assets/icons/InfoCup.svg';
 import InfoVinesIcon from '@/assets/icons/InfoVines.svg';
 import InstagramWhiteIcon from '@/assets/icons/Instagram-White.svg';
 import InstagramIcon from '@/assets/icons/Instagram.svg';
-import RightGrapesIcon from '@/assets/icons/RightGrapes.svg';
+
 import SearchRedIcon from '@/assets/icons/Search-red.svg';
 import ShoppingRedIcon from '@/assets/icons/Shopping-red.svg';
 import ShoppingIcon from '@/assets/icons/Shopping.svg';
@@ -36,7 +36,7 @@ export default {
   InfoVines: InfoVinesIcon,
   InstagramWhite: InstagramWhiteIcon,
   Instagram: InstagramIcon,
-  RightGrapes: RightGrapesIcon,
+
   SearchRed: SearchRedIcon,
   ShoppingRed: ShoppingRedIcon,
   Shopping: ShoppingIcon,

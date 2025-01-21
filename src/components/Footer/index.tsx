@@ -54,12 +54,13 @@ const Footer: React.FC = () => {
     {
       title: 'Explora',
       links: [
+        { name: 'Inicio', route: '/' },
         { name: 'Nosotros', route: '/about' },
         { name: 'Catalogo', route: '/catalog' },
         { name: 'Blog', route: '/blog' },
         { name: 'Enoturismo', route: '/enoturism' },
         { name: 'Contacto', route: '/contact' },
-        { name: 'Cuentas', route: '/account' },
+        // { name: 'Cuentas', route: '/account' },
       ],
     },
     {
@@ -100,10 +101,10 @@ const Footer: React.FC = () => {
           )}
         >
           {/* Left Column: Sections */}
-          <div className='flex flex-col md:flex-row justify-between md:px-12 items-start w-full md:w-1/2 space-y-6 md:space-y-0 md:space-x-8 px-2  mt-10 md:mt-0'>
+          <div className='flex flex-col md:flex-row justify-between md:justify-evenly md:px-4 items-start w-full md:w-1/2 space-y-6 md:space-y-0 md:space-x-8 px-2  mt-10 md:mt-0'>
             {sections.map((section, index) => (
               <div key={index} className='space-y-6'>
-                <h3 className='text-xl font-semibold md:text-4xl italic md:font-thin'>{section.title}</h3>
+                <h3 className='text-xl  md:text-4xl italic font-thin'>{section.title}</h3>
                 <div className='space-y-2 flex-col flex text-sm md:text-base'>
                   {section.links.map((item, linkIndex) => (
                     item.icon ? (
@@ -115,10 +116,10 @@ const Footer: React.FC = () => {
                         />
                         <Link 
                           className={clsx(
-                            'uppercase transition-colors duration-300', 
+                            'uppercase transition-colors duration-300 ', 
                             {
-                              'hover:text-back-75': isRed,
-                              'hover:text-crred-75': !isRed,
+                              'hover:text-back-75 ': isRed,
+                              'hover:text-crred-75 text-gray-700': !isRed,
                             }
                           )} 
                           href={item.route}
@@ -132,7 +133,7 @@ const Footer: React.FC = () => {
                           'uppercase transition-colors duration-300', 
                           {
                             'hover:text-back-75': isRed,
-                            'hover:text-crred-75': !isRed,
+                            'hover:text-crred-75 text-gray-700': !isRed,
                           }
                         )} 
                         key={linkIndex} 
@@ -149,7 +150,7 @@ const Footer: React.FC = () => {
           {/* Right Column: Mailing List and Location */}
           <div
             className={clsx(
-              'flex flex-col justify-start md:justify-between items-start md:border-b-0  pb-5 md:border-l px-8 w-full md:w-1/2 space-y-12',
+              'flex flex-col justify-start md:justify-between items-start md:border-b-0  pb-5 md:border-l px-2 md:px-8 w-full md:w-1/2 space-y-12',
               {
                 'border-back': isRed,
                 'border-crred': !isRed,
@@ -159,9 +160,9 @@ const Footer: React.FC = () => {
             <MailingListForm />
             <div className='flex flex-col items-start space-y-2  md:flex'>
               <h3 className='text-xl md:text-4xl italic font-thin'>Nuestra Ubicación</h3>
-              <div onClick={handleLocationClick} className='flex flex-col items-start space-y-1 cursor-pointer'>
-                <p className='text-sm md:text-lg underline'>Camino Tejocote a San José La Laja km 3.2</p>
-                <p className='text-sm md:text-lg underline'>Tequisquiapan, Qro., México</p>
+              <div onClick={handleLocationClick} className={clsx('flex flex-col items-start space-y-1 cursor-pointer',{'text-gray-700 decoration-crred hover:text-crred-75 transition duration-300': !isRed,})}>
+                <p className='text-sm md:text-lg underline '>Camino Tejocote a San José La Laja km 3.2</p>
+                <p className={'text-sm md:text-lg underline '}>Tequisquiapan, Qro., México</p>
               </div>
             </div>
           </div>

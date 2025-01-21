@@ -13,6 +13,9 @@ interface CollectionData {
   wines: WineShort[];
 }
 
+
+
+
 const clientConfig = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || '',
@@ -24,6 +27,11 @@ const clientConfig = {
 const client = createClient(clientConfig);
 
 export const fetchCollectionData = async (selectedOption: string): Promise<CollectionData | null> => {
+  const collectionMap: Record<'dbc' | 'hermelinda' | 'recuento', string> = {
+    "dbc": 'DBC',
+    "hermelinda": 'Hermelinda',
+    "recuento": 'Recuento',
+  };
   const query = groq`
     *[_type == "collection" && name == $name][0]{
       name,
@@ -56,7 +64,8 @@ export const fetchCollectionData = async (selectedOption: string): Promise<Colle
       }
     }
   `;
-  const params = { name: selectedOption };
+  const key = selectedOption.toLocaleLowerCase() as keyof typeof collectionMap;
+  const params = { name: collectionMap[key] };
   try {
     const collectionData = await client.fetch(query, params);
     if (collectionData) {
@@ -71,7 +80,7 @@ export const fetchCollectionData = async (selectedOption: string): Promise<Colle
     }
     return null;
   } catch (e) {
-    console.log("Failed to fetch collection data:", e);
+ 
     return null;
   }
 };

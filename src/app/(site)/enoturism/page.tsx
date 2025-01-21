@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         alt: "CR Vinos MX",
       },
     ],
-    locale: 'es_ES',
+    locale: 'es_MX',
     type: 'website',
   },
   twitter: {
@@ -37,15 +37,26 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${siteUrl}/enoturism`,
     languages: {
-      'es-ES': `${siteUrl}/enoturism`,
+      'es-MX': `${siteUrl}/enoturism`,
     },
-  },
-  verification: {
-    google: 'google-verification-code',
   },
   appleWebApp: {
     title: 'CR Vinos MX',
     statusBarStyle: 'black-translucent',
+  },
+  robots: {
+    index: true, 
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+    
   },
 };
 

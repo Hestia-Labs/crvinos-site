@@ -3,6 +3,9 @@
 import { createClient } from 'next-sanity';
 import { groq } from 'next-sanity';
 import { BlogPost, BlogPostShort } from '@/types/Blog';
+import { cache } from 'react';
+
+
 
 const clientConfig = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',

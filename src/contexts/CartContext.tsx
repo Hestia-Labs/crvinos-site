@@ -73,15 +73,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     async function initializeCart() {
-      setIsLoading(true); // Start loading
+      setIsLoading(true); 
       try {
         let cartId = await getCartId();
         
         if (!cartId) {
           const cart = await createCartAndSetCookie();
+         
         }
 
-        // Fetch the current cart data using the cartId
+
         const cartData = await getCurrentCart();
 
         if (!cartData) {

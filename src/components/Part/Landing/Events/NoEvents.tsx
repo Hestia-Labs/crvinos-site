@@ -29,7 +29,7 @@ const NoEvents: React.FC = () => {
                     />
                 </svg> */}
                 {/* Message */}
-                <h3 className="text-2xl font-semibold">
+                <h3 className=" text-lg font-thin md:text-2xl ">
                     No hay eventos próximos
                 </h3>
                 <p className="text-base text-gray-700 font-light max-w-md">
@@ -41,7 +41,9 @@ const NoEvents: React.FC = () => {
                 <BasicButtom
                     variant='transparent'
                     onClick={handleExplorePastEvents}
-                    className="border border-crred text-base"
+                    sizex='small'
+                    sizey='small'
+                    className="border border-crred text-sm md:text-base "
                 >
                     Explorar eventos pasados
                 </BasicButtom>
