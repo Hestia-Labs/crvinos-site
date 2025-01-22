@@ -4,6 +4,7 @@ import { createClient } from 'next-sanity';
 import { groq } from 'next-sanity';
 import { BlogPost, BlogPostShort } from '@/types/Blog';
 import { cache } from 'react';
+import imageUrlBuilder  from '@sanity/image-url';
 
 
 
@@ -84,3 +85,15 @@ export async function getBlogs({
 
   return client.fetch(query, {});
 }
+
+
+
+
+export async function urlFor(source: string) {
+
+  const builder = imageUrlBuilder(client)
+
+  return builder.image(source)
+}
+
+

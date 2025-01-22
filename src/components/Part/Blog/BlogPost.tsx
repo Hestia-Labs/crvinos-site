@@ -9,57 +9,77 @@ import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Icon from '@/components/Icons';
 import BasicButton from '@/components/Buttons/BasicButton';
+import { clientConfig } from '@/utils/sanity/config';
+import imageUrlBuilder from '@sanity/image-url';
+
 
 type Props = {
   blogPost: BlogPost;
   recommendedWine: Wine | null;
 };
 
-const myPortableTextComponents: Partial<PortableTextReactComponents> = {
-  block: {
-    normal: ({ children }) => (
-      <p className="text-gray-700 text-xl mb-6 leading-relaxed">{children}</p>
-    ),
-    h1: ({ children }) => (
-      <h1 className="text-4xl md:text-5xl text-crred tracking-wide mt-12 mb-8">{children}</h1>
-    ),
-    h2: ({ children }) => (
-      <h2 className="text-3xl text-crred mt-10 mb-6">{children}</h2>
-    ),
-    h3: ({ children }) => (
-      <h3 className="text-2xl text-crred mt-8 mb-4">{children}</h3>
-    ),
-    blockquote: ({ children }) => (
-      <blockquote className="text-gray-600 text-xl italic border-l-4 border-crred pl-4 my-8">
-        {children}
-      </blockquote>
-    ),
-  },
-  list: {
-    bullet: ({ children }) => (
-      <ul className="list-disc list-inside text-gray-700 text-lg ml-4 mb-6">{children}</ul>
-    ),
-    number: ({ children }) => (
-      <ol className="list-decimal list-inside text-gray-700 text-lg ml-4 mb-6">{children}</ol>
-    ),
-  },
-  listItem: {
-    bullet: ({ children }) => <li className="mb-2">{children}</li>,
-    number: ({ children }) => <li className="mb-2">{children}</li>,
-  },
-  marks: {
-    link: ({ children, value }) => {
-      const rel = value.href && !value.href.startsWith('/') ? 'noreferrer noopener' : undefined;
-      return (
-        <a href={value.href} rel={rel} className="text-crred underline">
-          {children}
-        </a>
-      );
-    },
-  },
-};
+
 
 export default function BlogPostPage({ blogPost, recommendedWine }: Props) {
+  const builder = imageUrlBuilder(clientConfig)
+  const urlFor = (source: string) => builder.image(source)
+
+  const myPortableTextComponents: Partial<PortableTextReactComponents> = {
+    block: {
+      normal: ({ children }) => (
+        <p className="text-gray-700 text-xl mb-6 leading-relaxed">{children}</p>
+      ),
+      h1: ({ children }) => (
+        <h1 className="text-4xl md:text-5xl text-crred tracking-wide mt-12 mb-8">{children}</h1>
+      ),
+      h2: ({ children }) => (
+        <h2 className="text-3xl text-crred mt-10 mb-6">{children}</h2>
+      ),
+      h3: ({ children }) => (
+        <h3 className="text-2xl text-crred mt-8 mb-4">{children}</h3>
+      ),
+      blockquote: ({ children }) => (
+        <blockquote className="text-gray-600 text-xl italic border-l-4 border-crred pl-4 my-8">
+          {children}
+        </blockquote>
+      ),
+    },
+    list: {
+      bullet: ({ children }) => (
+        <ul className="list-disc list-inside text-gray-700 text-lg ml-4 mb-6">{children}</ul>
+      ),
+      number: ({ children }) => (
+        <ol className="list-decimal list-inside text-gray-700 text-lg ml-4 mb-6">{children}</ol>
+      ),
+    },
+    listItem: {
+      bullet: ({ children }) => <li className="mb-2">{children}</li>,
+      number: ({ children }) => <li className="mb-2">{children}</li>,
+    },
+    marks: {
+      link: ({ children, value }) => {
+        const rel = value.href && !value.href.startsWith('/') ? 'noreferrer noopener' : undefined;
+        return (
+          <a href={value.href} rel={rel} className="text-crred underline">
+            {children}
+          </a>
+        );
+      },
+    },
+    types: {
+      image: async ({ value }) => {const image = urlFor(value.asset._ref).width(800).height(600).url(); return(
+        <div className="my-8">
+          <Image
+            src={ image || ''}
+            alt={value.alt || 'Blog Image'}
+            width={800}
+            height={600}
+            className="object-cover object-center rounded-lg"
+          />
+        </div>
+      )},
+    },
+  };
   return (
     <div className="flex flex-col min-h-screen justify-center items-center">
       <Navbar redLogo red relative />

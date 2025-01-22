@@ -29,5 +29,4 @@ export type ImageAsset = {
     content: PortableTextBlock[];
     tags?: string[];
     author?: Author;
-  };
-  
+  };  

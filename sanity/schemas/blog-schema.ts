@@ -49,6 +49,22 @@ const blogSchema = defineType({
         {
           type: 'block',
         },
+        {
+          type: 'image',
+          fields: [
+            {
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              options: {
+                isHighlighted: true,
+              },
+            },
+          ],
+          options: {
+            hotspot: true,
+          },
+        },
       ],
     }),
     defineField({

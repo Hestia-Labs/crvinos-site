@@ -35,6 +35,17 @@ const WineProfile: React.FC<{ wine: Wine; wineDetails: { title: string; descript
         >
           Detalles del Vino
         </button>
+        {wine?.awards && wine.awards.length > 0 && (
+          <button
+            className={clsx(
+              'text-crred py-2 px-4 -mb-px font-semibold',
+              activeTab === 'awards' ? 'border-b-2 border-crred' : 'opacity-50'
+            )}
+            onClick={() => setActiveTab('awards')}
+          >
+            Premios
+          </button>
+        )}
       </div>
       {/* Tabs Content */}
       <div className="py-6">
@@ -92,6 +103,44 @@ const WineProfile: React.FC<{ wine: Wine; wineDetails: { title: string; descript
                           {profileItem.name}
                         </p>
                       </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+          {activeTab === 'awards' && wine?.awards && wine.awards.length > 0 && (
+            <motion.div
+              key="awards"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              style={{ overflow: 'hidden' }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="w-3/4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {wine.awards.map((award, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-start justify-center space-y-1 relative cursor-pointer"
+                      onClick={() => window.open(award.premioLink, '_blank', 'noopener,noreferrer')}
+                    >
+                      <div className='flex flex-col items-center'>
+                        <Image
+                          src={award.premioImage.asset.url}
+                          alt={award.premioImage.alt}
+                          width={150}
+                          height={150}
+                          quality={100}
+                          className="w-auto h-24 "
+                        />
+                        <div className="text-crred font-semibold text-sm md:text-base">
+                          {award.premioName}
+                        </div>
+                        <div className="text-gray-700 text-xs md:text-sm">{award.premioOrganization}</div>
+                      </div>
+                      
                     </div>
                   ))}
                 </div>
