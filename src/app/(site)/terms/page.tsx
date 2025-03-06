@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: `${siteUrl}/img/termPreview.png`,
-        width: 800,
-        height: 600,
+        width: 300,
+        height: 225,
         alt: "CRVinos",
       },
     ],
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
 
 const TermsAndConditionsPage: React.FC = () => {
   return (
-    <div className='flex flex-col'>
+    <div className='flex relative flex-col'>
       <TermsAndConditions />
     </div>
   );

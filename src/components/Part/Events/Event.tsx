@@ -9,247 +9,265 @@ import { Event } from '@/types/Event';
 import Icon from '@/components/Icons';
 import EventDescLoader from '@/components/Loaders/EventDescLoader';
 import { PortableText } from '@portabletext/react';
-import { PortableTextComponentProps } from '@portabletext/react';
-import { PortableTextReactComponents } from '@portabletext/react';
-import { PortableTextMarkComponentProps } from '@portabletext/react';
+import { myPortableTextComponents } from '@/utils/CustomPortableText';
+import BasicButton from '@/components/Buttons/BasicButton';
 import Image from 'next/image';
 
-const myPortableTextComponents: Partial<PortableTextReactComponents> = {
-  block: {
-    normal: ({ children }) => (
-      <p className="text-gray-700 text-lg">{children}</p>
-    ),
-    h1: ({ children }) => (
-      <h1 className="text-2xl md:text-4xl text-crred tracking-wide mb-2">
-        {children}
-      </h1>
-    ),
-    h2: ({ children }) => (
-      <h2 className="text-xl text-crred mb-2">{children}</h2>
-    ),
-    blockquote: ({ children }) => (
-      <blockquote className="text-crred text-lg">{children}</blockquote>
-    ),
-  },
-  list: {
-    bullet: ({ children }) => (
-      <ul className="list-disc list-inside text-gray-700 text-lg ml-4">
-        {children}
-      </ul>
-    ),
-    number: ({ children }) => (
-      <ol className="list-decimal list-inside text-crred text-lg ml-4">
-        {children}
-      </ol>
-    ),
-  },
-  listItem: {
-    bullet: ({ children }) => (
-      <li className="text-gray-700 text-lg">{children}</li>
-    ),
-    number: ({ children }) => (
-      <li className="text-crred text-lg">{children}</li>
-    ),
-  },
-  marks: {
-    link: ({ children, value }: PortableTextMarkComponentProps) => {
-      const rel =
-        value?.href && !value.href.startsWith('/') ? 'noreferrer noopener' : undefined;
-      return (
-        <a
-          href={value?.href || '#'}
-          rel={rel}
-          className="text-crred text-lg underline"
-        >
-          {children}
-        </a>
-      );
-    },
-  },
-};
+interface EventPageProps {
+  event: Event;
+  isPastEvent: boolean;
+}
 
-const EventNotFound = () => {
-  return (
-    <div className="flex flex-col relative space-y-9">
-      <Navbar relative red redLogo />
-      <div className="flex relative w-full h-full px-4 sm:px-10 md:px-20 flex-col space-y-6">
-        <div className="mt-4 space-y-8 w-full">
-          <div className="flex flex-col relative space-y-8 w-full items-center">
-            <div className="flex flex-col items-center justify-center space-y-6 py-9 px-4 md:px-12 h-full">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl text-crred italic tracking-wide mb-2">
-                Evento no encontrado
-              </h1>
-              <p className="text-gray-700 text-base sm:text-lg md:text-xl font-thin text-center">
-                Lo sentimos, no pudimos encontrar el evento que estás buscando.
-              </p>
-              <Link href="/enoturism" className="text-crred underline">
-                Volver a eventos
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
-const EventPage: React.FC = () => {
-  const params = useParams<{ slug: string }>();
-  const [event, setEvent] = useState<Event | null>(null);
-  const [isPastEvent, setIsPastEvent] = useState<boolean>(false);
-  const [notFoundState, setNotFoundState] = useState<boolean>(false);
+
+
+
+const EventPage: React.FC<EventPageProps> = ({ event, isPastEvent }) => {
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        const events = await getEvents({ eventId: params.slug });
-        if (events.length > 0) {
-          const fetchedEvent = events[0] as Event;
-          setEvent(fetchedEvent);
-
-          // Check if the event is in the past
-          const now = new Date();
-          const eventEndDate = new Date(fetchedEvent.dates.end);
-          if (eventEndDate < now) {
-            setIsPastEvent(true);
-          }
-        } else {
-          setNotFoundState(true); // Added this line
-        }
-      } catch (error) {
-        console.error('Error fetching event:', error);
-        setNotFoundState(true); // Handle error by showing not found
-      }
-    };
-
-    fetchEvent();
-  }, [params.slug]);
-
+  const [showRSVPModal, setShowRSVPModal] = useState(false);
+  // Move format functions here
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    return date.toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
   };
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
+    return date.toLocaleTimeString('es-ES', {
       hour: '2-digit',
-      minute: '2-digit',
-      hour12: true,
-    };
-    return date.toLocaleTimeString('en-US', options);
+      minute: '2-digit'
+    });
   };
 
-  if (notFoundState || !event) {
-    return <EventNotFound />;
-  }
-
+  const handleRSVPSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Add actual RSVP logic
+    console.log('RSVP submitted');
+    setShowRSVPModal(false);
+  };
+  
   return (
-    <div className="flex flex-col w-full items-center justify-center py-12 space-y-7">
-      <Navbar redLogo red={true} relative={true} />
-      <div className="px-4 md:px-20 w-full flex flex-col justify-center items-center">
+    <div className="relative flex flex-col w-full items-center min-h-screen">
+      <Navbar redLogo red relative />
+       {/* RSVP Modal */}
+       {showRSVPModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-semibold text-crred">Registro para Evento</h3>
+              <button
+                onClick={() => setShowRSVPModal(false)}
+                className="text-gray-500 hover:text-crred"
+              >
+                <Icon name="Close" className="h-6 w-6" />
+              </button>
+            </div>
+            
+            <form onSubmit={handleRSVPSubmit}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Nombre completo
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-crred focus:border-crred"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Correo electrónico
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-crred focus:border-crred"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Teléfono
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-crred focus:border-crred"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-crred text-white rounded-lg font-semibold hover:bg-crred-dark"
+                >
+                  Enviar Registro
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      
+      {/* Main Content Container */}
+      <main className="w-full max-w-7xl px-4 md:px-8 lg:px-12 py-12">
+        {/* Back Navigation */}
+        <div className="w-full mb-8">
+          <button
+            onClick={() => router.push('/enotourism')}
+            className="flex items-center group space-x-2 transition-transform duration-200"
+          >
+            <Icon
+              name="Arrow"
+              className="h-5 w-5 text-crred transform rotate-180 transition-transform group-hover:-translate-x-1"
+            />
+            <span className=" text-lg text-crred hover:text-crred-dark transition-colors">
+              Volver a Eventos
+            </span>
+          </button>
+        </div>
+
+        {/* Event Content */}
         {!event ? (
           <EventDescLoader />
         ) : (
-          <div className="w-full flex flex-col justify-center items-center py-8 border-crred border-t-2">
-            <div className="flex w-full justify-start items-start">
-              <div
-                onClick={() => router.push('/enoturism')}
-                className="flex items-center space-x-2 transition duration-300 ease-in-out transform hover:-translate-x-2 cursor-pointer mb-6"
-              >
-                <Icon
-                  name="Arrow"
-                  className="h-5 w-5 transition-transform duration-300 ease-in-out transform hover:translate-x-2"
-                  style={{ transform: 'rotate(180deg)' }}
-                />
-                <p className="font-cormorant text-crred transition-colors duration-300 ease-in-out hover:text-crred-light">
-                  Regresar a Eventos
-                </p>
-              </div>
-            </div>
-            <div className="relative w-full">
+          <article className="w-full">
+            {/* Event Header */}
+            <div className="relative h-126 rounded-xl overflow-hidden shadow-xl mb-12">
               <Image
                 src={event.posterURL}
                 alt={event.posterAlt}
-                width={0}
-                height={0}
-                sizes='100vw'
-                className={`w-full h-64 md:h-100 object-cover mb-4 cursor-pointer ${
-                  isPastEvent ? 'grayscale' : ''
-                }`}
-                onClick={() =>
-                  window.open(event.locationLink, '_blank', 'noopener noreferrer')
-                }
+                fill
+                className={`object-cover transition-opacity ${isPastEvent ? 'grayscale' : 'hover:opacity-95'}`}
               />
+              
               {isPastEvent && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="bg-black bg-opacity-50 text-white py-2 px-4 rounded">
-                    <p className="text-xl font-semibold">Evento Pasado</p>
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <div className="bg-white/90 px-6 py-3 rounded-full shadow-md">
+                    <p className="text-xl font-semibold text-crred">Evento Finalizado</p>
                   </div>
                 </div>
               )}
             </div>
-            <div className="flex flex-col md:flex-row gap-8 border-crred border-t mt-4 w-full py-8">
-              <div className="w-full md:w-2/3 px-4 space-y-6">
-                <h1 className="text-3xl md:text-5xl text-crred tracking-wide mb-4 font-semibold">
-                  {event.title}
-                </h1>
-                <div className="prose max-w-none text-crred">
+
+            {/* Event Grid Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+              {/* Main Content */}
+              <div className="lg:col-span-3 space-y-8">
+                <header className="border-b border-crred/20 pb-6">
+                  <h1 className="text-3xl md:text-5xl font-light text-crred tracking-wide">
+                    {event.title}
+                  </h1>
+                </header>
+
+                <section className="prose prose-lg max-w-none text-gray-800">
                   <PortableText
                     value={event.description}
                     components={myPortableTextComponents}
                   />
-                </div>
+                </section>
               </div>
-              <div className="w-full md:w-1/3 px-4 space-y-4">
-                <div className="bg-back p-6 rounded-lg shadow-md">
-                  <h2 className="text-2xl text-crred mb-4 font-semibold">
+
+              {/* Sidebar Details */}
+              <aside className="lg:col-span-1 lg:sticky lg:top-24 h-fit">
+                <div className="bg-white border border-crred/20 rounded-xl p-6 shadow-md">
+                  <h2 className="text-2xl font-light text-crred mb-6 ">
                     Detalles del Evento
                   </h2>
-                  <p className="text-crred text-lg">
-                    <strong>Organizador:</strong> {event.organizer}
-                  </p>
-                  <p className="text-crred text-lg">
-                    <strong>Fecha:</strong> {formatDate(event.dates.start)} -{' '}
-                    {formatDate(event.dates.end)}
-                  </p>
-                  <p className="text-crred text-lg">
-                    <strong>Hora:</strong> {formatTime(event.dates.start)} -{' '}
-                    {formatTime(event.dates.end)}
-                  </p>
-                  <p className="text-crred text-lg">
-                    <strong>Lugar:</strong> {event.textLocation}
-                  </p>
-                  <p className="text-crred text-lg">
-                    <strong>Categorías:</strong> {event.categories.join(', ')}
-                  </p>
-                  <p className="text-crred text-lg">
-                    <strong>Límite de Asistencia:</strong> {event.attendanceCap}
-                  </p>
-                </div>
-                {!isPastEvent ? (
-                  <button
-                    className="w-full py-3 bg-crred text-white text-lg font-semibold rounded-lg hover:bg-crred-light transition duration-300"
-                    onClick={() => {
-                      // Handle event registration or ticket purchase
-                    }}
+
+                  <dl className="space-y-4">
+                    <div>
+                      <dt className="text-sm font-medium text-crred uppercase tracking-wide">Organizador</dt>
+                      <dd className="mt-1 text-gray-700">{event.organizer}</dd>
+                    </div>
+
+                    <div>
+                      <dt className="text-sm font-medium text-crred uppercase tracking-wide">Fecha</dt>
+                      <dd className="mt-1 text-gray-700">
+                        {formatDate(event.dates.start)} – {formatDate(event.dates.end)}
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt className="text-sm font-medium text-crred uppercase tracking-wide">Horario</dt>
+                      <dd className="mt-1 text-gray-700">
+                        {formatTime(event.dates.start)} – {formatTime(event.dates.end)}
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt className="text-sm font-medium text-crred uppercase tracking-wide">Ubicación</dt>
+                      <dd className="mt-1 text-gray-700">
+                        <a href={event.locationLink} target="_blank" rel="noopener noreferrer" className="hover:text-crred-75 underline transition duration-300 ease-in-out">
+                          {event.textLocation}
+                        </a>
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt className="text-sm font-medium text-crred uppercase tracking-wide">Categorías</dt>
+                      <dd className="mt-1 text-gray-700">{event.categories.join(', ')}</dd>
+                    </div>
+
+                    <div>
+                      <dt className="text-sm font-medium text-crred uppercase tracking-wide">Aforo</dt>
+                      <dd className="mt-1 text-gray-700">{event.attendanceCap} personas</dd>
+                    </div>
+                  </dl>
+
+                  {/* Registration Section */}
+        <div className="mt-8">
+          {isPastEvent ? (
+            <div className="w-full py-3 text-center bg-gray-100 text-gray-500 rounded-lg cursor-not-allowed">
+              Registro Cerrado
+            </div>
+          ) : event.useRSVPForm ? (
+            <BasicButton
+              onClick={() => setShowRSVPModal(true)}
+              className="border-crred border"
+              variant='bg-crred'
+            >
+              Registrarse Ahora
+            </BasicButton>
+          ) : (
+            <div className="space-y-4">
+              <div className="bg-crred/10 p-6 rounded-lg">
+                <h3 className="text-lg font-semibold text-crred mb-2">Registro</h3>
+                <p className="text-gray-700 mb-2">
+                   Por favor contactar para registro:
+                </p>
+                {event.contactForRegistration?.includes('@') ? (
+                  <a
+                    href={`mailto:${event.contactForRegistration}`}
+                    className="text-crred hover:text-crred-dark underline"
                   >
-                    Registrarse
-                  </button>
+                    {event.contactForRegistration}
+                  </a>
                 ) : (
-                  <div className="w-full py-3 bg-crred-75 text-back-75 text-lg font-semibold rounded-lg text-center cursor-not-allowed">
-                    Evento Finalizado
-                  </div>
+                  <a
+                    href={`tel:${event.contactForRegistration}`}
+                    className="text-crred hover:text-crred-dark underline"
+                  >
+                    {event.contactForRegistration}
+                  </a>
+                )}
+                {event.registrationInstructions && (
+                  <p className="mt-4 text-sm text-gray-600">
+                    {event.registrationInstructions}
+                  </p>
                 )}
               </div>
             </div>
-          </div>
+          )}
+        </div>
+                </div>
+              </aside>
+            </div>
+          </article>
         )}
-      </div>
+      </main>
     </div>
   );
 };

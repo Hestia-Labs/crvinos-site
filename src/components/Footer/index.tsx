@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import MailingListForm from './MailingListForm';
 import clsx from 'clsx';
 import { useColor } from '@/contexts/ColorContext';  
+import Image from 'next/image';
 import Link from 'next/link';
 
 const Footer: React.FC = () => {
@@ -56,15 +57,16 @@ const Footer: React.FC = () => {
       links: [
         { name: 'Inicio', route: '/' },
         { name: 'Nosotros', route: '/about' },
+        { name: 'Restaurante', route: '/restaurant' },
         { name: 'Catalogo', route: '/catalog' },
         { name: 'Blog', route: '/blog' },
-        { name: 'Enoturismo', route: '/enoturism' },
+        { name: 'Enoturismo', route: '/enotourism' },
         { name: 'Contacto', route: '/contact' },
         // { name: 'Cuentas', route: '/account' },
       ],
     },
     {
-      title: 'Redes Sociales',
+      title: 'Redes',
       links: [
         { name: 'Instagram', route: 'https://www.instagram.com/crvinosmx/', icon: logoInstagram },
         { name: 'Facebook', route: 'https://www.facebook.com/profile.php?id=100078033250234&mibextid=LQQJ4d', icon: logoFacebook },
@@ -77,7 +79,7 @@ const Footer: React.FC = () => {
       className={clsx(
         'flex flex-col w-full items-center justify-start pt-8 px-4 sm:px-10 md:px-20',
         {
-          'bg-accred text-back': isRed,
+          'bg-accred text-back-75': isRed,
           'bg-transparent text-white': !isRed,
         }
       )}
@@ -95,7 +97,7 @@ const Footer: React.FC = () => {
           className={clsx(
             'w-full flex flex-col-reverse md:flex-row md:space-x-8 justify-between items-start',
             {
-              'text-back': isRed,
+              'text-back-75': isRed,
               'text-crred': !isRed,
             }
           )}
@@ -104,7 +106,10 @@ const Footer: React.FC = () => {
           <div className='flex flex-col md:flex-row justify-between md:justify-evenly md:px-4 items-start w-full md:w-1/2 space-y-6 md:space-y-0 md:space-x-8 px-2  mt-10 md:mt-0'>
             {sections.map((section, index) => (
               <div key={index} className='space-y-6'>
-                <h3 className='text-xl  md:text-4xl italic font-thin'>{section.title}</h3>
+                <h3 className={clsx('text-xl md:text-4xl italic font-thin', {
+                  'text-back': isRed,
+                  'text-crred': !isRed,
+                })}>{section.title}</h3>
                 <div className='space-y-2 flex-col flex text-sm md:text-base'>
                   {section.links.map((item, linkIndex) => (
                     item.icon ? (
@@ -123,6 +128,8 @@ const Footer: React.FC = () => {
                             }
                           )} 
                           href={item.route}
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
                           {item.name}
                         </Link>
@@ -159,7 +166,7 @@ const Footer: React.FC = () => {
           >
             <MailingListForm />
             <div className='flex flex-col items-start space-y-2  md:flex'>
-              <h3 className='text-xl md:text-4xl italic font-thin'>Nuestra Ubicación</h3>
+              <h3 className={clsx('text-xl md:text-4xl italic font-thin', {'text-back': isRed, 'text-crred': !isRed})}>Nuestra Ubicación</h3>
               <div onClick={handleLocationClick} className={clsx('flex flex-col items-start space-y-1 cursor-pointer',{'text-gray-700 decoration-crred hover:text-crred-75 transition duration-300': !isRed,})}>
                 <p className='text-sm md:text-lg underline '>Camino Tejocote a San José La Laja km 3.2</p>
                 <p className={'text-sm md:text-lg underline '}>Tequisquiapan, Qro., México</p>
@@ -177,7 +184,13 @@ const Footer: React.FC = () => {
             }
           )}
         >
-          <Icon name={`CRVinos${logoColorClass}`} className="h-36 w-36 " />
+          <Image
+            src={`/img/icons/CRVinos${logoColorClass}.svg`}
+            alt="CR Vinos Logo"
+            width={144}
+            height={144}
+            className="h-36 w-36"
+          />
           <p>CR Vinos MX ® | Todos los Derechos Reservados</p>
         </div>
       </div>

@@ -48,7 +48,7 @@ const MailingListForm: React.FC = () => {
 
   return (
     <div className={'w-full'}>
-      <h3 className={clsx('text-xl md:text-4xl text-start italic', {
+      <h3 className={clsx('text-xl md:text-4xl italic font-thin', {
         'text-back': isRed,
         'text-crred': !isRed,
       })}>
@@ -68,7 +68,7 @@ const MailingListForm: React.FC = () => {
           required
         />
         <BasicButton
-          variant={isRed ? 'transparent-foot' : 'bg-crred'}
+          variant={isRed ? 'transparent-foot' : 'transparent'}
           sizey="small"
           sizex="small"
           className={clsx('rounded-md border border-solid text-nowrap text-xs/3 md:text-base', {

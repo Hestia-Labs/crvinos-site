@@ -1,54 +1,62 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import BasicButtom from '@/components/Buttons/BasicButton';
+import BasicButton from '@/components/Buttons/BasicButton';
+import { motion } from 'framer-motion';
 
 const NoEvents: React.FC = () => {
     const router = useRouter();
 
     const handleExplorePastEvents = () => {
-        router.push('/enoturism');
+        router.push('/enotourism');
     };
 
     return (
-        <div className="w-full flex flex-col items-center justify-center text-center text-crred md:text-xl py-6">
-            <div className="flex flex-col items-center space-y-6">
-                {/* Icon or Image */}
-                {/* Uncomment and replace with your icon or image if desired */}
-                {/* <svg
-                    className="w-16 h-16 text-crred"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M16 9V5a1 1 0 10-2 0v4H10V5a1 1 0 10-2 0v4H5v10h14V9h-3z"
-                    />
-                </svg> */}
-                {/* Message */}
-                <h3 className=" text-lg font-thin md:text-2xl ">
-                    No hay eventos próximos
-                </h3>
-                <p className="text-base text-gray-700 font-light max-w-md">
-                    Actualmente no tenemos eventos programados. Por favor,
-                    vuelve a comprobar más tarde para enterarte de nuestros
-                    próximos eventos.
-                </p>
-                {/* Button to Explore Past Events */}
-                <BasicButtom
-                    variant='transparent'
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="w-full flex flex-col items-center justify-center text-center py-8 px-4"
+        >
+            <div className="max-w-2xl space-y-8">
+                {/* Calendar Icon */}
+                <div className="flex justify-center">
+                    <svg
+                        className="w-16 h-16 text-crred opacity-80"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={0.5}
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                    </svg>
+                </div>
+
+                {/* Content */}
+                <div className="space-y-4">
+                    <p className="text-gray-600 font-light leading-relaxed max-w-md mx-auto text-base md:text-lg">
+                        Estamos preparando nuevas experiencias. Suscríbete a nuestro 
+                        newsletter para ser el primero en enterarte de nuestras próximas 
+                        actividades.
+                    </p>
+                </div>
+
+                {/* Action Button */}
+                
+                <BasicButton
+                    variant="transparent"
                     onClick={handleExplorePastEvents}
-                    sizex='small'
-                    sizey='small'
-                    className="border border-crred text-sm md:text-base "
+                    className="border-crred border text-crred "
                 >
-                    Explorar eventos pasados
-                </BasicButtom>
+                    Ver Eventos Anteriores
+                </BasicButton>
+               
             </div>
-        </div>
+        </motion.div>
     );
 };
 

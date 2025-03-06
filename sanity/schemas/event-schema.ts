@@ -138,6 +138,24 @@ const eventSchema = defineType({
       validation: (Rule) => Rule.uri({ allowRelative: false, scheme: ['http', 'https'] }).warning('URL inválida, asegúrese de usar http o https.'),
     }),
     defineField({
+      name: 'useRSVPForm',
+      title: 'Usar formulario de RSVP',
+      type: 'boolean',
+      description: 'Indica si se debe usar un formulario de RSVP para el evento.',
+    }),
+    defineField({
+      name: 'contactForRegistration',
+      title: 'Contacto para Registro',
+      type: 'string',
+      validation: (Rule) => Rule.required().error('Debe proporcionar un contacto para el registro.'),
+    }),
+    defineField({
+      name: 'registrationInstructions',
+      title: 'Instrucciones de Registro',
+      type: 'text',
+      validation: (Rule) => Rule.required().min(10).warning('Las instrucciones de registro son demasiado cortas.'),
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',

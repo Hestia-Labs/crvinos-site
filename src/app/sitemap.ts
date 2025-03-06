@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const postEntries : MetadataRoute.Sitemap = blogs.map((post) => ({
         url: `${process.env.SITE_URL}/blog/${post.slug}`,
-        priority: 0.6
+        priority: 1
     }));
 
     const wineEntries : MetadataRoute.Sitemap = wines.map((wine) => ({
@@ -22,7 +22,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     const eventEntries : MetadataRoute.Sitemap = events.map((event) => ({
-        url: `${process.env.SITE_URL}/events/${event.slug}`
+        url: `${process.env.SITE_URL}/enotourism/events/${event.slug}`,
+        priority: 1
     }));
     return [
         {
@@ -34,20 +35,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1
         },
         {
+            url: `${process.env.SITE_URL}/restaurant`,
+            priority: 1
+        },
+        {
+            url: `${process.env.SITE_URL}/restaurant/menu`,
+            priority: 1
+        },
+        {
             url: `${process.env.SITE_URL}/contact`,
             priority: 1
         },
         {
             url: `${process.env.SITE_URL}/blog`,
-            priority: 0.6
+            priority: 1
         },
         {
             url: `${process.env.SITE_URL}/catalog`,
             priority: 1
         },
         {
-            url: `${process.env.SITE_URL}/enoturism`,
-            priority: 0.7
+            url: `${process.env.SITE_URL}/enotourism`,
+            priority: 1
+        },
+        {
+            url: `${process.env.SITE_URL}/enotourism/events`,
+            priority: 1
         },
         {
             url: `${process.env.SITE_URL}/legal`,

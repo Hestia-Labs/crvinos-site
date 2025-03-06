@@ -18,6 +18,7 @@ import { InstagramPost } from '@/types/Instragram';
 export const runtime = 'edge';
 
 export const metadata: Metadata = {
+  applicationName: "CR Vinos MX",
   title: "Inicio | CR Vinos MX | Vinos de la más alta calidad ",
   description: "CR vinos es una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.",
   keywords: "vinos, CRVinos, alta calidad, vinos mexicanos, empresa mexicana, vinos en mexico, vinos calidad, calidad, vino tinto, vino blanco, vino rosado, cata de vinos, maridaje, enoturismo, bodega, viñedo, sommelier, degustación",

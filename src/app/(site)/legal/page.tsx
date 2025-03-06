@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     siteName: "CRVinos",
     images: [
       {
-        url: `${siteUrl}/img/legalPreview.png`,
-        width: 800,
-        height: 600,
+        url: `${siteUrl}/img/crvinosmxLogo.jpg`,
+        width: 300,
+        height: 225,
         alt: "CRVinos",
       },
     ],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CRVinos| Vinos de Alta Calidad | Aviso Legal',
     description: 'Lee nuestro aviso legal para entender las condiciones de uso de CRVinos.',
-    images: [`${siteUrl}/img/legalPreview.png`],
+    images: [`${siteUrl}/img/crvinosmxLogo.jpg`],
   },
   alternates: {
     canonical: `${siteUrl}/legal`,
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
 
 const LegalNoticePage: React.FC = () => {
   return (
-    <div className='flex flex-col'>
+    <div className='relative flex flex-col'>
       <LegalNotice />
     </div>
   );

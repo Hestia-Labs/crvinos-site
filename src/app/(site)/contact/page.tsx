@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     siteName: "CR Vinos MX",
     images: [
       {
-        url: `${siteUrl}/img/contactPreview.png`,
-        width: 800,
-        height: 600,
+        url: `${siteUrl}/img/crvinosmxLogo.jpg`,
+        width: 300,
+        height: 225,
         alt: "CR Vinos MX",
       },
     ],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CR Vinos MX | Vinos de la más alta calidad | Contacto',
     description: 'Ponte en contacto con CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.',
-    images: [`${siteUrl}/img/contactPreview.png`],
+    images: [`${siteUrl}/img/crvinosmxLogo.jpg`],
   },
   alternates: {
     canonical: `${siteUrl}/contact`,

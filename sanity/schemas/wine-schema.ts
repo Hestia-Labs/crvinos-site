@@ -13,6 +13,13 @@ const collectionSchema = defineType({
       validation: (Rule) => Rule.required().error('El nombre es obligatorio.'),
     }),
     defineField({
+      name: 'subtitle',
+      title: 'Subtítulo',
+      type: 'text',
+      rows: 3 ,
+      validation: (Rule) => Rule.required().error('La historia es obligatoria.'),
+    }),
+    defineField({
       name: 'story',
       title: 'Historia',
       type: 'text',

@@ -11,20 +11,28 @@ interface BasicButtonProps {
     onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
     className?: string;
     disabled?: boolean;
-    link?: string;  
+    link?: string;
+    type?: 'button' | 'submit' | 'reset';  // Added type prop
 }
 
-const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', sizey = 'medium', children, onClick, className = '', disabled = false, link }) => {
+const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', sizey = 'medium', children, onClick, className = '', disabled = false, link, type = 'button' }) => {  // Default type to 'button'
     const router = useRouter();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        if (link) {
-            router.push(link);
-        } else if (onClick) {
-            if (event) {
-                event.preventDefault();
+        if (type === 'submit' || type === 'reset') {
+            // Allow default behavior for submit and reset types
+            if (onClick) {
+                onClick(event);
             }
-            onClick(event);
+        } else {
+            if (link) {
+                router.push(link);
+            } else if (onClick) {
+                if (event) {
+                    event.preventDefault();
+                }
+                onClick(event);
+            }
         }
     };
 
@@ -62,7 +70,7 @@ const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', si
     );
 
     return (
-        <button className={baseClassName} onClick={handleClick} disabled={disabled}>
+        <button type={type} className={baseClassName} onClick={handleClick} disabled={disabled}>
             {children}
         </button>
     );

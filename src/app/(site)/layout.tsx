@@ -6,6 +6,7 @@ import Providers from "@/utils/Providers";
 import CartDrawer from "@/components/Cart/CartDrawer";
 import { Cormorant_Garamond } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google'
+import NotificationBarComponent from "@/components/Notifications/Bar";
 
 // Ensure this matches your actual site URL. If using environment variables, 
 // make sure they are available at build time or use NEXT_PUBLIC_ prefix.
@@ -27,12 +28,12 @@ export const viewport: Viewport = {
 
 
 export const metadata: Metadata = {
-  applicationName: "CRVinos",
+  applicationName: "CR Vinos MX",
   generator: "Next.js",
-  keywords: ["Vinos mexicanos", "Vinos de calidad", "CRVinos", "Vino Mexicano"],
+  keywords: ["Vinos mexicanos", "Vinos de calidad","crvinosmx", "CRVinos", "Vino Mexicano","viñedos tequisquiapan","tequisquiapan",  "CRVinosMX", "crvinosmx", "crvinos", "vinos", "vino", "vinos de calidad", "vinos mexicanos", "vinos en mexico", "vinos de mexico", "vinos de alta calidad"],
   authors: [{ name: "CRVinosMX" }],
-  creator: "CRVinos",
-  publisher: "CRVinos",
+  creator: "CRVinosMX",
+  publisher: "CRVinosMX",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: siteUrl,
@@ -41,15 +42,15 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "CRVinos",
+    title: "CR Vinos MX",
     description: "Explora nuestra selección de vinos mexicanos de alta calidad.",
     url: siteUrl,
     siteName: "CRVinos",
     images: [
       {
         url: `${siteUrl}/img/crvinosmxLogo.jpg`,
-        width: 800,
-        height: 600,
+        width: 300,
+        height: 225,
         alt: "CRVinos",
       },
     ],
@@ -87,8 +88,8 @@ export default function RootLayout({
 }) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "CRVinos",
+    "@type": "WebSite",
+    "name": "CR Vinos MX ",
     "url": siteUrl,
     "logo": `${siteUrl}/img/crvinosmxLogo.jpg`,
     "sameAs": [
@@ -116,6 +117,7 @@ export default function RootLayout({
       <body className={cormorantGaramond.className + " bg-transparent"}>
         <Providers>
           <AgeVerification />
+          <NotificationBarComponent />
           <CartDrawer />
           {children}
           <Footer />

@@ -81,7 +81,7 @@ export default function BlogPostPage({ blogPost, recommendedWine }: Props) {
     },
   };
   return (
-    <div className="flex flex-col min-h-screen justify-center items-center">
+    <div className="flex relative flex-col min-h-screen justify-center items-center">
       <Navbar redLogo red relative />
 
       {blogPost?.bannerImage && (
@@ -105,7 +105,7 @@ export default function BlogPostPage({ blogPost, recommendedWine }: Props) {
                   className="h-5 w-5 text-crred transition-transform duration-300 ease-in-out transform hover:translate-x-2"
                   style={{ transform: 'rotate(180deg)' }}
                 />
-                <p className="font-cormorant text-crred text-lg transition-colors duration-300 ease-in-out hover:text-crred-light">
+                <p className=" text-crred text-lg transition-colors duration-300 ease-in-out hover:text-crred-light">
                   Regresar
                 </p>
               </div>
@@ -123,7 +123,7 @@ export default function BlogPostPage({ blogPost, recommendedWine }: Props) {
           </div>
 
           {recommendedWine && (
-            <div className="mt-16 px-4 bg-back md:flex md:justify-center py-5">
+            <div className="mt-16 px-4 rounded-lg shadow-lg bg-white/60 border-crred/25 border md:flex md:justify-center py-5">
               <div className="max-w-4xl mx-auto flex flex-row text-center md:text-start">
                 <h2 className="text-5xl md:text-5xl text-crred italic md:mb-8">Descubre</h2>
               </div>

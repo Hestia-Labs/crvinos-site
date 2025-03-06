@@ -32,6 +32,8 @@ const config: Config = {
         'accred': '#631E3A',
         'accred-50': 'rgba(99, 30, 58, 0.5)',
         'accred-75': 'rgba(99, 30, 58, 0.75)',
+        'accred-80': 'rgba(99, 30, 58, 0.8)',
+        'accred-85': 'rgba(99, 30, 58, 0.85)',
         'accred-90': 'rgba(99, 30, 58, 0.9)',
       },
       height: {
@@ -73,7 +75,7 @@ const config: Config = {
         'xxxxs': ['0.5rem', { lineHeight: '0.625rem' }], 
       },
       inset: {
-        
+        '22': '5.7rem',
         '100': '25rem',
         '126': '32rem',
         '144': '36rem',

@@ -1,0 +1,431 @@
+// =========== 1) TOUR CLÁSICO  ============
+  // =========================================
+  'tour-clasico': {
+    title: 'Tour Vitivinícola',
+    subtitle: 'Vive el ciclo completo del vino, desde la viña hasta la copa',
+    image: '/img/tours.png',
+    description: (
+      <div className="space-y-8 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Sumérgete en cada etapa de la elaboración del vino. Conoce de primera mano las distintas
+          variedades de uva, explora nuestras instalaciones y finaliza con una cata guiada de
+          etiquetas seleccionadas, acompañadas de aperitivos especiales.
+        </p>
+
+        {/* Example 3-Column Features (Viñedo, Bodega, Cata) */}
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="flex flex-col items-center p-6 bg-crred/10 rounded-xl space-y-4 text-center">
+            <Icon name="InfoVines" className="h-32 w-32" />
+            <h3 className="text-lg md:text-xl font-medium text-crred">Viñedo</h3>
+            <p className="text-sm md:text-base">
+              Aprende sobre técnicas de cultivo y la atención que requiere cada cepa
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center p-6 bg-crred/10 rounded-xl space-y-4 text-center">
+            <Icon name="InfoBarrel" className="h-32 w-32" />
+            <h3 className="text-lg md:text-xl font-medium text-crred">Bodega</h3>
+            <p className="text-sm md:text-base">
+              Observa de cerca los procesos de fermentación, añejamiento y crianza
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center p-6 bg-crred/10 rounded-xl space-y-4 text-center">
+            <Icon name="InfoCup" className="h-32 w-32" />
+            <h3 className="text-lg md:text-xl font-medium text-crred">Cata</h3>
+            <p className="text-sm md:text-base">
+              Degusta 3 vinos en compañía de nuestros expertos, con explicaciones detalladas
+            </p>
+          </div>
+        </div>
+
+        {/* Example schedule or additional info */}
+        <div className="mt-8 p-6 border-t border-crred/20">
+          <h3 className="text-lg font-medium text-crred mb-4">Horarios Disponibles</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="flex flex-col items-center bg-crred/10 p-4 rounded-xl space-y-1">
+              <span className="text-crred text-2xl">🕙</span>
+              <h4 className="text-crred font-medium text-base">Horario Matutino</h4>
+              <p className="text-gray-700 text-base">10:00 AM - 1:00 PM</p>
+            </div>
+            <div className="flex flex-col items-center bg-crred/10 p-4 rounded-xl space-y-1">
+              <span className="text-crred text-2xl">🕑</span>
+              <h4 className="text-crred font-medium text-base">Horario Vespertino</h4>
+              <p className="text-gray-700 text-base">2:00 PM - 5:00 PM</p>
+            </div>
+          </div>
+          <p className="text-sm text-gray-500 mt-4">
+            * Ideal para quienes deseen profundizar en la historia y la esencia de nuestros vinos
+          </p>
+        </div>
+      </div>
+    ),
+    formFields: ['tourTime', 'participants'],
+  },
+
+  // =========================================
+  // ========== 2) TOUR PREMIUM + CATA =======
+  // =========================================
+  'tour-premium': {
+    title: 'Tour Premium + Cata',
+    subtitle: 'Tour completo con cata de 5 vinos premium y maridaje gourmet',
+    image: '/img/tour-premium.jpg',
+    description: (
+      <div className="space-y-6 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Disfruta de un tour completo que combina el recorrido por viñedos y bodega con la cata
+          de 5 vinos premium. Cada vino irá acompañado de un exquisito maridaje gourmet para
+          realzar las notas de cada etiqueta.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-8 border-l-2 border-crred pl-4">
+          <div className="space-y-4">
+            <h3 className="text-lg md:text-xl font-medium text-crred">Incluye:</h3>
+            <ul className="list-inside space-y-3">
+              <li className="flex items-start">
+                <span className="text-crred mr-2">▸</span>Recorrido por viñedo y bodega
+              </li>
+              <li className="flex items-start">
+                <span className="text-crred mr-2">▸</span>Cata de 5 vinos premium
+              </li>
+              <li className="flex items-start">
+                <span className="text-crred mr-2">▸</span>Maridajes gourmet seleccionados
+              </li>
+            </ul>
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-lg md:text-xl font-medium text-crred">Detalles</h3>
+            <p className="flex items-center space-x-2">
+              <span className="text-crred">⏳</span>
+              <span>Duración: 3 horas</span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="text-crred">👥</span>
+              <span>Máximo 10 participantes</span>
+            </p>
+            <p className="text-sm text-gray-500">
+              * Recomendado para quienes deseen una experiencia más completa y sofisticada
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+    formFields: ['participants'],
+  },
+
+  // =========================================
+  // ========== 3) CATA ENTRE VIDES ==========
+  // =========================================
+  'cata-vides': {
+    title: 'Cata Entre Vides',
+    subtitle: 'Experiencia sensorial de cata en las terrazas del viñedo',
+    image: '/img/degusta-vides.jpg',
+    description: (
+      <div className="space-y-6 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Vive una cata al aire libre, rodeado de viñedos y con vistas espectaculares. Ideal para
+          desconectarse del día a día y sumergirse en la magia del vino.
+        </p>
+
+        <ul className="list-inside space-y-3 border-l-2 border-crred pl-4">
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Cata de 4 vinos en terrazas exteriores
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Vista panorámica de los viñedos
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Aperitivos ligeros para maridar
+          </li>
+        </ul>
+      </div>
+    ),
+    formFields: ['participants'],
+  },
+
+  // =========================================
+  // ========== 4) EVENTOS CORPORATIVOS ======
+  // =========================================
+  'eventos-corporativos': {
+    title: 'Eventos Corporativos',
+    subtitle: 'Espacios exclusivos para reuniones y eventos empresariales',
+    image: '/img/eventos-corporativos.jpg',
+    description: (
+      <div className="space-y-6 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Sorprende a tus invitados y compañeros de trabajo con un ambiente único rodeado de viñedos.
+          Ofrecemos salas privadas y servicios adaptados a las necesidades de tu empresa.
+        </p>
+
+        <ul className="list-inside space-y-3 border-l-2 border-crred pl-4">
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Salas equipadas con multimedia
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Catering y servicio de coffee break
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Opción de cata guiada o team building
+          </li>
+        </ul>
+      </div>
+    ),
+    formFields: ['eventType', 'participants'],
+  },
+
+  // =========================================
+  // ========== 5) EVENTO PRIVADO GENERAL ====
+  // =========================================
+  'evento-privado-general': {
+    title: 'Evento Privado General',
+    subtitle: 'Contáctanos para diseñar un evento privado a tu medida',
+    image: '/img/evento-privado-general.jpg',
+    description: (
+      <div className="space-y-6 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Celebra momentos únicos con familiares o amigos en un escenario inigualable. Te
+          ayudamos a personalizar cada detalle para que tu evento sea inolvidable.
+        </p>
+
+        <ul className="list-inside space-y-3 border-l-2 border-crred pl-4">
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Asesoría completa de nuestro equipo
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Banquetes y bebidas personalizadas
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Decoración especial y música en vivo (opcional)
+          </li>
+        </ul>
+      </div>
+    ),
+    formFields: ['eventType', 'participants'],
+  },
+
+  // =========================================
+  // ========== 6) TALLER DE ENOLOGÍA ========
+  // =========================================
+  'taller-enologia': {
+    title: 'Taller de Enología',
+    subtitle: 'Conviértete en enólogo por un día con nuestros expertos',
+    image: '/img/enologo-por-un-dia.jpg',
+    description: (
+      <div className="space-y-6 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Adéntrate en la ciencia y el arte de la producción de vino. Mezcla, analiza y degusta
+          diferentes cepas para crear tu propia botella personalizada.
+        </p>
+
+        <ul className="list-inside space-y-3 border-l-2 border-crred pl-4">
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Teoría básica de viticultura y enología
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Práctica de mezcla de cepas
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Creación y etiquetado de tu propio vino
+          </li>
+        </ul>
+      </div>
+    ),
+    formFields: ['participants'],
+  },
+
+  // =========================================
+  // =========== 7) ARTE Y VINO =============
+  // =========================================
+  'arte-vino': {
+    title: 'Arte y Vino',
+    subtitle: 'Taller de pintura combinado con cata de vinos temática',
+    image: '/img/taller-pintura.jpg',
+    description: (
+      <div className="space-y-6 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Mezcla tu creatividad con los aromas y sabores del vino. Recibe instrucciones básicas
+          de pintura mientras disfrutas de una cata única inspirada en el arte.
+        </p>
+        <ul className="list-inside space-y-3 border-l-2 border-crred pl-4">
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Materiales de pintura incluidos
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Cata de 3 vinos con referencias artísticas
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Guiado por un artista y un sommelier
+          </li>
+        </ul>
+      </div>
+    ),
+    formFields: ['participants'],
+  },
+
+  // =========================================
+  // ========== 8) DEGUSTACIONES PREMIUM =====
+  // =========================================
+  'degustaciones-premium': {
+    title: 'Degustaciones Premium',
+    subtitle: 'Descubre nuestros vinos estrella con maridajes exclusivos',
+    image: '/img/degustaciones.png',
+    description: (
+      <div className="space-y-6 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Embárcate en una experiencia sensorial guiada por sommeliers expertos. Sumérgete en los
+          aromas y sabores de nuestras etiquetas galardonadas mientras exploras el arte de maridar
+          cada copa con delicias artesanales seleccionadas cuidadosamente para elevar tu paladar.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-4 border-l-2 border-crred pl-4">
+            <h3 className="text-lg md:text-xl font-medium text-crred">Incluye:</h3>
+            <ul className="space-y-3 list-inside">
+              <li className="flex items-start">
+                <span className="text-crred mr-2">▸</span>Cata guiada de 5 vinos premiados
+              </li>
+              <li className="flex items-start">
+                <span className="text-crred mr-2">▸</span>Maridajes gourmet
+              </li>
+              <li className="flex items-start">
+                <span className="text-crred mr-2">▸</span>Detalles técnicos sobre crianza
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-4 bg-crred/10 p-6 rounded-xl">
+            <h3 className="text-lg md:text-xl font-medium text-crred mb-2">Detalles</h3>
+            <p className="flex items-center space-x-2">
+              <span className="text-crred">⏳</span>
+              <span>Duración: 2 horas</span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="text-crred">👥</span>
+              <span>Máximo 12 participantes</span>
+            </p>
+            <p className="text-sm text-gray-500">
+              * Recomendado para un público que ya conoce un poco de vino y busca algo especial
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+    formFields: ['participants'],
+  },
+
+  // =========================================
+  // =========== 9) EVENTOS PRIVADOS ========
+  // =========================================
+  'eventos-privados': {
+    title: 'Eventos Privados',
+    subtitle: 'Celebra momentos únicos en un entorno vinícola exclusivo',
+    image: '/img/eventosPrivados.jpg',
+    description: (
+      <div className="space-y-8 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Convierte tus celebraciones en vivencias inolvidables con nuestros paquetes de servicios
+          premium. Desde bodas íntimas hasta eventos corporativos, nuestro equipo se encargará de
+          cada detalle para que disfrutes de una ocasión realmente memorable.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-4 border-l-2 border-crred pl-4">
+            <h3 className="text-lg md:text-xl font-medium text-crred">Servicios Incluidos</h3>
+            <ul className="space-y-3 list-inside">
+              <li className="flex items-start">
+                <span className="text-crred mr-2">▸</span>Espacios exclusivos rodeados de viñedos
+              </li>
+              <li className="flex items-start">
+                <span className="text-crred mr-2">▸</span>Menús personalizados con maridajes
+              </li>
+              <li className="flex items-start">
+                <span className="text-crred mr-2">▸</span>Equipo de camareros y coordinación
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-4 bg-crred/10 p-6 rounded-xl">
+            <h3 className="text-lg md:text-xl font-medium text-crred mb-2">Capacidades</h3>
+            <p className="flex items-center space-x-2">
+              <span className="text-crred">🎉</span>
+              <span>Intimate (20-50 personas)</span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="text-crred">🎊</span>
+              <span>Medium (50-100 personas)</span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="text-crred">✨</span>
+              <span>Grand (100-200 personas)</span>
+            </p>
+            <p className="text-sm text-gray-500">
+              * Se recomienda reservar con 3 meses de anticipación para fechas clave
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+    formFields: ['eventType', 'participants'],
+  },
+
+  // =========================================
+  // ============ 10) SOMMELIER =============
+  // =========================================
+  sommelier: {
+    title: 'Experiencia Sommelier',
+    subtitle: 'Recorrido VIP con maridaje de autor y vinos reserva',
+    image: '/img/experiencia-premium.jpg',
+    description: (
+      <div className="space-y-6 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Conoce nuestros vinos reserva y ediciones limitadas en un ambiente exclusivo. Disfruta
+          de maridajes de autor y la compañía de un sommelier privado que te guiará a través de un
+          viaje enológico inolvidable.
+        </p>
+
+        <ul className="list-inside space-y-3 border-l-2 border-crred pl-4">
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Tour privado por bodega y barricas
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Cata de vinos reserva y de edición limitada
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Maridaje de autor, diseñado por nuestro chef
+          </li>
+        </ul>
+      </div>
+    ),
+    formFields: ['participants'],
+  },
+
+  // =========================================
+  // =========== 11) NOCHE DE VINOS ==========
+  // =========================================
+  'noche-vinos': {
+    title: 'Noche de Vinos',
+    subtitle: 'Cena privada con selección de nuestros vinos más exclusivos',
+    image: '/img/cena-privada.jpg',
+    description: (
+      <div className="space-y-6 text-gray-700">
+        <p className="text-xl md:text-2xl font-light leading-relaxed">
+          Comparte una velada inolvidable en nuestro salón privado, degustando una selección
+          exclusiva de vinos acompañada de platos de temporada y música en vivo.
+        </p>
+
+        <ul className="list-inside space-y-3 border-l-2 border-crred pl-4">
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Cena maridada de 4 tiempos
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Vinos Premium en cada tiempo
+          </li>
+          <li className="flex items-start">
+            <span className="text-crred mr-2">▸</span>Música en vivo opcional (dueto o solista)
+          </li>
+        </ul>
+      </div>
+    ),
+    formFields: ['participants'],
+  },
+};

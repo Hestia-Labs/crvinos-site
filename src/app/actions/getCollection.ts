@@ -8,6 +8,7 @@ import { ShopifyWine, WineShort } from '@/types/Wine';
 interface CollectionData {
   name: string;
   story: string;
+  subtitle: string;
   photo: string;
   alt: string;
   wines: WineShort[];
@@ -35,6 +36,7 @@ export const fetchCollectionData = async (selectedOption: string): Promise<Colle
   const query = groq`
     *[_type == "collection" && name == $name][0]{
       name,
+      subtitle,
       story,
       "photo": photo.asset->url,
       "alt": photo.alt,

@@ -22,9 +22,9 @@ export const metadata: Metadata = {
     siteName: "CR Vinos MX",
     images: [
       {
-        url: `${siteUrl}/img/catalogPreview.png`,
-        width: 800,
-        height: 600,
+        url: `${siteUrl}/img/crvinosmxLogo.jpg`,
+        width: 300,
+        height: 225,
         alt: "CR Vinos MX",
       },
     ],
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CR Vinos MX | Vinos de la más alta calidad | Catálogo',
     description: 'Explora el catálogo de CR Vinos MX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.',
-    images: [`${siteUrl}/img/catalogPreview.png`],
+    images: [`${siteUrl}/img/crvinosmxLogo.jpg`],
   },
   alternates: {
     canonical: `${siteUrl}/catalog`,
@@ -71,22 +71,18 @@ export default async function CatalogPage({
 }: {
   searchParams: { line?: string };
 }) {
+  const validLines = ['dbc', 'hermelinda', 'recuento'];
+  let line = searchParams?.line?.toLowerCase() || 'dbc';
 
-  const line = searchParams?.line?.toLowerCase() || 'dbc';
+  if (!validLines.includes(line)) {
+    line = 'dbc';
+  }
 
   const collectionData = await fetchCollectionData(line);
   return (
-    <div className='flex flex-col'>
-      <Navbar darkenBg   />
+    <div className='relative flex flex-col'>
+      <Navbar darkenBg />
       <div className='flex flex-col w-full items-center justify-center '>
-        {/* <div className='flex flex-col justify-center items-center w-full py-8 px-36'>
-          <h2 className="text-4xl text-crred tracking-wide mb-2">Colección de Vinos</h2>
-          <p className="text-crred font-extralight italic text-lg text-center">Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-        </div> */}
-        
-        {/* <div className='px-20 w-full relative'>
-          <div className="w-full h-2 border-crred border-t-2"></div>
-        </div> */}
         <LoadingScreen animationDuration={3} displayDuration={1} />
         <Catalog 
           initialSelectedOption={line.toUpperCase()}
@@ -96,4 +92,3 @@ export default async function CatalogPage({
     </div>
   );
 };
-

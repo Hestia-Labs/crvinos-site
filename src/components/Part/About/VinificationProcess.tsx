@@ -45,7 +45,7 @@ const vinificationSteps = [
 const VinificationProcess = () => {
   return (
     <div className="w-full space-y-6 px-8 sm:px-10 md:px-20 py-8">
-      <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold text-center text-crred">
+      <h2 className="text-3xl md:text-4xl text-crred font-light tracking-wide text-center mb-10">
         Proceso de Vinificación
       </h2>
       {vinificationSteps.map((step, index) => (
@@ -54,10 +54,10 @@ const VinificationProcess = () => {
           className={`flex flex-col ${step.reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center justify-between space-y-3 md:space-y-0 md:space-x-6 py-4`}
         >
           <div className="w-full md:w-1/2 px-6 text-center md:text-left">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-crred">
+            <h3 className="text-2xl md:text-3xl  text-crred">
               {step.title}
             </h3>
-            <p className="text-xs sm:text-sm md:text-base mt-4 text-gray-700 whitespace-pre-line">
+            <p className=" text-base md:text-lg mt-4 text-gray-700 whitespace-pre-line">
               {step.description}
             </p>
           </div>

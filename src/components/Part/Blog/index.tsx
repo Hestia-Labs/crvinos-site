@@ -122,7 +122,7 @@ const Blog: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                  <div className='p-4 hidden md:block w-full sm:w-48 md:w-56 h-full sm:h-48 md:h-56'>
+                  <div className='p-4 hidden md:block  sm:w-48 md:w-96 h-full sm:h-48 md:h-56'>
                     {post.bannerImage && (
                       <Image
                         src={post.bannerImage.asset.url}

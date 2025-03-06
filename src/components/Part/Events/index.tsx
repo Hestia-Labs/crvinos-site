@@ -4,11 +4,10 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import BasicButton from '@/components/Buttons/BasicButton';
 import EventsLoader from '@/components/Loaders/EventsLoader';
-import NoEvents from '@/components/Part/Landing/Events/NoEvents';
 import EventItem from '@/components/Part/Landing/Events/EventItem';
 import { EventShort } from '@/types/Event';
 import { getEvents } from '@/app/actions/getEvents';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import LoadingScreen from '@/components/Loaders/LoadingScreen';
 
@@ -23,18 +22,15 @@ const EventsPage: React.FC = () => {
   useEffect(() => {
     const loadEvents = async () => {
       const fetchedEvents = (await getEvents({ shortVersion: true })) as EventShort[];
-
       const now = new Date();
 
-      // Split events into upcoming and past events
-      const upcomingEvents = fetchedEvents.filter((event) => new Date(event.endDate) >= now);
-      const pastEvents = fetchedEvents.filter((event) => new Date(event.endDate) < now);
+      const upcomingEvents = fetchedEvents
+        .filter((event) => new Date(event.endDate) >= now)
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-      // Sort upcoming events by start date ascending
-      upcomingEvents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-      // Sort past events by end date descending
-      pastEvents.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
+      const pastEvents = fetchedEvents
+        .filter((event) => new Date(event.endDate) < now)
+        .sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
 
       setEvents({ upcoming: upcomingEvents, past: pastEvents });
       setLoading(false);
@@ -43,25 +39,53 @@ const EventsPage: React.FC = () => {
     loadEvents();
   }, []);
 
+  const EmptyState = ({ message, description }: { message: string; description: string }) => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="w-full py-16 text-center"
+    >
+      <div className="max-w-md mx-auto space-y-6">
+        <svg
+          className="w-16 h-16 mx-auto text-crred opacity-75"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={0.5}
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+        <h3 className="text-xl font-light text-gray-700">{message}</h3>
+        <p className="text-gray-500 font-light leading-relaxed">{description}</p>
+      </div>
+    </motion.div>
+  );
+
   return (
-    <div className='flex flex-col w-full items-center justify-center'>
+    <div className='relative flex flex-col w-full items-center justify-center'>
       <Navbar />
       <LoadingScreen animationDuration={3} displayDuration={1} />
-      {/* Banner Section */}
-      <div className='relative w-full'>
+      
+      {/* Banner Section - Unchanged */}
+      <div className='relative w-full overflow-hidden rounded-br-2xl rounded-bl-2xl'>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className='relative'
+          className='relative '
         >
           <Image
-            src='/img/farm.jpg' // Use the same image as in AboutPage
+            src='/img/farm.jpg'
             alt='Eventos Banner'
             width={0}
             height={0}
             sizes='100vw'
-            className='w-full h-[40rem] md:h-[35rem] object-cover'
+            className='w-full h-[40rem] md:h-[35rem] object-cover '
             priority
           />
           <div className='absolute inset-0 bg-black opacity-40'></div>
@@ -76,19 +100,64 @@ const EventsPage: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Upcoming Events Section */}
-      <div className='px-4 sm:px-8 md:px-10 lg:px-20 w-full flex flex-col items-center'>
-        <div className='w-full flex flex-col py-12'>
-          <h2 className='text-4xl md:text-5xl font-thin text-crred mb-8  '>
-            Próximos Eventos
-          </h2>
-          {loading ? (
-            <EventsLoader />
-          ) : (
-            <>
-              {events.upcoming.length > 0 ? (
-                <div className='flex flex-col items-center space-y-7 p-4 sm:p-6 w-full sm:w-5/6'>
-                  {events.upcoming.map((event) => (
+      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+        <section className="space-y-10">
+          <div className="border-b border-crred/20 pb-6">
+            <h2 className="text-3xl md:text-4xl font-light text-crred tracking-wide">
+              Próximos Eventos
+            </h2>
+          </div>
+
+          <AnimatePresence>
+            {loading ? (
+              <EventsLoader />
+            ) : events.upcoming.length > 0 ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+              >
+                {events.upcoming.map((event) => (
+                  <EventItem
+                    key={event.slug}
+                    slug={event.slug}
+                    imageUrl={event.imageUrl}
+                    title={event.title}
+                    endDate={event.endDate}
+                    description={event.description}
+                    date={event.date}
+                    time={event.time}
+                  />
+                ))}
+              </motion.div>
+            ) : (
+              <EmptyState
+                message="No hay próximos eventos programados"
+                description="Estamos preparando nuevas experiencias. Suscríbete a nuestro newsletter para mantenerte informado."
+              />
+            )}
+          </AnimatePresence>
+        </section>
+
+        {/* Past Events Section */}
+        <section className="space-y-10 border-t border-crred/20 pt-16">
+          <div className="border-b border-crred/20 pb-6">
+            <h2 className="text-3xl md:text-4xl font-light text-crred tracking-wide">
+              Eventos Pasados
+            </h2>
+          </div>
+
+          <AnimatePresence>
+            {loading ? (
+              <EventsLoader />
+            ) : events.past.length > 0 ? (
+              <>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                  {events.past.slice(0, visiblePastEvents).map((event) => (
                     <EventItem
                       key={event.slug}
                       slug={event.slug}
@@ -100,68 +169,32 @@ const EventsPage: React.FC = () => {
                       time={event.time}
                     />
                   ))}
-                </div>
-              ) : (
-                <div className='flex flex-col items-center justify-center py-12'>
-                  <p className='text-lg text-gray-600'>
-                    No hay próximos eventos en este momento.
-                  </p>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
+                </motion.div>
 
-      {/* Past Events Section */}
-      <div className='px-4 sm:px-8 md:px-10 lg:px-20 w-full flex flex-col items-center'>
-        <div className='w-full flex flex-col py-12 border-crred border-t-2'>
-          <h2 className='text-4xl md:text-5xl font-thin text-crred mb-8 '>
-            Eventos Pasados
-          </h2>
-          {loading ? (
-            <EventsLoader />
-          ) : (
-            <>
-              {events.past.length > 0 ? (
-                <>
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-7 w-full sm:w-5/6'>
-                    {events.past.slice(0, visiblePastEvents).map((event) => (
-                      <EventItem
-                        key={event.slug}
-                        slug={event.slug}
-                        imageUrl={event.imageUrl}
-                        title={event.title}
-                        endDate={event.endDate}
-                        description={event.description}
-                        date={event.date}
-                        time={event.time}
-                      />
-                    ))}
-                  </div>
-                  {visiblePastEvents < events.past.length && (
-                    <div className='flex w-full justify-center items-center'>
-                      <BasicButton
-                        onClick={() => setVisiblePastEvents((prev) => prev + 3)}
-                        variant='transparent'
-                        sizex='xxxxlarge'
-                        className='border-crred border border-solid mt-6'
-                      >
-                        <p className='text-lg'>Cargar Más</p>
-                      </BasicButton>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className='flex flex-col items-center justify-center py-12'>
-                  <p className='text-lg text-gray-600'>
-                    No hay eventos pasados para mostrar.
-                  </p>
-                </div>
-              )}
-            </>
-          )}
-        </div>
+                {visiblePastEvents < events.past.length && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex justify-center pt-12"
+                  >
+                    <BasicButton
+                      onClick={() => setVisiblePastEvents((prev) => prev + 3)}
+                      variant="transparent"
+                      className="border-crred border text-crred px-8 py-3 transition-colors"
+                    >
+                      <span className="text-lg font-medium">Cargar Más</span>
+                    </BasicButton>
+                  </motion.div>
+                )}
+              </>
+            ) : (
+              <EmptyState
+                message="No hay eventos pasados para mostrar"
+                description="Revisa regularmente nuestra agenda para no perderte nuestras próximas actividades."
+              />
+            )}
+          </AnimatePresence>
+        </section>
       </div>
     </div>
   );

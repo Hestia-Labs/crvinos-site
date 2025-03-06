@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     siteName: "CRVinos",
     images: [
       {
-        url: `${siteUrl}/img/priPreview.png`,
-        width: 800,
-        height: 600,
+        url: `${siteUrl}/img/crvinosmxLogo.jpg`,
+        width: 300,
+        height: 225,
         alt: "CRVinos",
       },
     ],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CRVinos| Vinos de Alta Calidad | Política de Privacidad',
     description: 'Lee nuestra política de privacidad para entender cómo manejamos tu información personal en CRVinos.',
-    images: [`${siteUrl}/img/priPreview.png`],
+    images: [`${siteUrl}/img/crvinosmxLogo.jpg`],
   },
   alternates: {
     canonical: `${siteUrl}/privacy`,
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
 
 const PrivacyPolicyPage: React.FC = () => {
   return (
-    <div className='flex flex-col'>
+    <div className='flex  relative flex-col'>
       <PrivacyPolicy />
     </div>
   );

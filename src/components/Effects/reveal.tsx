@@ -4,7 +4,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 
 interface RevealProps {
     children: React.ReactNode;
-    width: "fit-content" | "100%" | "auto" | string;
+    width?: "fit-content" | "100%" | "auto" | string;
 }
 
 const Reveal: React.FC<RevealProps> = ({ children, width }) => {
@@ -19,7 +19,7 @@ const Reveal: React.FC<RevealProps> = ({ children, width }) => {
     }, [isInView, mainControls]);
 
     return (
-        <div ref={ref} style={{ position: "relative", width }}>
+        <div ref={ref} style={{ position: "relative"  }}>
             <motion.div
                 initial="hidden"
                 animate={mainControls}

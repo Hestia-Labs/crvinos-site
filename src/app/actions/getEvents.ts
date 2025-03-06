@@ -55,7 +55,10 @@ export async function getEvents({
             link,
             textLocation,
             locationLink,
-            "slug": slug.current
+            "slug": slug.current,
+            useRSVPForm,
+            contactForRegistration,
+            registrationInstructions
         `;
 
     const limit = count ? ` | order(_createdAt desc)[0...${count}]` : "";

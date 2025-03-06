@@ -32,9 +32,10 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
   const navItems = [
     { name: 'Inicio', route: '', available: true },
     { name: 'Nosotros', route: 'about', available: true },
+    { name: 'Restaurante', route: 'restaurant', available: true },
     { name: 'Catálogo', route: 'catalog', available: true },
     { name: 'Blog', route: 'blog', available: true },
-    { name: 'Enoturismo', route: 'enoturism', available: true },
+    { name: 'Enoturismo', route: 'enotourism', available: true },
     { name: 'Contacto', route: 'contact', available: true },
   ];
 
@@ -81,7 +82,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
         })}
       >
         <div className="flex py-2 space-x-8">
-          <div className="flex justify-center items-center md:text-base text-xs space-x-8">
+          <div className="flex justify-center items-center md:text-base text-xs space-x-6">
             {navItems.map((item, index) => {
               const isActive = pathname === `/${item.route}`;
               return (

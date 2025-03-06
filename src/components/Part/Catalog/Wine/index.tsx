@@ -90,7 +90,7 @@ const CatalogWine: React.FC = () => {
             className='h-5 w-5 transition-transform duration-500 ease-in-out transform hover:translate-x-2'
             style={{ transform: 'rotate(180deg)' }}
           />
-          <p className='font-cormorant text-crred transition-colors duration-500 ease-in-out hover:text-crred-light'>
+          <p className=' text-crred transition-colors duration-500 ease-in-out hover:text-crred-light'>
             Regresar al Catálogo
           </p>
         </div>

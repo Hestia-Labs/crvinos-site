@@ -50,7 +50,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className='flex flex-col bg-accred overflow-x-hidden'>
+    <div className='flex relative flex-col bg-accred overflow-x-hidden'>
       <div className="relative w-full">
         <Icon name="ContactVines" className="absolute h-80 w-full    md:h-160 opacity-10" />
       </div>
@@ -64,7 +64,7 @@ const Contact: React.FC = () => {
         </div>
         <div className='border-back border-t-2 w-full flex flex-col justify-center items-center py-10 sm:py-15 md:py-20 space-y-12 relative mb-8'>
           <div className='md:py-9 absolute top-0 right-0 mt-4 mr-4 text-right'>
-            <p className="text-back text-sm sm:text-lg md:text-xl italic">Teléfono: +52 993 166 7349</p>
+            <p className="text-back text-sm sm:text-lg md:text-xl italic">Teléfono: +52 442 773 2600</p>
             <p className="text-back text-sm sm:text-lg md:text-xl italic">Correo Electrónico: crvinosmx@gmail.com</p>
           </div>
           {submitted ? (
@@ -115,7 +115,7 @@ const Contact: React.FC = () => {
           )}
           <div onClick={() => router.push('/')} className='flex items-center space-x-2 sm:space-x-4 transition duration-500 ease-in-out transform hover:-translate-x-2 cursor-pointer'>
             <Icon name='Arrow-White' className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-500 ease-in-out transform hover:translate-x-2" style={{ transform: 'rotate(180deg)' }} />
-            <p className="font-cormorant text-back transition-colors duration-500 ease-in-out hover:text-back-75">Volver a Inicio</p>
+            <p className=" text-back transition-colors duration-500 ease-in-out hover:text-back-75">Volver a Inicio</p>
           </div>
         </div>
       </div>

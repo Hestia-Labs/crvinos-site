@@ -20,65 +20,58 @@ interface CollectionData {
 }
 
 interface WineCatalogProps {
-  initialSelectedOption?: string;             // e.g. 'DBC'
-  serverCollectionData?: CollectionData | null; // Data from the server
+  initialSelectedOption?: string;       
+  serverCollectionData?: CollectionData | null; 
 }
 
 const WineCatalog: React.FC<WineCatalogProps> = ({
   initialSelectedOption = 'DBC',
   serverCollectionData,
 }) => {
-  // The possible lines (collection names)
+
   const options = useMemo(() => ['DBC', 'Hermelinda', 'Recuento'], []);
 
-  // We'll store the selected line in state (initially from props)
+
   const [selectedOption, setSelectedOption] = useState<string>(initialSelectedOption);
 
   const router = useRouter();
 
   const mainControls = useAnimation();
 
-  // Local state for the fetched data. We set it from serverCollectionData
+
   const [collectionData, setCollectionData] = useState<CollectionData | null>(
     serverCollectionData || null
   );
 
-  // If `serverCollectionData` is null or undefined, consider we are "loading"
+
   const [loading, setLoading] = useState<boolean>(!serverCollectionData);
 
-  // You can define the fallback subtitles here
-  const subtitles: { [key: string]: string } = {
-    DBC: 'Sumérgete en la elegancia atemporal y sofisticación que define nuestra prestigiosa colección DBC',
-    Hermelinda: 'Un homenaje apasionado al legado perdurable de Hermelinda, capturado en cada copa',
-    Recuento: 'Permite que Recuento te lleve a revivir memorias y forjar nuevas historias en cada degustación',
-  };
+
+ 
 
 
 
-  // If serverCollectionData changes (meaning the page re-rendered on server),
-  // update local state accordingly
   useEffect(() => {
     setCollectionData(serverCollectionData || null);
     setLoading(!serverCollectionData);
   }, [serverCollectionData]);
 
-  // Handle user clicking a different line
+
   const handleOptionClick = (option: string) => {
     if (selectedOption !== option) {
       setSelectedOption(option);
-      // Trigger a server re-fetch by pushing new query param 
+      
       router.push(`?line=${option.toLowerCase()}`, { scroll: false });
     }
   };
 
-  // Derive subtitle from collectionData or fallback dictionary
-  const subtitle = collectionData?.subtitle || subtitles[collectionData?.name || ''] 
+  const subtitle = collectionData?.subtitle ||  ''
     || 'Disfruta de nuestros vinos excepcionales';
 
   return (
     <div className="relative space-y-9 w-full" >
       <div
-        className="relative"
+        className="relative "
       >
         {loading ? (
           <div className="w-full h-126 md:h-144 bg-gray-300 animate-pulse"></div>
@@ -90,7 +83,7 @@ const WineCatalog: React.FC<WineCatalogProps> = ({
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-126 md:h-144 object-cover"
+              className="w-full h-126 md:h-144 object-cover rounded-bl-3xl rounded-br-3xl"
               priority
               style={{ filter: 'brightness(0.6)' }}
             />
@@ -98,7 +91,7 @@ const WineCatalog: React.FC<WineCatalogProps> = ({
               <h2 className="text-5xl md:text-6xl lg:text-8xl font-semibold italic text-white drop-shadow-md">
                 {collectionData?.name || ''}
               </h2>
-              <p className="text-lg md:text-xl lg:text-2xl text-white mt-4 drop-shadow-md max-w-3xl">
+              <p className="text-xl sm:text-2xl md:text-3xl text-white mt-4 drop-shadow-md max-w-2xl">
                 {subtitle}
               </p>
             </div>
@@ -106,7 +99,7 @@ const WineCatalog: React.FC<WineCatalogProps> = ({
         )}
       </div>
 
-      {/* Collection Description */}
+    
       {!loading && collectionData?.story && (
         <div className="px-8 sm:px-10 md:px-20 w-full flex flex-col items-center pb-3">
           <div className="max-w-4xl text-center space-y-6 mt-12">
@@ -114,13 +107,13 @@ const WineCatalog: React.FC<WineCatalogProps> = ({
               &ldquo;{collectionData.story}&rdquo;
             </p>
           </div>
-          <div className="absolute right-0 -z-10">
-            <Icon name="VineLeaf" className="h-80 w-full opacity-40" />
+          <div className="absolute right-0   -z-10">
+            <Icon name="VineLeaf" className="h-60 md:h-80 w-full opacity-40" />
           </div>
         </div>
       )}
 
-      {/* Options Selector */}
+
       <div className="flex justify-center py-4 w-full">
         <div className="flex space-x-4">
           {options?.map((option) => (

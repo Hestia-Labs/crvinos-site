@@ -1,4 +1,4 @@
-import {PortableTextBlock} from '@portabletext/types'
+import { PortableTextBlock } from '@portabletext/types';
 
 export interface EventShort {
     slug: string;
@@ -9,6 +9,7 @@ export interface EventShort {
     imageUrl: string;
     description: PortableTextBlock[];
 }
+
 export interface Event {
     id: number;
     title: string;
@@ -32,4 +33,7 @@ export interface Event {
     textLocation: string;
     locationLink?: string;
     slug: string;
+    useRSVPForm: boolean;
+    contactForRegistration: string;
+    registrationInstructions: string;
 }

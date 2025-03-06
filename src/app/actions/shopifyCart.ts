@@ -141,8 +141,12 @@ export async function removeItem(merchandiseId: string) {
 
 export async function createCartAndSetCookie() {
   let cart = await createCart();
- 
-  cookies().set("cartId", cart.id!);
+  
+  const twoWeeksInSeconds = 14 * 24 * 60 * 60;
+  
+  cookies().set("cartId", cart.id!,{
+    maxAge: twoWeeksInSeconds,
+  });
   return cart;
 }
 
