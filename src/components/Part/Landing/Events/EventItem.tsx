@@ -132,11 +132,6 @@ const EventItem: React.FC<EventItemProps> = ({
             </div>
           )}
 
-          {isFeatured && (
-            <div className="absolute bottom-4 left-4 bg-gradient-to-r from-crred to-crred-dark text-white px-4 py-2 text-sm font-semibold rounded-full shadow-md">
-              Evento Destacado
-            </div>
-          )}
         </div>
 
         {/* Text Content */}

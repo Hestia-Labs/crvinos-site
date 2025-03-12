@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 
 interface IconProps {
-  name: string;
+  name?: string;
   className?: string;
   link?: string;
   newPage?: boolean;
@@ -18,10 +18,13 @@ const Icon: React.FC<IconProps> = ({
   newPage = false,
   ...props
 }) => {
+  const imagePath = name ? (name.startsWith('/') ? name : `/img/icons/${name}.svg`) : '';
+  const altText = name ? `${name} icon` : 'icon';
+
   const svgElement = (
     <Image
-      src={`/img/icons/${name}.svg`}
-      alt={`${name} icon`}
+      src={imagePath}
+      alt={altText}
       className={className}
       width={0}
       height={0}

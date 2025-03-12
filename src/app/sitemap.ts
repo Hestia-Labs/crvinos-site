@@ -1,14 +1,15 @@
-
 import { MetadataRoute } from "next";
 import {getBlogs} from "@/app/actions/getBlogs";
 import {getWines} from "@/app/actions/getWines";
 import {getEvents} from "@/app/actions/getEvents";
+import {getExperiences} from "@/app/actions/getExperiences";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const blogs = await getBlogs({shortVersion: true});
     const wines = await getWines({shortVersion: true});
-    const events = await getEvents({ shortVersion: true })
+    const events = await getEvents({ shortVersion: true });
+    const experiences = await getExperiences({ shortVersion: true });
 
 
     const postEntries : MetadataRoute.Sitemap = blogs.map((post) => ({
@@ -25,6 +26,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${process.env.SITE_URL}/enotourism/events/${event.slug}`,
         priority: 1
     }));
+
+    const experienceEntries : MetadataRoute.Sitemap = experiences.map((experience) => ({
+        url: `${process.env.SITE_URL}/experiences/${experience.slug}`,
+        priority: 1
+    }));
+
     return [
         {
             url: `${process.env.SITE_URL}/`,
@@ -63,6 +70,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1
         },
         {
+            url: `${process.env.SITE_URL}/experiences`,
+            priority: 1
+        },
+        {
             url: `${process.env.SITE_URL}/legal`,
             priority: 0.4
         },
@@ -76,7 +87,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
         ...postEntries,
         ...wineEntries,
-        ...eventEntries
+        ...eventEntries,
+        ...experienceEntries
     ]
 }
 

@@ -12,6 +12,8 @@ import WineProfile from '@/components/Part/Catalog/Wine/WineProfile'; // New cli
 import BackToCatalogLink from '@/components/Part/Catalog/Wine/Backto'; // New client component
 import type { Metadata } from 'next';
 import { getProductVariantByWineId } from '@/utils/shopify';
+import WineNotFound from '@/components/Part/Catalog/Wine/WineNotFound';
+import { WineShort } from '@/types/Wine';
 
 const siteUrl = process.env.SITE_URL || 'https://crvinosmx.com'; 
 
@@ -66,9 +68,6 @@ export const generateMetadata = async ({ params }: { params: { line: string; slu
         'es-ES': `${siteUrl}/catalog/${params.slug}`,
       },
     },
-    verification: {
-      google: 'google-verification-code',
-    },
     appleWebApp: {
       title: 'CR Vinos MX',
       statusBarStyle: 'black-translucent',
@@ -76,29 +75,6 @@ export const generateMetadata = async ({ params }: { params: { line: string; slu
   };
 };
 
-const WineNotFound = () => {
-  return (
-    <div className="flex flex-col relative space-y-9">
-      <Navbar relative red redLogo />
-      <div className="flex relative w-full h-full px-4 sm:px-10 md:px-20 flex-col space-y-6">
-        <div className="mt-4 space-y-8 w-full">
-          <div className="flex flex-col relative space-y-8 w-full items-center">
-            <div className="flex flex-col items-center justify-center space-y-6 py-9 px-4 md:px-12 h-full">
-              
-              <h1 className="text-2xl sm:text-3xl md:text-4xl text-crred italic cormorant-garamond-italic tracking-wide mb-2">
-                Vino no encontrado
-              </h1>
-              <p className="text-gray-700 text-base sm:text-lg md:text-xl font-thin text-center">
-                Lo sentimos, no pudimos encontrar el vino que estás buscando.
-              </p>
-              <BackToCatalogLink />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const WinePage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = params;
@@ -109,6 +85,13 @@ const WinePage = async ({ params }: { params: { slug: string } }) => {
   if (!wine) {
     return <WineNotFound />;
   }
+
+  const recommendations: WineShort[] = await getWines({
+    collection: wine.collection,
+    exclude: slug,
+    count: 3,
+    shortVersion: true,
+  }) as WineShort[];
 
   const soldOut = wine.shopifyVariables ? !wine.shopifyVariables.availableForSale : true; 
   
@@ -155,9 +138,7 @@ const WinePage = async ({ params }: { params: { slug: string } }) => {
                     <p className="text-gray-700 text-lg sm:text-xl md:text-2xl ">${`${wine.shopifyVariables?.price} ${wine.shopifyVariables?.currencyCode}`}</p>
                   )}
                 </div>
-                {/* Quantity Selector and Add to Cart */}
                 <WineDetails wine={wine} soldOut={soldOut} />
-                {/* Wine Description */}
                 <div className=" ">
                   <p className="text-crred text-lg sm:text-xl md:text-2xl">Descripción</p>
                   <p className="text-gray-700 text-base sm:text-lg md:text-xl mt-4 font-thin">
@@ -169,7 +150,7 @@ const WinePage = async ({ params }: { params: { slug: string } }) => {
                 <WineProfile wine={wine} wineDetails={wineDetails} />
               </div>
             </div>
-            <RecommendationsSection collection={wine.collection} exclude={slug} />
+            <RecommendationsSection collection={wine.collection} initialRecommendations={recommendations}/>
           </div>
         </div>
       </div>

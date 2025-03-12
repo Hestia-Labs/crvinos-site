@@ -1,43 +1,41 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import BasicButton from '@/components/Buttons/BasicButton';
 import EventsLoader from '@/components/Loaders/EventsLoader';
 import EventItem from '@/components/Part/Landing/Events/EventItem';
 import { EventShort } from '@/types/Event';
-import { getEvents } from '@/app/actions/getEvents';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import LoadingScreen from '@/components/Loaders/LoadingScreen';
 
-const EventsPage: React.FC = () => {
-  const [events, setEvents] = useState<{ upcoming: EventShort[]; past: EventShort[] }>({
-    upcoming: [],
-    past: [],
-  });
-  const [loading, setLoading] = useState<boolean>(true);
-  const [visiblePastEvents, setVisiblePastEvents] = useState<number>(3);
 
-  useEffect(() => {
-    const loadEvents = async () => {
-      const fetchedEvents = (await getEvents({ shortVersion: true })) as EventShort[];
-      const now = new Date();
 
-      const upcomingEvents = fetchedEvents
-        .filter((event) => new Date(event.endDate) >= now)
-        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-      const pastEvents = fetchedEvents
-        .filter((event) => new Date(event.endDate) < now)
-        .sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
-
-      setEvents({ upcoming: upcomingEvents, past: pastEvents });
-      setLoading(false);
+type ImageProps = {
+  _id: string;
+  locationId: string;
+  image: {
+    asset: {
+      _id: string;
+      url: string;
     };
+    crop?: any;
+    hotspot?: any;
+  };
+};
 
-    loadEvents();
-  }, []);
+interface EventsPageProps {
+  events: {
+    upcoming: EventShort[];
+    past: EventShort[];
+  };
+  bannerImage: ImageProps;
+}
+
+
+const EventsPageClient: React.FC<EventsPageProps> = ({ events }) => {
+  const [visiblePastEvents, setVisiblePastEvents] = useState<number>(3);
 
   const EmptyState = ({ message, description }: { message: string; description: string }) => (
     <motion.div
@@ -67,33 +65,33 @@ const EventsPage: React.FC = () => {
   );
 
   return (
-    <div className='relative flex flex-col w-full items-center justify-center'>
+    <div className="relative flex flex-col w-full items-center justify-center">
       <Navbar />
       <LoadingScreen animationDuration={3} displayDuration={1} />
-      
-      {/* Banner Section - Unchanged */}
-      <div className='relative w-full overflow-hidden rounded-br-2xl rounded-bl-2xl'>
+
+      {/* Banner Section */}
+      <div className="relative w-full overflow-hidden rounded-br-2xl rounded-bl-2xl">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className='relative '
+          className="relative"
         >
           <Image
-            src='/img/farm.jpg'
-            alt='Eventos Banner'
+            src="/img/farm.jpg"
+            alt="Eventos Banner"
             width={0}
             height={0}
-            sizes='100vw'
-            className='w-full h-[40rem] md:h-[35rem] object-cover '
+            sizes="100vw"
+            className="w-full h-[40rem] md:h-[35rem] object-cover"
             priority
           />
-          <div className='absolute inset-0 bg-black opacity-40'></div>
-          <div className='absolute bottom-0 left-0 p-8 sm:p-12 md:p-16 lg:p-20'>
-            <h1 className='text-5xl sm:text-6xl md:text-7xl font-bold text-white drop-shadow-md'>
+          <div className="absolute inset-0 bg-black opacity-40"></div>
+          <div className="absolute bottom-0 left-0 p-8 sm:p-12 md:p-16 lg:p-20">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white drop-shadow-md">
               Eventos
             </h1>
-            <p className='text-xl sm:text-2xl md:text-3xl text-white mt-4 drop-shadow-md'>
+            <p className="text-xl sm:text-2xl md:text-3xl text-white mt-4 drop-shadow-md">
               Únete para una experiencia inolvidable
             </p>
           </div>
@@ -101,6 +99,7 @@ const EventsPage: React.FC = () => {
       </div>
 
       <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+        {/* Upcoming Events Section */}
         <section className="space-y-10">
           <div className="border-b border-crred/20 pb-6">
             <h2 className="text-3xl md:text-4xl font-light text-crred tracking-wide">
@@ -109,9 +108,7 @@ const EventsPage: React.FC = () => {
           </div>
 
           <AnimatePresence>
-            {loading ? (
-              <EventsLoader />
-            ) : events.upcoming.length > 0 ? (
+            {events.upcoming.length > 0 ? (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -148,9 +145,7 @@ const EventsPage: React.FC = () => {
           </div>
 
           <AnimatePresence>
-            {loading ? (
-              <EventsLoader />
-            ) : events.past.length > 0 ? (
+            {events.past.length > 0 ? (
               <>
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -200,4 +195,4 @@ const EventsPage: React.FC = () => {
   );
 };
 
-export default EventsPage;
+export default EventsPageClient;

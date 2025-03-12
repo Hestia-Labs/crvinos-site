@@ -124,12 +124,12 @@ export const experienceSchema = defineType({
     hidden: ({ document }) => !!document?.customDescription,
     fields: [
         defineField({
-        name: 'mainParagraph',
-        title: 'Párrafo Principal',
-        type: 'text',
-        rows: 3,
-        validation: Rule => Rule.required(),
-        }),
+            name: 'mainParagraph',
+            title: 'Párrafo Principal',
+            type: 'array', 
+            of: [{ type: 'block' }],
+            
+          }),
         defineField({
             name: 'duration',
             title: 'Duración',
@@ -141,7 +141,6 @@ export const experienceSchema = defineType({
         title: 'Características Destacadas',
         type: 'array',
         of: [{ type: 'string' }],
-        validation: Rule => Rule.min(3).max(5),
         })
     ]
     }),
@@ -158,9 +157,10 @@ export const experienceSchema = defineType({
               defineField({
                 type: 'object',
                 name: 'gridItem',
+
                 fields: [
                     defineField({
-                        name: 'title',
+                        name: 'locationId',
                         title: 'ID de Ubicación',
                         type: 'string',
                         validation: (Rule) => Rule.required(),
@@ -175,7 +175,12 @@ export const experienceSchema = defineType({
                         title: 'Descripción',
                         type: 'text',
                     }),
-                  
+                    defineField({
+                        name: 'image',
+                        title: 'Imagen',
+                        type: 'image',
+                        options: { hotspot: true },
+                    }),
                 ],
               }),
             ],

@@ -76,7 +76,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="relative min-h-screen w-full bg-transparent no-scrollbars ">
+    <div className="relative min-h-screen w-full bg-transparent no-scrollbars overflow-x-hidden">
       <Navbar darkenBg red={false} />
       <Hero />
       <div className='overflow-clip relative flex flex-col justify-center items-center w-full px-8 sm:px-10 md:px-20 space-y-3 mt-5'>

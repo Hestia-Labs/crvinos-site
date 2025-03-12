@@ -1,3 +1,4 @@
+// AboutPage.client.tsx
 'use client';
 
 import React from 'react';
@@ -13,6 +14,23 @@ interface TimelineItem {
   title: string;
   description: string;
   icon: string;
+}
+
+// Define the type for the banner image returned from Sanity
+interface BannerImage {
+  _id: string;
+  locationId: string;
+  image: {
+    asset: {
+      _id: string;
+      url: string;
+    };
+    alt?: string;
+  };
+}
+
+interface AboutPageClientProps {
+  bannerImage: BannerImage | null;
 }
 
 const TimelineSection: React.FC = () => {
@@ -89,14 +107,14 @@ const TimelineSection: React.FC = () => {
                     <div className="relative">
                       {/* Icon Circle */}
                       <div className="relative w-44 h-44 rounded-full overflow-hidden shadow-xl border-2 border-crred/20 flex items-center justify-center">
-                      <Image
-                        src={iconSrc}
-                        alt={item.title}
-                        fill
-                        className="object-contain"
-                        priority
-                      />
-                    </div>
+                        <Image
+                          src={iconSrc}
+                          alt={item.title}
+                          fill
+                          className="object-contain"
+                          priority
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -155,24 +173,34 @@ const TimelineSection: React.FC = () => {
   );
 };
 
-const AboutPage: React.FC = () => {
+const AboutPage: React.FC<AboutPageClientProps> = ({ bannerImage }) => {
   return (
     <div className="relative">
-      <Navbar />
+      <Navbar darkenBg  />
       <LoadingScreen animationDuration={3} displayDuration={1} />
 
       {/* ===== Banner Section ===== */}
-      <div className="relative h-full w-full overflow-hidden rounded-bl-3xl rounded-br-3xl">
-        <Image
-          src="/img/grapesAbout.jpg"
-          alt="Banner Image"
-          width={0}
-          height={0}
-          sizes="100vw"
-          className="w-full h-126 md:h-144 object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black opacity-40" />
+      <div className="relative h-126 md:h-144 w-full overflow-hidden rounded-bl-3xl rounded-br-3xl">
+        {bannerImage ? (
+          <Image
+            src={bannerImage.image.asset.url}
+            alt={bannerImage.image.alt || 'Banner Image'}
+            fill
+            sizes="100vw"
+            className="w-full h-126 md:h-144 object-cover"
+            priority
+          />
+        ) : (
+          <Image
+            src="/img/grapesAbout.jpg"
+            alt="Banner Image"
+            fill
+            sizes="100vw"
+            className="w-full h-126 md:h-144 object-cover"
+            priority
+          />
+        )}
+
         <div className="absolute bottom-0 left-0 p-8 sm:p-12 md:p-16 lg:p-20">
           <h2 className="text-5xl sm:text-6xl md:text-7xl italic cormorant-garamond-italic text-white drop-shadow-md">
             Nosotros
@@ -182,21 +210,18 @@ const AboutPage: React.FC = () => {
           </p>
         </div>
       </div>
-
-      {/* ===== Decorative Icon (Optional) ===== */}
       <div className="relative -z-10 mt-10">
         <Icon
           name="FullVines"
           className="absolute -top-36 h-80 w-full md:h-160 opacity-15"
         />
       </div>
-
       {/* ===== Nuestro Legado Section ===== */}
       <section className="px-8 sm:px-10 md:px-20 w-full flex flex-col items-center pb-10">
         <div className="flex flex-col w-full md:flex-row-reverse items-center md:items-start gap-8 pb-20 border-crred border-b-2">
           <div className="mt-20 max-w-6xl mx-auto">
             <h3 className="text-3xl md:text-4xl text-crred font-light tracking-wide mb-4">
-             La Esencia de Nuestro Legado
+              La Esencia de Nuestro Legado
             </h3>
             <div className="h-1 w-32 bg-crred mb-6" />
             <p className="text-lg md:text-xl cormorant-garamond text-gray-700 leading-relaxed">
@@ -219,19 +244,8 @@ const AboutPage: React.FC = () => {
         <TimelineSection />
       </section>
 
-      {/* ===== Timeline Section (Alternating Icons) ===== */}
+      {/* ===== Decorative Icon (Optional) ===== */}
       
-
-      {/* ===== (Optional) Carousel Section (commented out) ===== */}
-      {/*
-      <div className="px-8 sm:px-10 md:px-20 w-full relative mt-16">
-        <div className="w-full h-2 border-crred border-t-2"></div>
-        <div className="w-full flex justify-center items-center mt-8">
-          <EmblaCarousel slides={carouselItems} options={{ loop: true }} />
-        </div>
-        <div className="w-full h-2 border-crred border-t-2 mt-8"></div>
-      </div>
-      */}
 
       {/* ===== Vinification Process Section ===== */}
       <VinificationProcess />

@@ -39,7 +39,7 @@ const longExperienceFields = groq`
   price,
   customDescription,
   formFields,
-  defaultDescription {
+  defaultDescription  {
     mainParagraph,
     features,
     duration
@@ -47,9 +47,18 @@ const longExperienceFields = groq`
   featureGrid {
     items[] {
       _key,
-      title,
+      locationId,
       mainText,
-      description
+      description,
+      image {
+        asset->{
+          _id,
+          url
+        },  
+        alt,
+        crop,
+        hotspot //asdasd
+      }
     }
   }
 `;
@@ -76,17 +85,17 @@ export async function getExperiences({
       *[_type == "experience" 
         ${slug ? `&& seoSlug.current == "${slug}"` : ''} 
         ${categoryFilter}
-        ${draftFilter}
+        ${draftFilter} //deds
       ] | order(order asc) {
         ${fields}
-      } ${limit}  // Aplicar el límite aquí
+      } ${limit}  //dsadsadkljgja6
     `;
   
     return client.fetch(query);
   }
   
 
-// Para mapear categorías con su orden
+
 export async function getExperienceCategories(): Promise<{ title: string; order: number }[]> {
   const query = groq`
     *[_type == "experienceCategory"] | order(order asc) {

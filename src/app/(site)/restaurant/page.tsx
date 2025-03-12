@@ -7,6 +7,8 @@ import Icon from '@/components/Icons';
 import BasicButton from '@/components/Buttons/BasicButton';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { getImagesByLocationIds } from '@/app/actions/getImagebyLocation';
+
 
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
@@ -68,24 +70,24 @@ export const metadata: Metadata = {
   },
 };
 
-const RestaurantPage: React.FC = () => {
+const RestaurantPage: React.FC = async () => {
+  const restaurantImage = await getImagesByLocationIds(['rest-banner'])
   return (
     <div className="relative">
       <Navbar />
       <LoadingScreen animationDuration={3} displayDuration={1} />
 
       {/* ===== Hero / Banner Section ===== */}
-      <div className="relative h-full w-full overflow-hidden rounded-bl-3xl rounded-br-3xl">
+      <div className="relative h-126 md:h-144 overflow-hidden rounded-bl-3xl rounded-br-3xl">
         {/* Hero Background Image */}
         <Image
-          src="/img/restaurantMain.jpg"
-          alt="Cartinto House Hero"
-          width={0}
-          height={0}
-          sizes="100vw"
-          className="w-full h-126 md:h-144 object-cover"
-          priority
-        />
+            src={restaurantImage[0].image.asset.url || '/img/restaurantMain.jpg'}
+            alt={'Foto de Cartinto House'}
+            fill
+            sizes="100vw"
+            className="w-full h-126 md:h-144 object-cover"
+            priority
+          />
         <div className="absolute inset-0 bg-black opacity-40" />
        
 
@@ -276,7 +278,7 @@ const RestaurantPage: React.FC = () => {
             </div>
             
             
-            <div className="mt-6">
+            {/* <div className="mt-6">
                 <Image
                 src="/img/cartintoHouse.png"
                 alt="Cartinto House Logo"
@@ -284,7 +286,7 @@ const RestaurantPage: React.FC = () => {
                 height={400}     
                 className="object-contain "
                 />
-            </div>
+            </div> */}
         </section>
 
     </div>

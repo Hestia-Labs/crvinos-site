@@ -1,3 +1,5 @@
+import { PortableTextBlock } from '@portabletext/types';
+
 export type ExperienceType = string;
 
 export type ExperienceBase = {
@@ -19,16 +21,17 @@ export type Experience = ExperienceBase & {
   customDescription: boolean;
   formFields: string[];
   defaultDescription?: {
-    mainParagraph: string;
+    mainParagraph: PortableTextBlock;
     features: string[];
     duration: string;
   };
   featureGrid?: {
     items: Array<{
       _key: string;
-      title: string;
+      locationId: string;
       mainText?: string;
       description?: string;
+      image?: SanityImage;
     }>;
   };
 };

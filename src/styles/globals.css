@@ -144,3 +144,11 @@ body::before {
   }
 }
 
+.dropdown-shadow {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-menu-fade {
+  background: linear-gradient(180deg, rgba(145,78,86,0.98) 0%, rgba(145,78,86,0.95) 100%);
+}
+

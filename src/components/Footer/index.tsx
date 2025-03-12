@@ -45,24 +45,22 @@ const Footer: React.FC = () => {
 
   const sections: Section[] = [
     {
-      title: 'Información',
-      links: [
-        { name: 'Política de Privacidad', route: '/privacy' },
-        { name: 'Términos y Condiciones', route: '/terms' },
-        { name: 'Aviso Legal', route: '/legal' },
-      ],
-    },
-    {
       title: 'Explora',
       links: [
         { name: 'Inicio', route: '/' },
         { name: 'Nosotros', route: '/about' },
-        { name: 'Restaurante', route: '/restaurant' },
-        { name: 'Catalogo', route: '/catalog' },
+        { name: 'Catálogo', route: '/catalog' },
         { name: 'Blog', route: '/blog' },
-        { name: 'Enoturismo', route: '/enotourism' },
         { name: 'Contacto', route: '/contact' },
-        // { name: 'Cuentas', route: '/account' },
+      ],
+    },
+    {
+      title: 'Enoturismo',
+      links: [
+        { name: 'Visión General', route: '/enotourism' },
+        { name: 'Eventos', route: '/enotourism/events' },
+        { name: 'Experiencias', route: '/experiences' },
+        { name: 'Restaurante', route: '/restaurant' },
       ],
     },
     {
@@ -72,6 +70,12 @@ const Footer: React.FC = () => {
         { name: 'Facebook', route: 'https://www.facebook.com/profile.php?id=100078033250234&mibextid=LQQJ4d', icon: logoFacebook },
       ],
     },
+  ];
+
+  const legalLinks: LinkType[] = [
+    { name: 'Política de Privacidad', route: '/privacy' },
+    { name: 'Términos y Condiciones', route: '/terms' },
+    { name: 'Aviso Legal', route: '/legal' },
   ];
 
   return (
@@ -103,25 +107,25 @@ const Footer: React.FC = () => {
           )}
         >
           {/* Left Column: Sections */}
-          <div className='flex flex-col md:flex-row justify-between md:justify-evenly md:px-4 items-start w-full md:w-1/2 space-y-6 md:space-y-0 md:space-x-8 px-2  mt-10 md:mt-0'>
+          <div className='flex flex-col md:flex-row justify-between md:justify-evenly md:px-4 items-start w-full md:w-1/2 space-y-10 md:space-y-0 md:space-x-8 px-4 mt-10 md:mt-0'>
             {sections.map((section, index) => (
-              <div key={index} className='space-y-6'>
-                <h3 className={clsx('text-xl md:text-4xl italic font-thin', {
+              <div key={index} className='space-y-4 w-full md:w-auto'>
+                <h3 className={clsx('text-3xl md:text-4xl italic font-thin', {
                   'text-back': isRed,
                   'text-crred': !isRed,
                 })}>{section.title}</h3>
-                <div className='space-y-2 flex-col flex text-sm md:text-base'>
+                <div className='space-y-2 flex-col flex text-base md:text-base'>
                   {section.links.map((item, linkIndex) => (
                     item.icon ? (
-                      <div className='flex items-center space-x-2' key={linkIndex}>
+                      <div className='ml-2 flex items-center space-x-3' key={linkIndex}>
                         <Icon
                           name={item.icon}
-                          className="h-3 w-3 md:h-5 md:w-5"
+                          className="h-5 w-5 md:h-5 md:w-5"
                           newPage
                         />
                         <Link 
                           className={clsx(
-                            'uppercase transition-colors duration-300 ', 
+                            'uppercase transition-colors duration-300 text-base', 
                             {
                               'hover:text-back-75 ': isRed,
                               'hover:text-crred-75 text-gray-700': !isRed,
@@ -137,7 +141,7 @@ const Footer: React.FC = () => {
                     ) : (
                       <Link 
                         className={clsx(
-                          'uppercase transition-colors duration-300', 
+                          'uppercase transition-colors duration-300 text-base py-1 ml-2', 
                           {
                             'hover:text-back-75': isRed,
                             'hover:text-crred-75 text-gray-700': !isRed,
@@ -165,33 +169,78 @@ const Footer: React.FC = () => {
             )}
           >
             <MailingListForm />
-            <div className='flex flex-col items-start space-y-2  md:flex'>
-              <h3 className={clsx('text-xl md:text-4xl italic font-thin', {'text-back': isRed, 'text-crred': !isRed})}>Nuestra Ubicación</h3>
-              <div onClick={handleLocationClick} className={clsx('flex flex-col items-start space-y-1 cursor-pointer',{'text-gray-700 decoration-crred hover:text-crred-75 transition duration-300': !isRed,})}>
-                <p className='text-sm md:text-lg underline '>Camino Tejocote a San José La Laja km 3.2</p>
-                <p className={'text-sm md:text-lg underline '}>Tequisquiapan, Qro., México</p>
+            <div className='flex flex-col items-start space-y-4 md:flex'>
+              <h3 className={clsx('text-3xl md:text-4xl italic font-thin', {
+                'text-back': isRed,
+                'text-crred': !isRed,
+              })}>Nuestra Ubicación</h3>
+              <div className={clsx('space-y-2 flex-col flex text-base md:text-base',{
+                      'hover:text-back-75': isRed,
+                      'hover:text-crred-75 text-gray-700': !isRed,
+                    })}
+                    onClick={handleLocationClick} 
+                  >
+                <p 
+                  
+                  className={clsx(
+                    'uppercase transition-colors duration-300 text-base py-1 ml-2 cursor-pointer underline', 
+                    
+                  )}
+                >
+                  Camino Tejocote a San José La Laja km 3.2
+                </p>
+                <p 
+
+                  className={clsx(
+                    'uppercase transition-colors duration-300 text-base py-1 ml-2 cursor-pointer underline', 
+                    
+                  )}
+                >
+                  Tequisquiapan, Qro., México
+                </p>
               </div>
             </div>
           </div>
         </div>
-        {/* Footer Bottom */}
-        <div
-          className={clsx(
-            'flex flex-col justify-center items-center w-full text-xs md:text-sm lg:text-base text-center uppercase space-y-4 pt-12 md:pt-0',
-            {
-              'text-back': isRed,
-              'text-crred': !isRed,
-            }
-          )}
-        >
-          <Image
-            src={`/img/icons/CRVinos${logoColorClass}.svg`}
-            alt="CR Vinos Logo"
-            width={144}
-            height={144}
-            className="h-36 w-36"
-          />
-          <p>CR Vinos MX ® | Todos los Derechos Reservados</p>
+        
+        {/* Separator Line */}
+        <div className={clsx('w-full my-6 border-t', {
+          'border-back/30': isRed,
+          'border-crred/30': !isRed,
+        })}></div>
+        
+        {/* Footer Bottom - Legal Section */}
+        <div className={clsx('w-full flex flex-col md:flex-row justify-between items-center md:items-end space-y-6 md:space-y-0', {
+          'text-back/75': isRed,
+          'text-gray-700': !isRed,
+        })}>
+          {/* Left: Logo and Copyright */}
+          <div className="flex flex-col items-center md:items-start">
+            <Image
+              src={`/img/icons/CRVinos${logoColorClass}.svg`}
+              alt="CR Vinos Logo"
+              width={100}
+              height={100}
+              className="h-28 w-28 md:h-24 md:w-24 mb-3"
+            />
+            <p className="text-sm uppercase">CR Vinos MX ® | Todos los Derechos Reservados</p>
+          </div>
+          
+          {/* Right: Legal Links */}
+          <div className="flex flex-wrap justify-center md:justify-end space-y-3 md:space-y-0 space-x-0 md:space-x-4 text-xs">
+            {legalLinks.map((link, index) => (
+              <Link 
+                key={index}
+                href={link.route}
+                className={clsx('uppercase transition-colors duration-300 px-3 py-2 md:px-0 md:py-0', {
+                  'hover:text-back': isRed,
+                  'hover:text-crred/65': !isRed,
+                })}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

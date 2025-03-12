@@ -1,7 +1,13 @@
-import React from 'react';
+import EnotourismClient from '@/components/Part/Enotourism';
+import { getEvents } from '@/app/actions/getEvents';
+import { getExperiences } from '@/app/actions/getExperiences';
+import { EventShort } from '@/types/Event';
+import { ExperienceShort } from '@/types/Experience';
+import { getImagesByLocationIds } from '@/app/actions/getImagebyLocation';
+
 import type { Metadata } from 'next';
 
-import EnotourismPage from '@/components/Part/Enotourism';
+
 
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
@@ -62,10 +68,49 @@ export const metadata: Metadata = {
   },
 };
 
-const enotourism: React.FC = () => {
-  return (
-    <EnotourismPage />
-  );
-};
+async function fetchPageData() {
+  try {
+    const [events, experiences, images] = await Promise.all([
+      getEvents({ 
+        shortVersion: true, 
+        filterUpcoming: true, 
+        sortOrder: 'desc' 
+      }),
+      getExperiences({ 
+        shortVersion: true, 
+        count: 3 
+      }),
+      getImagesByLocationIds(['rest-banner', 'eno-banner'])
+    ]);
 
-export default enotourism;
+
+    return {
+      events: events as EventShort[],
+      experiences: experiences as ExperienceShort[],
+      restaurantImage: images.find(img => img?.locationId === 'rest-banner') || null,
+      bannerImage: images.find(img => img?.locationId === 'eno-banner') || null
+    };
+  } catch (error) {
+    console.error('Page data fetch error:', error);
+    return {
+      events: [],
+      experiences: [],
+      restaurantImage: null,
+      bannerImage: null
+    };
+  }
+}
+
+export default async function EnotourismPage() {
+  const { events, experiences, restaurantImage, bannerImage } = await fetchPageData();
+  const latestEvent = events[0] || null;
+
+  return (
+    <EnotourismClient 
+      latestEvent={latestEvent}
+      experiences={experiences}
+      restaurantImage={restaurantImage}
+      bannerImage={bannerImage}
+    />
+  );
+}

@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import BasicButton from '@/components/Buttons/BasicButton';
 import { motion } from 'framer-motion';
 
-const EventNotFound = () => {
+const NoBlogPost = () => {
   return (
     <div className="flex flex-col relative space-y-9">
       <Navbar relative red redLogo />
@@ -32,17 +32,17 @@ const EventNotFound = () => {
               />
             </svg>
             <h1 className="text-3xl md:text-4xl font-light text-crred">
-              Evento no encontrado
+              Publicación no encontrada
             </h1>
             <p className="text-gray-600 mb-8">
-              El evento que estás buscando no existe o ha sido removido.
+              La publicación que estás buscando no existe o ha sido removida.
             </p>
             <BasicButton
-              link="/events"
+              link="/blog"
               variant="transparent"
               className="mx-auto border border-crred"
             >
-              Ver todos los eventos
+              Ver todas las publicaciones
             </BasicButton>
           </motion.div>
         </div>
@@ -51,4 +51,4 @@ const EventNotFound = () => {
   );
 };
 
-export default EventNotFound;
+export default NoBlogPost;

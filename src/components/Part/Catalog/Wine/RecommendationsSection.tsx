@@ -1,42 +1,21 @@
-"use client";
-import React, { useEffect, useState } from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import WineItem from '@/components/Part/Catalog/WineItem';
-import { getWines } from '@/app/actions/getWines';
 import { WineShort } from '@/types/Wine';
-import WineRecLoader from '@/components/Loaders/WineRecLoader'; 
+import BasicButton from '@/components/Buttons/BasicButton';
 
 interface RecommendationsSectionProps {
-  collection?: string;  
-  exclude: string;
+  collection?: string;
+  initialRecommendations: WineShort[];
 }
 
-const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collection, exclude }) => {
-  const [recommendations, setRecommendations] = useState<WineShort[]>([]);
+const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({
+  collection,
+  initialRecommendations,
+}) => {
+  const [recommendations] = useState<WineShort[]>(initialRecommendations);
   const [visibleRecommendations, setVisibleRecommendations] = useState<WineShort[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  // 1) Fetch recommendations whenever `exclude` or `collection` changes
-  useEffect(() => {
-    const fetchRecommendations = async () => {
-      try {
-        setLoading(true);
-        const fetchedRecommendations = await getWines({
-          exclude,
-          collection,
-          count: 3,
-          shortVersion: true,
-        }) as WineShort[];
-
-        setRecommendations(fetchedRecommendations);
-      } catch (error) {
-        console.error('Failed to fetch recommendations:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRecommendations();
-  }, [exclude, collection]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,14 +24,13 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collect
     };
 
     window.addEventListener('resize', handleResize);
-    
     handleResize();
-
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [recommendations]); 
+  }, [recommendations]);
+
 
   return (
     <div className='w-full flex flex-col justify-center items-center space-y-6 py-5'>
@@ -64,21 +42,15 @@ const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ collect
       </div>
 
       <div className='grid grid-cols-2 md:grid-cols-3 gap-8 sm:gap-8 md:gap-20 p-4 justify-evenly items-center w-full'>
-        {loading ? (
-          <WineRecLoader />
-        ) : (
-          <>
-            {visibleRecommendations.map((wine, index) => (
-              <WineItem 
-                key={wine.slug}
-                wine={wine}
-                index={index}
-                selectedOption={wine.collection}
-                link={`/catalog/${wine.collection.toLowerCase()}/${encodeURIComponent(wine.slug)}`}
-              />
-            ))}
-          </>
-        )}
+        {visibleRecommendations.map((wine, index) => (
+          <WineItem 
+            key={wine.slug}
+            wine={wine}
+            index={index}
+            selectedOption={wine.collection}
+            link={`/catalog/${wine.collection.toLowerCase()}/${encodeURIComponent(wine.slug)}`}
+          />
+        ))}
       </div>
     </div>
   );

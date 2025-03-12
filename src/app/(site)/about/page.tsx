@@ -1,5 +1,6 @@
 import React from 'react';
-import AboutPage from '@/components/Part/About';
+import AboutPageClient from '@/components/Part/About';
+import { getImagesByLocationIds} from '@/app/actions/getImagebyLocation';
 import type { Metadata } from 'next';
 
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
@@ -51,10 +52,12 @@ export const generateMetadata = (): Metadata => {
   };
 };
 
-const About: React.FC = () => {
-  return (
-    <AboutPage />
-  );
-};
 
-export default About;
+
+export default async function About() {
+  
+  const bannerImage = await getImagesByLocationIds(['about-banner']);
+
+  return <AboutPageClient bannerImage={bannerImage[0]} />;
+}
+

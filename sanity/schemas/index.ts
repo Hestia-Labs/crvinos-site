@@ -6,6 +6,7 @@ import { notificationBar } from "./notificationBar-schema";
 import { notificationPop } from "./notificationPop-schema";
 import page from "./page-schema";
 import { experienceSchema, experienceCategorySchema } from "./experiences-schema";
+import { Images } from "./images-schema"
 
 const schemas: any = [
   eventSchema,
@@ -18,7 +19,8 @@ const schemas: any = [
   notificationPop,
   page,
   experienceSchema,
-  experienceCategorySchema
+  experienceCategorySchema,
+  Images
 ];
 
 export default schemas;

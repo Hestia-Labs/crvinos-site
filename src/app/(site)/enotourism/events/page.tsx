@@ -1,6 +1,9 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import EventsPage from '@/components/Part/Events';
+import EventsPageClient from '@/components/Part/Events';
+import { getEvents } from '@/app/actions/getEvents';
+import { EventShort } from '@/types/Event';
+import  { getImagesByLocationIds } from '@/app/actions/getImagebyLocation';
 
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
@@ -59,10 +62,22 @@ export const metadata: Metadata = {
   },
 };
 
-const Events: React.FC = () => {
-  return (
-    <EventsPage />
-  );
-};
 
-export default Events;
+
+export default async function EventsPageServer() {
+
+  const eventsData = (await getEvents({ shortVersion: true })) as EventShort[];
+  const now = new Date();
+
+  const upcomingEvents = eventsData
+    .filter((event) => new Date(event.endDate) >= now)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  const pastEvents = eventsData
+    .filter((event) => new Date(event.endDate) < now)
+    .sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
+
+  const bannerImage = await getImagesByLocationIds(['event-banner']);
+
+  return <EventsPageClient events={{ upcoming: upcomingEvents, past: pastEvents }} bannerImage={bannerImage[0]}/>;
+}

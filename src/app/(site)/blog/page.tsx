@@ -1,6 +1,10 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Blog from '@/components/Part/Blog';
+import BlogClient from '@/components/Part/Blog';
+import { getBlogs } from '@/app/actions/getBlogs';
+import { BlogPostShort } from '@/types/Blog';
+import Navbar from '@/components/Navbar';
+import Icon from '@/components/Icons';
 
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
@@ -63,10 +67,22 @@ export const metadata: Metadata = {
   },
 };
 
-const BlogPage: React.FC = () => {
-  return (
-    <Blog/>
-  );
-};
+export default async function BlogPage() {
+  const posts = await getBlogs({ shortVersion: true }) as BlogPostShort[];
+  const categories = ['Todos']; // Add actual categories if needed
 
-export default BlogPage;
+  return (
+    <div className='flex flex-col'>
+      <div className='relative w-full -z-10'>
+        <Icon name='ContactVines' className='absolute h-80 w-full md:h-160 opacity-40' />
+      </div>
+      <Navbar clearBg redLogo red relative />
+      <BlogClient initialPosts={posts} categories={categories} />
+      <div className='absolute -bottom-80 right-0 -z-10'>
+        <Icon name='VineLeaf' className='h-80 w-full opacity-40' />
+      </div>
+    </div>
+  );
+}
+
+
