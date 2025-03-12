@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter, usePathname } from 'next/navigation';
 import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
 import { IoBagHandleOutline } from 'react-icons/io5';
+import { PiCaretDownThin } from "react-icons/pi";
 import clsx from 'clsx';
 import { useDrawer } from '@/contexts/DrawerContext';
 import { TransitionLink } from '@/utils/TransitionLink';
@@ -70,9 +71,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
   const navItems = [
     { name: 'Inicio', route: '', available: true },
     { name: 'Nosotros', route: 'about', available: true },
-    { name: 'Restaurante', route: 'restaurant', available: true },
     { name: 'Catálogo', route: 'catalog', available: true },
-    { name: 'Blog', route: 'blog', available: true },
     {
       name: 'Enoturismo',
       route: 'enotourism',
@@ -83,6 +82,8 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
         { name: 'Experiencias', route: 'experiences', available: true },
       ]
     },
+    { name: 'Restaurante', route: 'restaurant', available: true },
+    { name: 'Blog', route: 'blog', available: true },
     { name: 'Contacto', route: 'contact', available: true },
   ];
 
@@ -111,7 +112,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex px-9 z-20 pt-8 relative">
-        <div className="flex py-2 space-x-8 w-full">
+        <div className="flex py-2 space-x-8 w-full items-center">
           <div className="flex justify-center items-center md:text-base text-xs space-x-6">
             {navItems.map((item, index) => {
               const isActive =
@@ -128,7 +129,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
                   <motion.div
                     whileHover={{ y: 0 }}
                     className={clsx(
-                      'cursor-pointer flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors',
+                      'cursor-pointer flex justify-center items-center gap-1.5 px-3 py-2 rounded-lg transition-colors',
                       {
                         'text-crred hover:bg-crred/10': red,
                         'text-white hover:bg-white/10': !red,
@@ -140,19 +141,18 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
                   >
                     <TransitionLink
                       href={`/${item.route}`}
-                      className="flex items-center gap-1.5"
+                      className="flex items-center gap-0.5"
                     >
                       {item.name}
                       {item.submenu && (
-                        <span
+                        <PiCaretDownThin  
                           className={clsx(
-                            'text-xs transition-transform',
+                            'w-5 h-5 transition-transform duration-300',
                             { 'text-crred/80': red },
-                            { 'text-white/80': !red }
+                            { 'text-white/80': !red },
+                            { 'rotate-180': hoveredDropdown === item.name }
                           )}
-                        >
-                          ▼
-                        </span>
+                        />
                       )}
                     </TransitionLink>
                   </motion.div>
@@ -166,18 +166,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.3, ease: "easeOut" }}
-                      className={clsx(
-                        'absolute top-full left-1/2 transform -translate-x-1/2 mt-3 rounded-2xl overflow-hidden min-w-[220px]',
-                        {
-                          'bg-gradient-to-b from-crred-90 to-crred-75 text-back': red,
-                          'bg-gradient-to-b from-back-95 to-back-90 text-gray-800': !red,
-                        },
-                        'backdrop-blur-md shadow-xl border',
-                        {
-                          'border-crred/20': red,
-                          'border-gray-200': !red
-                        }
-                      )}
+                      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 rounded-2xl overflow-hidden min-w-[220px] bg-gradient-to-b from-back-95 to-back-90 text-gray-800 backdrop-blur-md shadow-xl border border-gray-200"
                     >
                       <div className="p-2">
                         {item.submenu.map((subItem, subIndex) => {
@@ -186,17 +175,15 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
                             <motion.div
                               key={subIndex}
                               whileHover={{ 
-                                backgroundColor: red ? 'rgba(141, 19, 30, 0.4)' : 'rgba(229, 231, 235, 0.8)',
+                                backgroundColor: 'rgba(229, 231, 235, 0.8)',
                                 scale: 1.02,
                                 transition: { duration: 0.2 }
                               }}
                               className={clsx(
                                 'px-6 py-3 transition-all duration-200 rounded-lg my-1',
                                 {
-                                  'bg-crred/30': red && isSubActive,
-                                  'bg-gray-200': !red && isSubActive,
-                                  'border-l-4 border-crred font-semibold': red && isSubActive,
-                                  'border-l-4 border-gray-600 font-semibold': !red && isSubActive,
+                                  'bg-gray-200': isSubActive,
+                                  'border-l-4 border-gray-600 font-semibold': isSubActive,
                                 }
                               )}
                             >
@@ -204,9 +191,10 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
                                 href={`/${subItem.route}`}
                                 className={clsx(
                                   "block whitespace-nowrap font-medium",
-                                  { 'text-white opacity-100': red && isSubActive,
-                                    'text-gray-900 opacity-100': !red && isSubActive,
-                                    'opacity-80': !isSubActive }
+                                  { 
+                                    'text-gray-900 opacity-100': isSubActive,
+                                    'opacity-80': !isSubActive 
+                                  }
                                 )}
                               >
                                 {subItem.name}
@@ -221,7 +209,7 @@ export default function Navbar({ red, redLogo, relative, clearBg, darkenBg, noBg
               );
             })}
           </div>
-          <div className="flex space-x-4">
+          <div className="flex items-center">
             <motion.div
               onClick={() => openDrawer('cart')}
               className="relative cursor-pointer"

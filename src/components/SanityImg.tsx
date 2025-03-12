@@ -40,12 +40,10 @@ const SanityImg = ({
   priority = false,
 }: SanityImgProps) => {
   const qualityValue = qualityMapping[qualityTier];
+  const [bannerSize, setBannerSize] = useState({ width: 1920, height: 576 });
 
-  if (banner) {
-    // For banner images, calculate dimensions based on the viewport while preserving the aspect ratio.
-    const [bannerSize, setBannerSize] = useState({ width: 1920, height: 576 });
-
-    useEffect(() => {
+  useEffect(() => {
+    if (banner) {
       const computeBannerSize = () => {
         const vw = window.innerWidth;
         const requestedWidth = Math.min(vw, 1920);
@@ -55,8 +53,10 @@ const SanityImg = ({
       computeBannerSize();
       window.addEventListener('resize', computeBannerSize);
       return () => window.removeEventListener('resize', computeBannerSize);
-    }, []);
+    }
+  }, [banner]);
 
+  if (banner) {
     const imageUrl = builder.image(source)
       .auto('format')
       .quality(qualityValue)

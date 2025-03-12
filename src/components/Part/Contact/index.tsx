@@ -20,7 +20,7 @@ const Contact: React.FC = () => {
   useEffect(() => {
     redOn(); // Activate red theme on component mount
     return () => redOff(); // Deactivate red theme on component unmount
-  }, [redOn]);
+  }, [redOn, redOff]); // Added redOff to dependency array
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

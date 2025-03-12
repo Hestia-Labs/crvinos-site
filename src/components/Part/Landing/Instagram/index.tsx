@@ -9,23 +9,7 @@ const Instagram: React.FC<{ photos: InstagramPost[] }> = ({ photos }) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [visiblePhotos, setVisiblePhotos] = useState<InstagramPost[]>([]);
 
-    useEffect(() => {
-        if (photos.length > 0) {
-            setLoading(false);
-            updateVisiblePhotos();
-        }
-    }, [photos]);
-
-    useEffect(() => {
-        const handleResize = () => {
-            updateVisiblePhotos();
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [photos]);
-
-    const updateVisiblePhotos = () => {
+    const updateVisiblePhotos = React.useCallback(() => {
         const width = window.innerWidth;
         let count = 5;
 
@@ -38,7 +22,23 @@ const Instagram: React.FC<{ photos: InstagramPost[] }> = ({ photos }) => {
         }
 
         setVisiblePhotos(photos.slice(0, count));
-    };
+    }, [photos]);
+
+    useEffect(() => {
+        if (photos.length > 0) {
+            setLoading(false);
+            updateVisiblePhotos();
+        }
+    }, [photos, updateVisiblePhotos]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            updateVisiblePhotos();
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [updateVisiblePhotos]);
 
     return (
         <div className="p-6 border-crred border-t-2 w-full">
