@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
-import LoadingScreen from '@/components/Loaders/LoadingScreen';
 import BasicButton from '@/components/Buttons/BasicButton';
 import Icon from '@/components/Icons';
 import type { Metadata } from 'next';
@@ -43,9 +42,7 @@ export const metadata: Metadata = {
       'es-ES': `${siteUrl}/restaurant/menu`,
     },
   },
-  verification: {
-    google: 'google-verification-code',
-  },
+  
   appleWebApp: {
     title: 'Cartinto House',
     statusBarStyle: 'black-translucent',
@@ -69,7 +66,6 @@ const MenuPage: React.FC = () => {
   return (
     <div className="relative ">
       <Navbar relative redLogo red />
-      <LoadingScreen animationDuration={3} displayDuration={1} />
 
       {/* === Main Container === */}
       <main className="px-8 sm:px-10 md:px-20 w-full flex flex-col items-center py-16">

@@ -9,6 +9,7 @@ import BasicButton from '@/components/Buttons/BasicButton';
 import Skeleton from 'react-loading-skeleton';
 import Image from 'next/image';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useRouter } from 'next/navigation';
 
 const CartDrawer: React.FC = () => {
   const { isOpen, activeDrawer, closeDrawer } = useDrawer();
@@ -22,8 +23,18 @@ const CartDrawer: React.FC = () => {
     isLoading,
   } = useCart();
 
+  const router = useRouter();
+
   const handleRemove = (id: string) => {
     removeFromCart(id);
+  };
+
+  // Add a function to handle checkout
+  const handleCheckout = () => {
+    if (checkoutUrl && cartItems.length > 0) {
+      // Open in a new tab to avoid issues with the transition system
+      router.push(checkoutUrl);
+    }
   };
 
   return (
@@ -132,7 +143,7 @@ const CartDrawer: React.FC = () => {
                       sizey="medium"
                       className={`w-full border border-crred ${cartItems.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={cartItems.length === 0}
-                      link={checkoutUrl}
+                      onClick={handleCheckout}
                     >
                       Pagar
                     </BasicButton>

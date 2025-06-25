@@ -20,13 +20,12 @@ const SkeletonLoader: React.FC = () => (
 
 const Catalog: React.FC<CatalogProps> = ({ wines }) => {
   const router = useRouter();
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   // If wines is empty or not loaded, you can conditionally show skeletons or handle error states
   const isLoading = !wines || wines.length === 0;
 
   const handleImageClick = (slug: string) => {
-    router.push(`/catalog?line=${slug}`);
+    router.push(`/catalog/${slug.toLocaleLowerCase()}`);
   };
 
   const handleButtonClick = () => {
@@ -47,33 +46,46 @@ const Catalog: React.FC<CatalogProps> = ({ wines }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-8 p-4 w-full justify-center">
+      <div className="w-full">
         {isLoading ? (
-          Array.from({ length: 3 }).map((_, index) => (
-            <SkeletonLoader key={index} />
-          ))
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-8 p-4 w-full justify-center">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <SkeletonLoader key={index} />
+            ))}
+          </div>
         ) : (
-          wines.map((wine, index) => (
-            <motion.div
-              key={wine._id}
-              className="flex items-center justify-center flex-col lg:h-100 md:h-80 sm:h-64 h-64 cursor-pointer"
-              onClick={() => handleImageClick(wine.collection)}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              whileHover={{ scale: 1.05, transition: { type: 'tween', ease: 'linear' } }}
-              animate={{ opacity: hoveredIndex === null || hoveredIndex === index ? 1 : 0.5 }}
-            >
-              <Image
-                src={wine.photo.asset.url}
-                alt={wine.photo.alt}
-                width={0}
-                height={0}
-                sizes="100vw"
-                loading="lazy"
-                className="object-contain w-full h-full"
-              />
-            </motion.div>
-          ))
+          <>
+            {/* Scroll hint - only visible on mobile */}
+            <div className="flex items-center justify-center mb-3 sm:hidden">
+              <p className="text-gray-700  italic flex items-center">
+                Desliza para ver más <span className="ml-1">→</span>
+              </p>
+            </div>
+            <div className="flex overflow-x-auto sm:grid sm:grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-4 w-full pb-4 snap-x">
+              {wines.map((wine, index) => (
+                <motion.div
+                  key={wine._id}
+                  className="flex-shrink-0 flex items-center justify-center flex-col w-[90vw] sm:w-auto h-96 sm:h-80 md:h-96 cursor-pointer snap-center mx-1 sm:mx-0 group"
+                  onClick={() => handleImageClick(wine.collection)}
+                  whileHover={{ scale: 1.05, transition: { type: 'tween', ease: 'linear' } }}
+                >
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={wine.photo.asset.url}
+                      alt={wine.photo.alt}
+                      fill
+                      sizes="(max-width: 640px) 90vw, (max-width: 768px) 30vw, 25vw"
+                      loading="lazy"
+                      className="object-contain"
+                    />
+                  </div>
+                  <p className="text-center text-crred mt-2 text-sm font-light sm:hidden">
+                    {wine.collection}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </>
         )}
       </div>
 

@@ -8,9 +8,7 @@ import EventItem from '@/components/Part/Landing/Events/EventItem';
 import { EventShort } from '@/types/Event';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import LoadingScreen from '@/components/Loaders/LoadingScreen';
-
-
+import Reveal from '@/components/Effects/reveal';
 
 type ImageProps = {
   _id: string;
@@ -30,11 +28,10 @@ interface EventsPageProps {
     upcoming: EventShort[];
     past: EventShort[];
   };
-  bannerImage: ImageProps;
+
 }
 
-
-const EventsPageClient: React.FC<EventsPageProps> = ({ events }) => {
+const EventsPageClient: React.FC<EventsPageProps> = ({ events}) => {
   const [visiblePastEvents, setVisiblePastEvents] = useState<number>(3);
 
   const EmptyState = ({ message, description }: { message: string; description: string }) => (
@@ -65,47 +62,32 @@ const EventsPageClient: React.FC<EventsPageProps> = ({ events }) => {
   );
 
   return (
-    <div className="relative flex flex-col w-full items-center justify-center">
-      <Navbar />
-      <LoadingScreen animationDuration={3} displayDuration={1} />
-
-      {/* Banner Section */}
-      <div className="relative w-full overflow-hidden rounded-br-2xl rounded-bl-2xl">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="relative"
-        >
-          <Image
-            src="/img/farm.jpg"
-            alt="Eventos Banner"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="w-full h-[40rem] md:h-[35rem] object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black opacity-40"></div>
-          <div className="absolute bottom-0 left-0 p-8 sm:p-12 md:p-16 lg:p-20">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white drop-shadow-md">
-              Eventos
-            </h1>
-            <p className="text-xl sm:text-2xl md:text-3xl text-white mt-4 drop-shadow-md">
-              Únete para una experiencia inolvidable
-            </p>
-          </div>
-        </motion.div>
+    <div className="relative flex flex-col w-full items-center justify-center px-8 sm:px-12 md:px-16 lg:px-20">
+      
+      {/* Title Section (replacing banner) - similar to Experiences page */}
+      <div className='flex flex-col items-center justify-center w-full px-8 sm:px-12 md:px-16 lg:px-20'>
+        <div className='flex flex-col justify-center items-center w-full space-y-6 py-8 sm:py-12 md:py-16 lg:py-20'>
+          <h2 className='text-4xl md:text-5xl lg:text-6xl xl:text-8xl text-crred font-light tracking-wide mb-4'>
+            Eventos
+          </h2>
+          <div className="h-0.5 w-48 md:w-64 bg-crred/70 mx-auto my-6"></div>
+          <p className="text-xl sm:text-2xl text-gray-700 max-w-3xl text-center font-light">
+            Descubre nuestros eventos exclusivos, donde la pasión por el vino se encuentra con experiencias inolvidables
+          </p>
+        </div>
       </div>
 
-      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-16 border-t-2 border-crred/80">
         {/* Upcoming Events Section */}
         <section className="space-y-10">
-          <div className="border-b border-crred/20 pb-6">
-            <h2 className="text-3xl md:text-4xl font-light text-crred tracking-wide">
-              Próximos Eventos
-            </h2>
-          </div>
+
+            <Reveal>
+              <h2 className="text-3xl md:text-4xl font-light text-crred tracking-wide mb-2">
+                Próximos Eventos
+              </h2>
+              <div className="h-1 w-48 bg-crred mb-6" />
+            </Reveal>
+
 
           <AnimatePresence>
             {events.upcoming.length > 0 ? (
@@ -115,16 +97,17 @@ const EventsPageClient: React.FC<EventsPageProps> = ({ events }) => {
                 className="grid grid-cols-1 lg:grid-cols-2 gap-8"
               >
                 {events.upcoming.map((event) => (
-                  <EventItem
-                    key={event.slug}
-                    slug={event.slug}
-                    imageUrl={event.imageUrl}
-                    title={event.title}
-                    endDate={event.endDate}
-                    description={event.description}
-                    date={event.date}
-                    time={event.time}
-                  />
+                  <Reveal key={event.slug}>
+                    <EventItem
+                      slug={event.slug}
+                      imageUrl={event.imageUrl}
+                      title={event.title}
+                      endDate={event.endDate}
+                      description={event.description}
+                      date={event.date}
+                      time={event.time}
+                    />
+                  </Reveal>
                 ))}
               </motion.div>
             ) : (
@@ -138,12 +121,12 @@ const EventsPageClient: React.FC<EventsPageProps> = ({ events }) => {
 
         {/* Past Events Section */}
         <section className="space-y-10 border-t border-crred/20 pt-16">
-          <div className="border-b border-crred/20 pb-6">
-            <h2 className="text-3xl md:text-4xl font-light text-crred tracking-wide">
-              Eventos Pasados
-            </h2>
-          </div>
-
+            <Reveal>
+              <h2 className="text-3xl md:text-4xl font-light text-crred tracking-wide mb-2">
+                Eventos Pasados
+              </h2>
+              <div className="h-1 w-48 bg-crred mb-6" />
+            </Reveal>
           <AnimatePresence>
             {events.past.length > 0 ? (
               <>
@@ -153,16 +136,17 @@ const EventsPageClient: React.FC<EventsPageProps> = ({ events }) => {
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                 >
                   {events.past.slice(0, visiblePastEvents).map((event) => (
-                    <EventItem
-                      key={event.slug}
-                      slug={event.slug}
-                      imageUrl={event.imageUrl}
-                      title={event.title}
-                      endDate={event.endDate}
-                      description={event.description}
-                      date={event.date}
-                      time={event.time}
-                    />
+                    <Reveal key={event.slug}>
+                      <EventItem
+                        slug={event.slug}
+                        imageUrl={event.imageUrl}
+                        title={event.title}
+                        endDate={event.endDate}
+                        description={event.description}
+                        date={event.date}
+                        time={event.time}
+                      />
+                    </Reveal>
                   ))}
                 </motion.div>
 

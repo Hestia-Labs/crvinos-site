@@ -21,7 +21,7 @@ export async function getImagesByLocationIds(locationIds: string[]) {
       _id,
       locationId,
       image {
-        asset->{
+        asset->{ //asset is a reference to the image asset s
           _id,
           url
         },  

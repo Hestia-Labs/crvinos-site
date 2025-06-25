@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import clsx from 'clsx';
-import { useRouter } from 'next/navigation';
+import TransitionLink from '@/components/TransitionLink';
 
 interface BasicButtonProps {
     variant: 'transparent' | 'bg-back' | 'bg-crred' | 'main' | 'cart' | 'transparent-foot' | 'bg-gray-300';
@@ -12,27 +12,30 @@ interface BasicButtonProps {
     className?: string;
     disabled?: boolean;
     link?: string;
-    type?: 'button' | 'submit' | 'reset';  // Added type prop
+    type?: 'button' | 'submit' | 'reset';
+    animationDuration?: number;
+    LinkComponent?: React.ComponentType<any>; // Custom Link component to use
 }
 
-const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', sizey = 'medium', children, onClick, className = '', disabled = false, link, type = 'button' }) => {  // Default type to 'button'
-    const router = useRouter();
-
+const BasicButton: React.FC<BasicButtonProps> = ({ 
+    variant, 
+    sizex = 'medium', 
+    sizey = 'medium', 
+    children, 
+    onClick, 
+    className = '', 
+    disabled = false, 
+    link,
+    type = 'button',
+    animationDuration = 1.5,
+    LinkComponent = TransitionLink
+}) => {
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        if (type === 'submit' || type === 'reset') {
-            // Allow default behavior for submit and reset types
-            if (onClick) {
-                onClick(event);
+        if (onClick) {
+            if (type !== 'submit' && type !== 'reset' && event) {
+                event.preventDefault();
             }
-        } else {
-            if (link) {
-                router.push(link);
-            } else if (onClick) {
-                if (event) {
-                    event.preventDefault();
-                }
-                onClick(event);
-            }
+            onClick(event);
         }
     };
 
@@ -54,7 +57,7 @@ const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', si
     });
 
     const baseClassName = clsx(
-        'rounded-full transition-all duration-300 ease-in-out',
+        'rounded-full transition-all duration-300 ease-in-out text-center',
         {
             'bg-transparent text-crred hover:bg-crred hover:text-back': variant === 'transparent',
             'bg-transparent text-back hover:bg-back-75 hover:text-accred': variant === 'transparent-foot',
@@ -68,6 +71,18 @@ const BasicButton: React.FC<BasicButtonProps> = ({ variant, sizex = 'medium', si
         sizeClassName,
         className
     );
+
+    if (link && !disabled) {
+        // Use the provided LinkComponent (defaults to TransitionLink)
+        return (
+            <LinkComponent 
+                href={link} 
+                className={baseClassName}
+            >
+                {children}
+            </LinkComponent>
+        );
+    }
 
     return (
         <button type={type} className={baseClassName} onClick={handleClick} disabled={disabled}>

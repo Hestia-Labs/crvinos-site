@@ -1,6 +1,5 @@
 'use server';
 
-
 import { createClient } from "@sanity/client";
 import { NotificationBar, NotificationPop } from "@/types/Notifications";
 
@@ -34,7 +33,34 @@ export async function getNotificationPops(): Promise<NotificationPop[]> {
             },
             title,
             subtitle,
+            contentType,
             link,
+            "eventReference": select(
+                contentType == 'event' => {
+                    "_ref": eventReference._ref,
+                    "title": eventReference->title,
+                    "slug": eventReference->slug,
+                    "dates": eventReference->dates,
+                    "poster": {
+                        "url": eventReference->poster.asset->url
+                    }
+                }
+            ),
+            "experienceReference": select(
+                contentType == 'experience' => {
+                    "_ref": experienceReference._ref,
+                    "title": experienceReference->title,
+                    "slug": experienceReference->slug,
+                    "coverImage": {
+                        "url": experienceReference->mainImage.asset->url
+                    }
+                }
+            ),
+            buttonText,
+            "displayOptions": {
+                "frequency": coalesce(displayOptions.frequency, "once"),
+                "delay": coalesce(displayOptions.delay, 5)
+            },
             isActive
         }
     `;

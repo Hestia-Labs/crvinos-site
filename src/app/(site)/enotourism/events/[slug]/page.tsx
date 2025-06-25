@@ -68,9 +68,6 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
         'es-ES': `${siteUrl}/enotourism/${params.slug}`,
       },
     },
-    verification: {
-      google: 'google-verification-code',
-    },
     appleWebApp: {
       title: 'CR Vinos MX',
       statusBarStyle: 'black-translucent',

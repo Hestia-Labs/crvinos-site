@@ -7,6 +7,7 @@ const siteUrl = process.env.SITE_URL || 'https://crvinosmx.com';
 
 export const generateMetadata = async ({ params }: { params: { experience: string } }): Promise<Metadata> => {
   const experiences = await getExperiences({ slug: params.experience, shortVersion: false }) as Experience[];
+
   if (experiences.length === 0) {
     return {
       title: 'Experiencia no encontrada | CR Vinos MX',
@@ -68,14 +69,16 @@ export default async function ExperiencePage({
 }: { 
   params: { experience: string } 
 }) {
-  // Get current experience
+  // Get current experience with all needed sections
   const [experience] = await getExperiences({ 
     slug: params.experience,
-    shortVersion: false
+    shortVersion: false, 
   }) as Experience[];
 
-  // Get all experiences for navigation
-  const allExperiences = await getExperiences({}) as Experience[];
+  // Get minimal info for navigation experiences 
+  const allExperiences = await getExperiences({
+    shortVersion: true // Only fetch what we need for navigation
+  }) as Experience[];
 
   const currentIndex = allExperiences.findIndex(e => e.slug === params.experience);
   

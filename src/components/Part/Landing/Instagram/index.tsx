@@ -41,7 +41,7 @@ const Instagram: React.FC<{ photos: InstagramPost[] }> = ({ photos }) => {
     }, [updateVisiblePhotos]);
 
     return (
-        <div className="p-6 border-crred border-t-2 w-full">
+        <div className="py-6 border-crred border-t-2 w-full">
             <div className="flex flex-col md:flex-row md:justify-between items-center mb-12">
                 <h2 className="text-lg md:text-2xl text-crred font-light mb-2 md:mb-0">Síguenos en Instagram</h2>
                 <a 

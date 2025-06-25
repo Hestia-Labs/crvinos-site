@@ -1,211 +1,444 @@
 'use client';
 
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import BasicButton from '@/components/Buttons/BasicButton';
-import SanityImg from '@/components/SanityImg';
-import Reveal from '@/components/Effects/reveal';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ExperienceShort } from '@/types/Experience';
+import Reveal from '@/components/Effects/reveal';
+import ExperiencesFilters from './ExperiencesFilters';
+import ExperiencesGrid from './ExperiencesGrid';
 
-interface ExperiencesListProps {
-  experiencesByCategory: Record<string, ExperienceShort[]>;
+interface ExperiencesProps {
   allExperiences: ExperienceShort[];
+  experiencesByCategory: Record<string, ExperienceShort[]>;
   categories: string[];
+  initialCategory?: string;
+  initialQuery?: string;
+  initialPriceRange?: [number, number]; // Will be removed/not used
+  minPrice?: number;
+  maxPrice?: number;
+  totalExperiencesCount?: number;
 }
 
-const ExperiencesList: React.FC<ExperiencesListProps> = ({
-  experiencesByCategory,
+export default function Experiences({
   allExperiences,
-  categories
-}) => {
+  experiencesByCategory,
+  categories,
+  initialCategory = 'all',
+  initialQuery = '',
+  initialPriceRange = undefined, // Will be removed/not used
+  minPrice = 0,
+  maxPrice = 0,
+  totalExperiencesCount,
+}: ExperiencesProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  
+  // Initialize filter state from URL parameters
+  const initialCategoryFromUrl = searchParams.get('categoria') || searchParams.get('category') || initialCategory || 'all';
+  const initialQueryFromUrl = searchParams.get('busqueda') || searchParams.get('query') || initialQuery || '';
+  const initialOrderFromUrl = searchParams.get('orden') as 'default' | 'price-asc' | 'price-desc' | 'duration-asc' | 'duration-desc' || 'default';
+  const initialAvailableFromUrl = searchParams.get('disponibles') === 'true';
 
-  const EmptyState = () => (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="w-full py-16 text-center"
-    >
-      <div className="max-w-md mx-auto space-y-6">
-        <svg
-          className="w-16 h-16 mx-auto text-crred opacity-75"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={0.5}
-            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 5h1m4-5h1m-1 5h1m-5 5h1"
-          />
-        </svg>
-        <h3 className="text-xl font-light text-gray-700">Próximas experiencias en preparación</h3>
-        <p className="text-gray-500 font-light leading-relaxed">
-          Estamos creando nuevas experiencias únicas. Mientras tanto, te invitamos a explorar nuestros vinos y restaurante.
-        </p>
-      </div>
-    </motion.div>
+  // These state variables will be passed to child components
+  const [activeCategory, setActiveCategory] = useState<string | 'all'>(
+    initialCategoryFromUrl as string | 'all'
   );
+  const [searchQuery, setSearchQuery] = useState(initialQueryFromUrl);
+  const [showAll, setShowAll] = useState(false);
+  const [sortOrder, setSortOrder] = useState<'default' | 'price-asc' | 'price-desc' | 'duration-asc' | 'duration-desc'>(
+    ['default', 'price-asc', 'price-desc', 'duration-asc', 'duration-desc'].includes(initialOrderFromUrl) 
+      ? initialOrderFromUrl 
+      : 'default'
+  );
+  const [showOnlyAvailable, setShowOnlyAvailable] = useState(initialAvailableFromUrl);
+  
+  // State for mobile filter visibility
+  const [mobileFiltersVisible, setMobileFiltersVisible] = useState(false);
+  
+  // State for loading indicator
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // Use the provided totalExperiencesCount or fall back to calculating it
+  const calculatedTotalCount = useMemo(() => {
+    // Always use the server-provided total count when available
+    if (totalExperiencesCount !== undefined) {
+      return totalExperiencesCount;
+    }
+    // Only fall back to calculating from allExperiences when necessary
+    return allExperiences.length;
+  }, [totalExperiencesCount]);
+
+  const filteredExperiences = useMemo(() => {
+    if (!allExperiences) return [];
+    
+    let filtered = [...allExperiences];
+    
+    // Filter by category
+    if (activeCategory !== 'all') {
+      filtered = filtered.filter(exp => exp.category?.toLowerCase() === activeCategory.toLowerCase());
+    }
+    
+    // Filter by search query
+    if (searchQuery.trim() !== '') {
+      const normalizedQuery = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(exp => (
+        exp.title?.toLowerCase().includes(normalizedQuery) ||
+        exp.basicDescription?.toLowerCase().includes(normalizedQuery) ||
+        exp.category?.toLowerCase().includes(normalizedQuery) ||
+        exp.subtitle?.toLowerCase().includes(normalizedQuery)
+      ));
+    }
+    
+    // Filter to show only available experiences
+    if (showOnlyAvailable) {
+      filtered = filtered.filter(exp => !exp.commingSoon);
+    }
+    
+    // Apply sorting
+    if (sortOrder !== 'default') {
+      if (sortOrder === 'price-asc') {
+        filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+      } else if (sortOrder === 'price-desc') {
+        filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+      } else if (sortOrder === 'duration-asc') {
+        filtered.sort((a, b) => ((typeof a.duration === 'number' ? a.duration : 0) - (typeof b.duration === 'number' ? b.duration : 0)));
+      } else if (sortOrder === 'duration-desc') {
+        filtered.sort((a, b) => ((typeof b.duration === 'number' ? b.duration : 0) - (typeof a.duration === 'number' ? a.duration : 0)));
+      }
+    }
+    
+    // Always sort to show available experiences first, then coming soon
+    filtered.sort((a, b) => {
+      // If only one is commingSoon, prioritize the available one
+      if (a.commingSoon && !b.commingSoon) return 1;
+      if (!a.commingSoon && b.commingSoon) return -1;
+      
+      // If both have the same status, maintain current order
+      return 0;
+    });
+    
+    return filtered;
+  }, [allExperiences, activeCategory, searchQuery, sortOrder, showOnlyAvailable]);
+  
+  // Function to update URL with current filter state
+  const updateUrl = useCallback(() => {
+    const params = new URLSearchParams();
+    
+    if (activeCategory !== 'all') {
+      params.set('categoria', activeCategory); // Only Spanish version
+    }
+    
+    if (searchQuery.trim() !== '') {
+      params.set('busqueda', searchQuery.trim()); // Only Spanish version
+    }
+    
+    if (sortOrder !== 'default') {
+      params.set('orden', sortOrder);  // Only Spanish version
+    }
+    
+    if (showOnlyAvailable) {
+      params.set('disponibles', 'true');  // Only Spanish version
+    }
+    
+    const newUrl = 
+      window.location.pathname + 
+      (params.toString() ? `?${params.toString()}` : '');
+    
+    window.history.replaceState(
+      { 
+        path: newUrl,
+        categoria: activeCategory,
+        busqueda: searchQuery,
+        orden: sortOrder,
+        disponibles: showOnlyAvailable
+      }, 
+      '', 
+      newUrl
+    );
+  }, [activeCategory, searchQuery, sortOrder, showOnlyAvailable]);
+  
+  // Debounced URL update with loading indicator
+  useEffect(() => {
+    // Show loading indicator immediately
+    setIsLoading(true);
+    
+    const timer = setTimeout(() => {
+      updateUrl();
+      
+      // Hide loading indicator after a slight delay to ensure smooth transition
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 300);
+    }, 300);
+    
+    return () => clearTimeout(timer);
+  }, [activeCategory, searchQuery, sortOrder, showOnlyAvailable, updateUrl]);
+  
+  // Function to clear all filters
+  const clearFilters = useCallback(() => {
+    setActiveCategory('all');
+    setSearchQuery('');
+    setSortOrder('default');
+    setShowOnlyAvailable(false);
+    setIsLoading(true);
+    
+    // Navigate to the base URL to trigger a fresh server-side data fetch
+    router.push(pathname);
+    
+    // No need for setTimeout as the page will refresh
+  }, [router, pathname]);
+
+  // Handle category selection
+  const handleCategoryChange = useCallback((category: string | 'all') => {
+    // If the category is already selected, do nothing to prevent redundant navigation
+    if (category === activeCategory) {
+      return;
+    }
+    
+    // Show loading state
+    setIsLoading(true);
+    
+    setActiveCategory(category);
+    
+    // Close mobile filters when selecting on mobile
+    if (window.innerWidth < 768) {
+      setMobileFiltersVisible(false);
+    }
+    
+    // Navigate with new category to trigger server-side data fetch
+    if (category === 'all') {
+      router.push(pathname);
+    } else {
+      router.push(`${pathname}?categoria=${encodeURIComponent(category)}`);
+    }
+    
+  }, [router, pathname, activeCategory]);
+
+  // Handle search query change
+  const handleSearchChange = useCallback((query: string) => {
+    // Only show loading for significant changes
+    if (Math.abs(query.length - searchQuery.length) > 2) {
+      setIsLoading(true);
+    }
+    
+    setSearchQuery(query);
+  }, [searchQuery]);
+
+  // Handle search submission
+  const handleSearchSubmit = useCallback(() => {
+    const params = new URLSearchParams();
+    
+    // Build URL parameters
+    if (activeCategory !== 'all') {
+      params.set('categoria', activeCategory);
+    }
+    
+    if (searchQuery.trim() !== '') {
+      params.set('busqueda', searchQuery.trim());
+    }
+    
+    // Create the target URL
+    let targetUrl = pathname;
+    if (params.toString()) {
+      targetUrl += `?${params.toString()}`;
+    }
+    
+    // Check if we're already on this URL to prevent redundant navigation
+    const currentUrl = window.location.pathname + window.location.search;
+    const normalizedCurrentUrl = currentUrl.replace(/&?categoria=([^&]*)/, '&categoria=$1'); // Normalize URL for comparison
+    const normalizedTargetUrl = targetUrl.replace(/&?categoria=([^&]*)/, '&categoria=$1');
+    
+    if (normalizedCurrentUrl === normalizedTargetUrl) {
+      // We're already on this URL, no need to navigate
+      return;
+    }
+    
+    // Navigate to the target URL
+    router.push(targetUrl);
+    
+  }, [searchQuery, activeCategory, router, pathname]);
+
+  // Handle sort order change
+  const handleSortChange = useCallback((order: 'default' | 'price-asc' | 'price-desc' | 'duration-asc' | 'duration-desc') => {
+    // If the order is already the same, do nothing to prevent redundant navigation
+    if (order === sortOrder) {
+      return;
+    }
+    
+    // Show loading state
+    setIsLoading(true);
+    
+    // Update state
+    setSortOrder(order);
+    
+    // Close mobile filters when changing sort on mobile
+    if (window.innerWidth < 768) {
+      setMobileFiltersVisible(false);
+    }
+    
+    // Build URL parameters for navigation
+    const params = new URLSearchParams();
+    
+    if (activeCategory !== 'all') {
+      params.set('categoria', activeCategory);
+    }
+    
+    if (searchQuery.trim() !== '') {
+      params.set('busqueda', searchQuery.trim());
+    }
+    
+    if (order !== 'default') {
+      params.set('orden', order);
+    }
+    
+    if (showOnlyAvailable) {
+      params.set('disponibles', 'true');
+    }
+    
+    // Create the target URL
+    let targetUrl = pathname;
+    if (params.toString()) {
+      targetUrl += `?${params.toString()}`;
+    }
+    
+    // Navigate to the target URL
+    router.push(targetUrl);
+    
+  }, [sortOrder, activeCategory, searchQuery, showOnlyAvailable, router, pathname]);
+
+  // Toggle mobile filters
+  const toggleMobileFilters = () => {
+    setMobileFiltersVisible(!mobileFiltersVisible);
+  };
+
+  // Handle availability toggle
+  const handleAvailabilityToggle = useCallback((show: boolean) => {
+    // If the setting is already the same, do nothing to prevent redundant navigation
+    if (show === showOnlyAvailable) {
+      return;
+    }
+    
+    // Update the state
+    setShowOnlyAvailable(show);
+    
+    // Build URL parameters for navigation
+    const params = new URLSearchParams();
+    
+    if (activeCategory !== 'all') {
+      params.set('categoria', activeCategory);
+    }
+    
+    if (searchQuery.trim() !== '') {
+      params.set('busqueda', searchQuery.trim());
+    }
+    
+    if (sortOrder !== 'default') {
+      params.set('orden', sortOrder);
+    }
+    
+    if (show) {
+      params.set('disponibles', 'true');
+    }
+    
+    // Create the target URL
+    let targetUrl = pathname;
+    if (params.toString()) {
+      targetUrl += `?${params.toString()}`;
+    }
+    
+    // Navigate to the target URL
+    router.push(targetUrl);
+    
+  }, [showOnlyAvailable, activeCategory, searchQuery, sortOrder, router, pathname]);
 
   return (
-    <div className='flex flex-col items-center justify-center w-full px-8 sm:px-12 md:px-16 lg:px-20'>
-      <div className='flex flex-col justify-center items-center w-full space-y-6 py-8 sm:py-12 md:py-16 lg:py-20'>
-        <h2 className='text-3xl md:text-5xl lg:text-6xl xl:text-8xl text-crred font-light tracking-wide mb-4'>
-          Experiencias CR
-        </h2>
-      </div>
+    <section id="experiences" className="py-12 md:py-20 px-4 md:px-5 lg:px-8">
+      <div className="container mx-auto max-w-7xl">
+        {/* Mobile filter toggle */}
+        <div className="md:hidden mb-6">
+          <button 
+            onClick={toggleMobileFilters}
+            className={`w-full flex items-center justify-between px-5 py-3 rounded-lg shadow-md font-medium transition-colors duration-300 ${
+              mobileFiltersVisible ? 'bg-gray-100 text-crred' : 'bg-white text-gray-700'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+              </svg>
+              <span>{mobileFiltersVisible ? 'Ocultar filtros' : 'Mostrar filtros'}</span>
+            </div>
+            <div className="transition-transform duration-300" style={{ transform: mobileFiltersVisible ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </button>
+        </div>
 
-      <div className="w-full   space-y-20 border-t-2 border-crred/80">
-        <section className="space-y-12">
-          {/* Mobile Categories */}
-          <div className="md:hidden space-y-12">
-            <AnimatePresence>
-              {allExperiences.length === 0 ? (
-                <EmptyState />
-              ) : (
-                Object.entries(experiencesByCategory).map(([category, categoryExperiences]) => (
-                  <section key={category} className="space-y-6">
-                    <Reveal>
-                      <div className="px-4">
-                        <h3 className="text-2xl font-light text-crred cormorant-garamond italic">
-                          {category}
-                        </h3>
-                        <div className="h-1 w-32 bg-crred mt-2" />
-                      </div>
-                    </Reveal>
-                    
-                    <div className="w-full overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-                      <div className="flex gap-4 px-4 py-4 snap-x snap-mandatory">
-                        {categoryExperiences.map((experience) => (
-                          <motion.div
-                            key={experience._id}
-                            className="relative group overflow-hidden rounded-xl shadow-lg border border-crred/20 bg-white
-                                       w-72 flex-shrink-0 snap-start flex flex-col h-[500px]"
-                            whileHover={{ y: -3 }}
-                            transition={{ type: 'easeInOut', duration: 0.3 }}
-                          >
-                            <div className="relative h-64 w-full flex-shrink-0">
-                              {experience.mainImage?.asset?.url && (
-                                <SanityImg
-                                  source={experience.mainImage}
-                                  alt={experience.mainImage.alt || experience.title}
-                                  width={600}
-                                  height={450}
-                                  className="object-cover"
-                                />
-                              )}
-                            </div>
-                            <div className="p-6 space-y-4 flex flex-col flex-grow">
-                              <h3 className="text-2xl font-medium text-crred cormorant-garamond line-clamp-1">
-                                {experience.title}
-                              </h3>
-                              <div className="flex-1 mb-4">
-                                <p className="text-gray-700 font-light leading-relaxed line-clamp-3">
-                                  {experience.basicDescription}
-                                </p>
-                              </div>
-                              <div className="border-t border-crred/20 pt-4 mt-auto">
-                                <BasicButton
-                                  link={`/experiences/${experience.slug}`}
-                                  variant="transparent"
-                                  className="border border-crred text-crred w-full"
-                                >
-                                  Ver Detalles
-                                </BasicButton>
-                              </div>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
+        {/* Main content - Two column layout */}
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Filters Column - Left Side */}
+          <div className={`md:w-1/4 transition-all duration-300 ease-in-out ${mobileFiltersVisible ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'} md:max-h-none md:opacity-100 md:overflow-visible`}>
+            <div className="sticky top-24">
+              <ExperiencesFilters
+                activeCategory={activeCategory}
+                setActiveCategory={handleCategoryChange}
+                searchQuery={searchQuery}
+                setSearchQuery={handleSearchChange}
+                clearFilters={clearFilters}
+                experiencesByCategory={experiencesByCategory}
+                allExperiences={filteredExperiences}
+                totalExperiencesCount={calculatedTotalCount}
+                categories={categories}
+                sortOrder={sortOrder}
+                setSortOrder={handleSortChange}
+                showOnlyAvailable={showOnlyAvailable}
+                setShowOnlyAvailable={handleAvailabilityToggle}
+                handleSearchSubmit={handleSearchSubmit}
+              />
                     </div>
-                  </section>
-                ))
-              )}
-            </AnimatePresence>
           </div>
 
-          {/* Desktop Grid */}
-          <div className="hidden md:block">
-            <AnimatePresence>
-              {allExperiences.length === 0 ? (
-                <EmptyState />
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {allExperiences.map((experience) => (
-                    <Reveal key={experience._id}>
-                      <motion.div 
-                        className="relative group overflow-hidden rounded-xl shadow-lg border border-crred/20 bg-white cursor-pointer flex flex-col h-full"
-                        whileHover={{ y: -3 }}
-                        transition={{ type: 'easeInOut', duration: 0.3 }}
-                        onClick={() => router.push(`/experiences/${experience.slug}`)}
-                      >
-                        <div className="relative h-64 w-full flex-shrink-0">
-                          {experience.mainImage?.asset?.url && (
-                            <SanityImg
-                              source={experience.mainImage}
-                              alt={experience.mainImage.alt || experience.title}
-                              width={500}
-                              height={375}
-                              className="object-cover"
-                            />
-                          )}
-                        </div>
-                        <div className="p-6 space-y-4 flex flex-col flex-grow min-h-[250px]">
-                          <h3 className="text-2xl font-medium text-crred cormorant-garamond text-nowrap">
-                            {experience.title}
-                          </h3>
-                          <div className="flex-1 mb-4">
-                            <p className="text-gray-700 font-light leading-relaxed line-clamp-3">
-                              {experience.basicDescription}
-                            </p>
-                          </div>
-                          <div className="border-t border-crred/20 pt-4 mt-auto">
-                            <BasicButton
-                              link={`/experiences/${experience.slug}`}
-                              variant="transparent"
-                              className="border border-crred text-crred w-full"
-                            >
-                              Descubrir Experiencia
-                            </BasicButton>
+          {/* Experiences Grid Column - Right Side */}
+          <div className="md:w-3/4">
+            <ExperiencesGrid
+              activeCategory={activeCategory}
+              priceRange={null}
+              searchQuery={searchQuery}
+              showAll={showAll}
+              setShowAll={setShowAll}
+              allExperiences={filteredExperiences}
+              experiencesByCategory={experiencesByCategory}
+              clearFilters={clearFilters}
+              sortOrder={sortOrder}
+              isLoading={isLoading}
+            />
                           </div>
                         </div>
-                      </motion.div>
-                    </Reveal>
-                  ))}
-                </div>
-              )}
-            </AnimatePresence>
           </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-12 border-t border-crred/80 space-y-12 text-center">
-          <Reveal>
-            <h2 className="text-3xl md:text-4xl font-light text-crred tracking-wide italic">
-              ¿Necesitas ayuda para elegir?
-            </h2>
-          </Reveal>
-          <Reveal>
-            <p className="text-xl text-gray-600 font-light max-w-2xl mx-auto">
-              Nuestros expertos en enoturismo pueden crear una experiencia personalizada para ti
-            </p>
-          </Reveal>
-          <Reveal>
-            <BasicButton 
-              link="/contact"
-              variant="transparent"
-              className="mx-auto text-lg px-8 py-3 border border-crred"
-            >
-              Contactar a un Experto
-            </BasicButton>
+      
+      {/* Contact Section */}
+      <Reveal initial={true}>
+        <div className="mt-16 text-center">
+          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            ¿Buscas una experiencia personalizada?
+          </h3>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Podemos adaptar cualquiera de nuestras experiencias a tus necesidades específicas o crear una totalmente nueva para tu evento.
+          </p>
+          <a 
+            href="/contact" 
+            className="bg-crred text-white px-8 py-3 rounded-md hover:bg-crred/90 transition-colors inline-flex items-center"
+          >
+            Contáctanos
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
           </Reveal>
         </section>
-      </div>
-    </div>
   );
-};
-
-export default ExperiencesList;
+}

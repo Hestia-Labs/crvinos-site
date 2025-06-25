@@ -5,7 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
-import LoadingScreen from '@/components/Loaders/LoadingScreen';
+
 import Icon from '@/components/Icons';
 import VinificationProcess from '@/components/Part/About/VinificationProcess';
 
@@ -177,35 +177,44 @@ const AboutPage: React.FC<AboutPageClientProps> = ({ bannerImage }) => {
   return (
     <div className="relative">
       <Navbar darkenBg  />
-      <LoadingScreen animationDuration={3} displayDuration={1} />
 
       {/* ===== Banner Section ===== */}
-      <div className="relative h-126 md:h-144 w-full overflow-hidden rounded-bl-3xl rounded-br-3xl">
+      <div className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden rounded-bl-3xl rounded-br-3xl">
         {bannerImage ? (
           <Image
             src={bannerImage.image.asset.url}
             alt={bannerImage.image.alt || 'Banner Image'}
             fill
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 1920px"
+            quality={75}
             className="w-full h-126 md:h-144 object-cover"
             priority
+            loading="eager"
+            placeholder="blur"
+            blurDataURL={`${bannerImage.image.asset.url}?w=10&q=10`}
           />
         ) : (
           <Image
             src="/img/grapesAbout.jpg"
             alt="Banner Image"
             fill
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 1920px"
+            quality={75}
             className="w-full h-126 md:h-144 object-cover"
             priority
+            loading="eager"
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQrJyEkKzI2LywxMzYwNTY0MDY2NTA0Nj84QD04Nj02NzU2QDU3PTU1N0H/2wBDAR4eHh0dHTQdHT02KyMrNjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
           />
         )}
 
-        <div className="absolute bottom-0 left-0 p-8 sm:p-12 md:p-16 lg:p-20">
-          <h2 className="text-5xl sm:text-6xl md:text-7xl italic cormorant-garamond-italic text-white drop-shadow-md">
+        <div className="absolute bottom-0 left-0 text-back p-6 md:p-12 ">
+          
+          <h2 className="text-5xl md:text-6xl lg:text-8xl font-semibold italic text-white drop-shadow-md">
             Nosotros
           </h2>
-          <p className="text-xl sm:text-2xl md:text-3xl text-white mt-4 drop-shadow-md">
+          <div className="w-24 h-0.5 bg-white/70 my-6"></div>
+          <p className="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-2xl">
             Descubre nuestro legado en cada botella
           </p>
         </div>

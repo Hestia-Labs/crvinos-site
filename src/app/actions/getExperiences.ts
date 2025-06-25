@@ -1,7 +1,5 @@
 "use server";
 
-
-
 import { createClient } from 'next-sanity';
 import { groq } from 'next-sanity';
 import { Experience, ExperienceShort } from '@/types/Experience';
@@ -14,11 +12,16 @@ const client = createClient({
   useCdn: process.env.NODE_ENV === 'production',
 });
 
+// Streamlined experience fields for navigation and listing
 const shortExperienceFields = groq`
   _id,
   title,
+  price,
+  kidsPrice,
   subtitle,
   basicDescription,
+  commingSoon,
+  duration,
   "category": category->title,
   mainImage {
     asset->{
@@ -29,78 +32,124 @@ const shortExperienceFields = groq`
     crop,
     hotspot
   },
-  "slug": seoSlug.current,
-  "link": "/experiences/" + seoSlug.current,
+  "slug": seoSlug.current, //das czxm,n
+  "link": "/enotourism/experiences/" + seoSlug.current,
   order
 `;
 
+// Optimized fields for full experience view
 const longExperienceFields = groq`
   ${shortExperienceFields},
-  price,
-  customDescription,
-  formFields,
-  defaultDescription  {
-    mainParagraph,
-    features,
-    duration
-  },
-  featureGrid {
-    items[] {
+  formFields, //sdas sdsa
+  contentSections[] {
+    _type,
+    _key, //new dlkj
+    
+    // Only fetch fields for sections we need
+    title,
+    subtitle,
+    description,
+    duration,
+    price,
+    basePrice,
+    highlights,
+    
+    // Feature Grid (What's Included)
+    features[] {
       _key,
-      locationId,
-      mainText,
-      description,
-      image {
-        asset->{
-          _id,
-          url
-        },  
-        alt,
-        crop,
-        hotspot //asdasd
-      }
-    }
+      icon,
+      title,
+      description
+    },
+    
+    // Pricing Options (for Kids pricing)
+    additionalOptions[] {
+      _key,
+      name,
+      price,
+      description
+    },
+    
+    // Schedule Section
+    scheduleType,
+    dayRange {
+      startDay,
+      endDay
+    },
+    specificDays,
+    timeSlots,
+    timeSuffix,
+    disclaimer
   }
 `;
+
+// New function to get total count of all experiences without filters
+export async function getTotalExperiencesCount(): Promise<number> {
+  // This query only counts published experiences (not drafts)
+  const query = groq`
+    count(*[_type == "experience" && !draftSwitch])
+  `;
+  
+  const count = await client.fetch(query);
+
+  return count;
+}
 
 export async function getExperiences({
     slug = undefined,
     category = undefined,
     count = undefined,
     shortVersion = true,
-    preview = false
+    preview = false,
+    skipDraftFilter = false,
+    minPrice = undefined,
+    maxPrice = undefined
   }: {
     slug?: string;
     category?: string;
     count?: number;
     shortVersion?: boolean;
     preview?: boolean;
+    skipDraftFilter?: boolean;
+    minPrice?: number;
+    maxPrice?: number;
   }): Promise<ExperienceShort[] | Experience[]> {
     const fields = shortVersion ? shortExperienceFields : longExperienceFields;
-    const limit = count ? `[0...${count}]` : ''; // Usar count para limitar resultados
     const categoryFilter = category ? `&& category->title == "${category}"` : '';
-    const draftFilter = preview ? '' : '&& !draftSwitch';
+    const draftFilter = skipDraftFilter ? '' : (preview ? '' : '&& !draftSwitch');
+    
+    // Add price range filters
+    const minPriceFilter = minPrice !== undefined ? `&& price >= ${minPrice}` : '';
+    const maxPriceFilter = maxPrice !== undefined ? `&& price <= ${maxPrice}` : '';
   
+    // It's important to apply the limit AFTER ordering, so we'll structure the query carefully
     const query = groq`
       *[_type == "experience" 
         ${slug ? `&& seoSlug.current == "${slug}"` : ''} 
         ${categoryFilter}
-        ${draftFilter} //deds
-      ] | order(order asc) {
+        ${minPriceFilter}
+        ${maxPriceFilter}
+        ${draftFilter}
+      ] | order(order asc) ${count ? `[0...${count}]` : ''} {
         ${fields}
-      } ${limit}  //dsadsadkljgja6
+      }
     `;
-  
-    return client.fetch(query);
+
+   
+    
+    const results = await client.fetch(query);
+
+    
+    
+    
+    return results;
   }
   
-
-
 export async function getExperienceCategories(): Promise<{ title: string; order: number }[]> {
   const query = groq`
     *[_type == "experienceCategory"] | order(order asc) {
       title,
-      order
+      order // order is the order of the categories in the menu sdlkkl
     }
   `;
   

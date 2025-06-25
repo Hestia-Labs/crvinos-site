@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+
 import "@/styles/globals.css";
+import Providers from "@/utils/Providers";
+
 
 export const runtime = 'edge';
-import Providers from '@/utils/Providers';
 
 
 export default function RootLayout({
@@ -11,10 +11,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+
   return (
     <html lang="es">
-      <body>
-        <Providers>{children}</Providers></body>
-    </html>
+        <body>
+          <Providers>
+            {children}
+          </Providers>
+        </body>
+      </html>
   );
 }

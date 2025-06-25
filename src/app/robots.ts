@@ -1,14 +1,18 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
+    // Use SITE_URL environment variable or default to production URL
+    const baseUrl = process.env.SITE_URL || 'https://crvinosmx.com';
+    
     return {
         rules: [
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: [ '/admin' ]
+                disallow: ['/admin', '/api/', '/(studio)']
             }
         ],
-        sitemap: `${process.env.SITE_URL}/sitemap.xml`
+        sitemap: `${baseUrl}/sitemap.xml`,
+        host: baseUrl
     }
 }

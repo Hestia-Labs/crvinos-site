@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import clsx from 'clsx';
 
@@ -10,6 +10,7 @@ import Icon from '@/components/Icons';
 import WineItem from './WineItem';
 import WineRecLoader from '@/components/Loaders/WineRecLoader';
 import { WineShort } from '@/types/Wine';
+import CollectionNavigation from './CollectionNavigation';
 
 interface CollectionData {
   name: string;
@@ -21,20 +22,30 @@ interface CollectionData {
 
 interface WineCatalogProps {
   initialSelectedOption?: string;       
-  serverCollectionData?: CollectionData | null; 
+  serverCollectionData?: CollectionData | null;
+  collectionThumbnails?: Record<string, string>;
 }
 
 const WineCatalog: React.FC<WineCatalogProps> = ({
   initialSelectedOption = 'DBC',
   serverCollectionData,
+  collectionThumbnails = {},
 }) => {
 
   const options = useMemo(() => ['DBC', 'Hermelinda', 'Recuento'], []);
 
-
-  const [selectedOption, setSelectedOption] = useState<string>(initialSelectedOption);
-
   const router = useRouter();
+  const pathname = usePathname();
+  
+  // Extract the current collection from URL path
+  const currentPathCollection = pathname.split('/')[2]?.toLowerCase();
+  
+  // Initialize selectedOption based on current path or fallback to prop
+  const [selectedOption, setSelectedOption] = useState<string>(
+    // Find the matching option based on the URL path (case-insensitive)
+    options.find(opt => opt.toLowerCase() === currentPathCollection) || 
+    initialSelectedOption
+  );
 
   const mainControls = useAnimation();
 
@@ -47,8 +58,6 @@ const WineCatalog: React.FC<WineCatalogProps> = ({
   const [loading, setLoading] = useState<boolean>(!serverCollectionData);
 
 
- 
-
 
 
   useEffect(() => {
@@ -56,12 +65,25 @@ const WineCatalog: React.FC<WineCatalogProps> = ({
     setLoading(!serverCollectionData);
   }, [serverCollectionData]);
 
+  // Keep selectedOption in sync with URL path
+  useEffect(() => {
+    const pathCollection = pathname.split('/')[2]?.toLowerCase();
+    if (pathCollection) {
+      const matchingOption = options.find(opt => 
+        opt.toLowerCase() === pathCollection
+      );
+      
+      if (matchingOption && matchingOption !== selectedOption) {
+        setSelectedOption(matchingOption);
+      }
+    }
+  }, [pathname, options, selectedOption]);
 
   const handleOptionClick = (option: string) => {
     if (selectedOption !== option) {
       setSelectedOption(option);
       
-      router.push(`?line=${option.toLowerCase()}`, { scroll: false });
+      router.push(`/catalog/${option.toLowerCase()}`);
     }
   };
 
@@ -87,19 +109,20 @@ const WineCatalog: React.FC<WineCatalogProps> = ({
               priority
               style={{ filter: 'brightness(0.6)' }}
             />
-            <div className="absolute bottom-0 left-0 text-back p-6 md:p-12 lg:p-24">
+            <div className="absolute bottom-0 left-0 text-back p-6 md:p-12 ">
               <h2 className="text-5xl md:text-6xl lg:text-8xl font-semibold italic text-white drop-shadow-md">
                 {collectionData?.name || ''}
               </h2>
-              <p className="text-xl sm:text-2xl md:text-3xl text-white mt-4 drop-shadow-md max-w-2xl">
-                {subtitle}
+              <div className="w-24 h-0.5 bg-white/70 my-6"></div>
+              <p className="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-2xl">
+                {collectionData?.subtitle}
               </p>
             </div>
           </>
         )}
       </div>
 
-    
+     
       {!loading && collectionData?.story && (
         <div className="px-8 sm:px-10 md:px-20 w-full flex flex-col items-center pb-3">
           <div className="max-w-4xl text-center space-y-6 mt-12">
@@ -113,27 +136,11 @@ const WineCatalog: React.FC<WineCatalogProps> = ({
         </div>
       )}
 
-
-      <div className="flex justify-center py-4 w-full">
-        <div className="flex space-x-4">
-          {options?.map((option) => (
-            <motion.button
-              key={option}
-              className={clsx(
-                'text-sm md:text-base cursor-pointer px-4 py-2 rounded-full border transition-colors duration-200',
-                selectedOption === option
-                  ? 'bg-crred text-white border-crred'
-                  : 'text-crred border-crred hover:bg-crred hover:text-white'
-              )}
-              initial={{ opacity: 0.8 }}
-              animate={{ opacity: selectedOption === option ? 1 : 0.8 }}
-              onClick={() => handleOptionClick(option)}
-            >
-              {option}
-            </motion.button>
-          ))}
-        </div>
-      </div>
+      <CollectionNavigation
+        selectedOption={selectedOption}
+        onSelectOption={handleOptionClick}
+        collectionThumbnails={collectionThumbnails}
+      />
 
       {/* Divider */}
       <div className="px-4 md:px-10 lg:px-20 w-full relative">

@@ -5,16 +5,16 @@ import Contact from '@/components/Part/Contact';
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: " Contacto | CR Vinos MX | Vinos de la más alta calidad ",
-  description: "Ponte en contacto con CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad. Estamos aquí para responder a tus preguntas y ofrecerte la mejor experiencia.",
+  title: "Contacta con Nosotros | Visitas, Eventos y Pedidos | CR Vinos MX",
+  description: "Contáctanos para reservar visitas a viñedos y bodega, organizar eventos, realizar pedidos especiales o cualquier consulta sobre nuestros vinos mexicanos premium elaborados en Querétaro.",
   icons: {
     icon: "/favicon.ico",
     apple: "/img/apple-touch-icon.png",
   },
-  keywords: ['CR Vinos MX', 'contacto', 'vinos de alta calidad', 'empresa mexicana'],
+  keywords: ['contacto bodega vinos', 'reservar visita viñedo', 'contactar CR Vinos', 'reservaciones cata vino', 'pedidos vino Querétaro', 'eventos en bodega', 'visitar viñedos Querétaro', 'ubicación bodega CR Vinos', 'teléfono viñedo', 'correo electrónico bodega', 'comprar vinos mexicanos', 'contacto distribución vinos', 'información visitas guiadas', 'reservar experiencia vinícola', 'consultas sobre vinos', 'atención a clientes vino', 'horarios visita bodega', 'reservar evento corporativo', 'información bodega Querétaro', 'formulario contacto viñedo', 'mapa ubicación CR Vinos', 'preguntas sobre productos', 'programar cata privada', 'contacto ventas por mayor', 'reserva de servicios enoturísticos'],
   openGraph: {
-    title: "CR Vinos MX | Vinos de la más alta calidad | Contacto",
-    description: "Ponte en contacto con CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
+    title: "Contacta con Nosotros | Visitas, Eventos y Pedidos | CR Vinos MX",
+    description: "Contáctanos para reservar visitas a viñedos y bodega, organizar eventos, realizar pedidos especiales o cualquier consulta sobre nuestros vinos mexicanos premium elaborados en Querétaro.",
     url: `${siteUrl}/contact`,
     siteName: "CR Vinos MX",
     images: [
@@ -22,26 +22,23 @@ export const metadata: Metadata = {
         url: `${siteUrl}/img/crvinosmxLogo.jpg`,
         width: 300,
         height: 225,
-        alt: "CR Vinos MX",
+        alt: "Contacto CR Vinos MX Querétaro",
       },
     ],
-    locale: 'es_ES',
+    locale: 'es_MX',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CR Vinos MX | Vinos de la más alta calidad | Contacto',
-    description: 'Ponte en contacto con CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.',
+    title: 'Contacta con Nosotros | Visitas, Eventos y Pedidos | CR Vinos MX',
+    description: 'Contáctanos para reservar visitas a viñedos y bodega, organizar eventos, realizar pedidos especiales o cualquier consulta sobre nuestros vinos mexicanos premium elaborados en Querétaro.',
     images: [`${siteUrl}/img/crvinosmxLogo.jpg`],
   },
   alternates: {
     canonical: `${siteUrl}/contact`,
     languages: {
-      'es-ES': `${siteUrl}/contact`,
+      'es-MX': `${siteUrl}/contact`,
     },
-  },
-  verification: {
-    google: 'google-verification-code',
   },
   appleWebApp: {
     title: 'CR Vinos MX',
@@ -63,10 +60,6 @@ export const metadata: Metadata = {
   },
 };
 
-const ContactPage: React.FC = () => {
-  return (
-    <Contact />
-  );
-};
-
-export default ContactPage;
+export default function ContactPage() {
+  return (<Contact />);
+}

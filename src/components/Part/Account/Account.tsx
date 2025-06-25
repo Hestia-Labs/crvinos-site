@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from 'react';
 
-import LoadingScreen from '@/components/Loaders/LoadingScreen';
+
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import BasicButton from '@/components/Buttons/BasicButton';
@@ -24,7 +24,6 @@ const AccountComponent: React.FC = () => {
 
     return (
         <div className='flex flex-col items-center justify-start px-4 py-8 sm:px-6 lg:px-8'>
-            <LoadingScreen />
             <div className='max-w-md w-full space-y-6 flex flex-col justify-center items-center'>
                 <p className='text-crred text-xl sm:text-2xl mt-4 text-center'>
                     El portal de cuentas de CRVinos está en construcción.

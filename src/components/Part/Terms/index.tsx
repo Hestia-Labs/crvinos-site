@@ -49,7 +49,7 @@ const TermsAndConditions: React.FC = () => {
           <section>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-crred">Contacto</h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-700">
-              Si tienes alguna pregunta sobre estos términos y condiciones, por favor contáctanos enviando un correo electrónico a crvinosmx@gmail.com.
+              Si tienes alguna pregunta sobre estos términos y condiciones, por favor contáctanos enviando un correo electrónico a <a className=" underline " href={"mailto:admin@crvinosmx.com"}>admin@crvinosmx.com</a>.
             </p>
           </section>
         </div>

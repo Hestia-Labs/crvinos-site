@@ -1,6 +1,5 @@
 "use client"
 
-
 import { useState } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
@@ -9,7 +8,7 @@ import { CartProvider } from "@/contexts/CartContext"
 import { ColorProvider } from "@/contexts/ColorContext"
 import { Toaster } from "sonner"
 import { AuthProvider } from "@/contexts/AuthContext"
-
+import { TransitionProvider } from "@/contexts/TransitionContext";
 
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -29,24 +28,26 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-        <DrawerProvider>
-            <ColorProvider>
-                <CartProvider>
-                  <AuthProvider>
-                    <Toaster
-                        toastOptions={{
-                            classNames: {
-                                toast: 'bg-back',
-                                title: 'text-crred',
-                                icon: 'text-crred',
-                            },
-                        }}
-                    />
-                    {children}
-                    </AuthProvider>
-                </CartProvider>
-            </ColorProvider>
-        </DrawerProvider>
+      <TransitionProvider>
+      <DrawerProvider>
+        <ColorProvider>
+          <CartProvider>
+            <AuthProvider>
+              <Toaster
+                toastOptions={{
+                  classNames: {
+                    toast: 'bg-back',
+                    title: 'text-crred',
+                    icon: 'text-crred',
+                  },
+                }}
+              />
+              {children}
+            </AuthProvider>
+          </CartProvider>
+        </ColorProvider>
+      </DrawerProvider>
+      </TransitionProvider>
     </QueryClientProvider>
   )
 }

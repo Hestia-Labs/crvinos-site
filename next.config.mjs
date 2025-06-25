@@ -35,7 +35,40 @@ const nextConfig = {
   },
   experimental: {
     taint: true,
+    // SEO and edge runtime optimizations
+    serverComponentsExternalPackages: [], // Add any packages that need Node.js features
+    optimizePackageImports: ['framer-motion'], // Optimize large packages
   },
+  // Increase the timeout for static generation to prevent 5xx errors during crawling
+  staticPageGenerationTimeout: 180,
+  // Add custom headers for SEO and crawler optimization
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block'
+          }
+        ],
+      },
+      // Special headers for bots
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'index, follow'
+          }
+        ]
+      }
+    ]
+  }
 };
 
 const combinedConfig = async (config) =>{ return await withNextVideo(withNextIntl(config))};

@@ -75,17 +75,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     async function initializeCart() {
       setIsLoading(true); 
       try {
-        let cartId = await getCartId();
-        
-        if (!cartId) {
-          const cart = await createCartAndSetCookie();
-         
-        }
-
-
+        // Get or create a cart - getCurrentCart will handle expired carts
         const cartData = await getCurrentCart();
 
         if (!cartData) {
+          // If still no cart after getCurrentCart (unlikely), create one
+          await createCartAndSetCookie();
           setCartItems([]);
           setCheckoutUrl('');
         } else {
@@ -95,10 +90,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       } catch (error) {
         console.error('Failed to initialize cart', error);
+        // Create a fresh cart on error
+        try {
+          await createCartAndSetCookie();
+        } catch (e) {
+          console.error('Failed to create a new cart', e);
+        }
         setCartItems([]);
         setCheckoutUrl('');
       } finally {
-        setIsLoading(false); // End loading regardless of outcome
+        setIsLoading(false);
       }
     }
 

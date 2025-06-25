@@ -7,7 +7,33 @@ import { Experience } from '@/types/Experience';
 import Image from 'next/image';
 import SanityImg from '@/components/SanityImg';
 
-export default function ExperienceDescription({ experience }: { experience: Experience }) {
+// Define interfaces for the custom properties
+interface FeatureGridItem {
+  _key: string;
+  locationId: string;
+  mainText?: string;
+  description?: string;
+  image?: any;
+}
+
+interface FeatureGrid {
+  items: FeatureGridItem[];
+}
+
+interface DefaultDescription {
+  duration?: string;
+  mainParagraph?: any;
+  features?: string[];
+}
+
+// Extend the Experience type with the custom properties
+interface ExtendedExperience extends Experience {
+  customDescription?: boolean;
+  featureGrid?: FeatureGrid;
+  defaultDescription?: DefaultDescription;
+}
+
+export default function ExperienceDescription({ experience }: { experience: ExtendedExperience }) {
     const iconMap: Record<string, string> = {
         Single_Grape: '/img/Single_Grape.png',
         Grapevine: '/img/Grapevine.png',
@@ -39,7 +65,7 @@ export default function ExperienceDescription({ experience }: { experience: Expe
   );
 
   // Feature Cards
-  const renderFeatureCards = (features: any[]) => (
+  const renderFeatureCards = (features: FeatureGridItem[]) => (
     <div className="grid md:grid-cols-3 gap-6">
       {features.map((feature, index) => (
         <motion.div 
@@ -68,7 +94,7 @@ export default function ExperienceDescription({ experience }: { experience: Expe
   );
 
   // Schedule Section
-  const renderSchedule = (scheduleTitle: any, morning: any, afternoon: any, disclaimer: any) => (
+  const renderSchedule = (scheduleTitle: FeatureGridItem, morning: FeatureGridItem, afternoon: FeatureGridItem, disclaimer: FeatureGridItem) => (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -112,17 +138,17 @@ export default function ExperienceDescription({ experience }: { experience: Expe
           )}
 
           {renderFeatureCards([
-            items.find(i => i.locationId === 'step-vinedo'),
-            items.find(i => i.locationId === 'step-bodega'),
-            items.find(i => i.locationId === 'step-cata')
+            items.find(i => i.locationId === 'step-vinedo') as FeatureGridItem,
+            items.find(i => i.locationId === 'step-bodega') as FeatureGridItem,
+            items.find(i => i.locationId === 'step-cata') as FeatureGridItem
           ])}
 
           {items.find(i => i.locationId === 'time-tittle')?.mainText && 
             renderSchedule(
-              items.find(i => i.locationId === 'time-tittle'),
-              items.find(i => i.locationId === 'time-am'),
-              items.find(i => i.locationId === 'time-pm'),
-              items.find(i => i.locationId === 'main-hint')
+              items.find(i => i.locationId === 'time-tittle') as FeatureGridItem,
+              items.find(i => i.locationId === 'time-am') as FeatureGridItem,
+              items.find(i => i.locationId === 'time-pm') as FeatureGridItem,
+              items.find(i => i.locationId === 'main-hint') as FeatureGridItem
             )}
         </div>
       );
@@ -225,10 +251,10 @@ export default function ExperienceDescription({ experience }: { experience: Expe
       
             {/* Schedule Section */}
             {renderSchedule(
-              items.find(i => i.locationId === 'time-tittle'),
-              items.find(i => i.locationId === 'time-am'),
-              items.find(i => i.locationId === 'time-pm'),
-              items.find(i => i.locationId === 'main-hint')
+              items.find(i => i.locationId === 'time-tittle') as FeatureGridItem,
+              items.find(i => i.locationId === 'time-am') as FeatureGridItem,
+              items.find(i => i.locationId === 'time-pm') as FeatureGridItem,
+              items.find(i => i.locationId === 'main-hint') as FeatureGridItem
             )}
           </div>
         );

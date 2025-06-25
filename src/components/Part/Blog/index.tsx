@@ -25,9 +25,13 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialPosts, categories }) => 
   return (
     <div className='flex flex-col w-full items-center justify-center space-y-7 px-8 md:px-12 lg:px-16 xl:px-20'>
       <div className='flex flex-col justify-center items-center w-full space-y-6 py-8 sm:py-12 md:py-16 lg:py-20'>
-        <h2 className='text-3xl md:text-5xl lg:text-6xl xl:text-8xl text-crred font-light tracking-wide mb-4'>
+        <h2 className='text-4xl md:text-5xl lg:text-6xl xl:text-8xl text-crred font-light tracking-wide mb-4'>
           Nuestro Blog
         </h2>
+        <div className="h-0.5 w-48 md:w-64 bg-crred/70 mx-auto my-6"></div>
+        <p className="text-xl sm:text-2xl text-gray-700 max-w-3xl text-center font-light">
+          Descubre historias, consejos y novedades sobre el mundo del vino y la gastronomía
+        </p>
       </div>
       <div className='w-full border-t-2 border-crred py-4 sm:py-6 md:py-8 lg:py-10 flex flex-col items-center space-y-5'>
         <div className='w-full flex flex-col justify-start space-y-2'>

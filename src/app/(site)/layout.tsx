@@ -7,9 +7,11 @@ import CartDrawer from "@/components/Cart/CartDrawer";
 import { Cormorant_Garamond } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google'
 import NotificationBarComponent from "@/components/Notifications/Bar";
+import NotificationPopupContainer from "@/components/Notifications/PopupContainer";
 
-// Ensure this matches your actual site URL. If using environment variables, 
-// make sure they are available at build time or use NEXT_PUBLIC_ prefix.
+
+
+
 const siteUrl = process.env.SITE_URL || "https://crvinosmx.com";
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -28,6 +30,7 @@ export const viewport: Viewport = {
 
 
 export const metadata: Metadata = {
+  
   applicationName: "CR Vinos MX",
   generator: "Next.js",
   keywords: ["Vinos mexicanos", "Vinos de calidad","crvinosmx", "CRVinos", "Vino Mexicano","viñedos tequisquiapan","tequisquiapan",  "CRVinosMX", "crvinosmx", "crvinos", "vinos", "vino", "vinos de calidad", "vinos mexicanos", "vinos en mexico", "vinos de mexico", "vinos de alta calidad"],
@@ -98,7 +101,7 @@ export default function RootLayout({
     ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+52 993 166 7349",
+      "telephone": "+52 442 773 2600",
       "contactType": "Customer Service"
     }
   };
@@ -115,16 +118,17 @@ export default function RootLayout({
       </head>
       
       <body className={cormorantGaramond.className + " bg-transparent"}>
-        <Providers>
+
           <AgeVerification />
+          <NotificationPopupContainer />
           <NotificationBarComponent />
           <CartDrawer />
+
           {children}
           <Footer />
-        </Providers>
+        
       </body>
       <GoogleAnalytics gaId="G-MBBBLXL0L8" />
     </html>
-
   );
 }

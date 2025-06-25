@@ -136,21 +136,34 @@ export async function getWines({
   return result;
 }
 export async function getDistinctCollectionWines(): Promise<WineShort[]> {
-  const query = groq`
-    {
-      "dbc": *[_type == "wine" && collection->name == "DBC"] | order(_createdAt desc)[0] {
-        ${shortFields}
-      },
-      "hermelinda": *[_type == "wine" && collection->name == "Hermelinda"] | order(_createdAt desc)[0] {
-        ${shortFields}
-      },
-      "recuento": *[_type == "wine" && collection->name == "Recuento"] | order(_createdAt desc)[0] {
-        ${shortFields}
+  try {
+    // Add a timeout to prevent hanging
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() => abortController.abort(), 5000);
+    
+    const query = groq`
+      {
+        "dbc": *[_type == "wine" && collection->name == "DBC"] | order(_createdAt desc)[0] {
+          ${shortFields}
+        },
+        "hermelinda": *[_type == "wine" && collection->name == "Hermelinda"] | order(_createdAt desc)[0] {
+          ${shortFields}
+        },
+        "recuento": *[_type == "wine" && collection->name == "Recuento"] | order(_createdAt desc)[0] {
+          ${shortFields}
+        }
       }
-    }
-  `;
+    `;
 
-  const results = await client.fetch(query, {});
+    const results = await client.fetch(query, {});
 
-  return [ results.hermelinda, results.dbc, results.recuento].filter(Boolean);
+    // Make sure to clear the timeout
+    clearTimeout(timeoutId);
+    
+    return [ results.hermelinda, results.dbc, results.recuento].filter(Boolean);
+  } catch (error) {
+    console.error('Error fetching distinct collection wines:', error);
+    // Return an empty array as fallback
+    return [];
+  }
 }

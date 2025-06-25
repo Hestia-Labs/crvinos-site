@@ -1,5 +1,5 @@
 import React from "react";
-
+import TransitionLink from "@/components/NewTransitionLink";
 interface LogoProps {
   red?: boolean;
   className?: string;
@@ -32,12 +32,12 @@ const Logo: React.FC<LogoProps> = ({
   );
 
   return link ? (
-    <a
+    <TransitionLink
       href={link}
       {...(newPage ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       {svgElement}
-    </a>
+    </TransitionLink>
   ) : (
     svgElement
   );

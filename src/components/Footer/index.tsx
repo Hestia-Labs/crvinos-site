@@ -9,6 +9,7 @@ import { useColor } from '@/contexts/ColorContext';
 import Image from 'next/image';
 import Link from 'next/link';
 
+
 const Footer: React.FC = () => {
   const router = useRouter();
   const { isRed } = useColor();  
@@ -81,13 +82,14 @@ const Footer: React.FC = () => {
   return (
     <footer
       className={clsx(
-        'flex flex-col w-full items-center justify-start pt-8 px-4 sm:px-10 md:px-20',
+        'flex flex-col w-full items-center justify-start pt-8 px-4 sm:px-10 md:px-20 relative',
         {
           'bg-accred text-back-75': isRed,
           'bg-transparent text-white': !isRed,
         }
       )}
     >
+      
       <div
         className={clsx(
           'flex flex-col md:justify-start md:items-start w-full justify-start items-center border-t-2 pt-16 pb-3 space-y-6 ',
@@ -169,34 +171,49 @@ const Footer: React.FC = () => {
             )}
           >
             <MailingListForm />
-            <div className='flex flex-col items-start space-y-4 md:flex'>
+            <div className='flex flex-col items-start space-y-4 md:flex' id="location-section">
               <h3 className={clsx('text-3xl md:text-4xl italic font-thin', {
                 'text-back': isRed,
                 'text-crred': !isRed,
               })}>Nuestra Ubicación</h3>
-              <div className={clsx('space-y-2 flex-col flex text-base md:text-base',{
+              <div className={clsx('space-y-2 flex-col flex text-base md:text-base cursor-pointer',{
                       'hover:text-back-75': isRed,
                       'hover:text-crred-75 text-gray-700': !isRed,
                     })}
                     onClick={handleLocationClick} 
                   >
-                <p 
+                <div className="flex items-center">
+                  <p 
+                    className={clsx(
+                      'uppercase transition-colors duration-300 text-base py-1 ml-2 ', 
+                    )}
+                  >
+                    Camino Tejocote a San José La Laja km 3.2
+                  </p>
                   
-                  className={clsx(
-                    'uppercase transition-colors duration-300 text-base py-1 ml-2 cursor-pointer underline', 
-                    
-                  )}
-                >
-                  Camino Tejocote a San José La Laja km 3.2
-                </p>
+                </div>
+                <div className="flex items-center">
+                  <p 
+                    className={clsx(
+                      'uppercase transition-colors duration-300 text-base py-1 ml-2 ', 
+                    )}
+                  >
+                    Tequisquiapan, Qro., México
+                  </p>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </div>
                 <p 
-
                   className={clsx(
-                    'uppercase transition-colors duration-300 text-base py-1 ml-2 cursor-pointer underline', 
-                    
+                    'transition-colors duration-300 text-base py-1 ml-2', 
+                    {
+                      'text-back/80': isRed,
+                      'text-gray-600': !isRed,
+                    }
                   )}
                 >
-                  Tequisquiapan, Qro., México
+                  Miércoles a Domingo de 12:00 p.m. a 7:00 p.m.
                 </p>
               </div>
             </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
-import LoadingScreen from '@/components/Loaders/LoadingScreen';
 import ProfileComponent from '@/components/Part/Account/Profile/ProfileComponent';
 
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
@@ -42,9 +41,7 @@ export const metadata: Metadata = {
       'es-ES': `${siteUrl}/account/profile`,
     },
   },
-  verification: {
-    google: 'google-verification-code',
-  },
+  
   appleWebApp: {
     title: 'CR Vinos MX',
     statusBarStyle: 'black-translucent',

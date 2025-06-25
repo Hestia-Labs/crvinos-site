@@ -36,7 +36,7 @@ export const fetchCollectionData = async (selectedOption: string): Promise<Colle
   const query = groq`
     *[_type == "collection" && name == $name][0]{
       name,
-      subtitle,
+      subtitle, //added subtitle to the collection
       story,
       "photo": photo.asset->url,
       "alt": photo.alt,

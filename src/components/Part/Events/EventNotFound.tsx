@@ -15,7 +15,7 @@ const EventNotFound = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-6"
+            className="flex flex-col items-center space-y-6"
           >
             <svg
               className="w-24 h-24 mx-auto text-crred"
@@ -34,9 +34,12 @@ const EventNotFound = () => {
             <h1 className="text-3xl md:text-4xl font-light text-crred">
               Evento no encontrado
             </h1>
-            <p className="text-gray-600 mb-8">
+            <p className="text-gray-600">
               El evento que estás buscando no existe o ha sido removido.
             </p>
+            
+            <div className="h-4"></div>
+            
             <BasicButton
               link="/events"
               variant="transparent"

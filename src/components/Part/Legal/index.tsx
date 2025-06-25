@@ -41,7 +41,7 @@ const LegalNotice: React.FC = () => {
           <section>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-crred">Contacto</h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-700">
-            Para cualquier consulta sobre este aviso legal, puede ponerse en contacto con nosotros a través de nuestro formulario de contacto, o enviando un correo electrónico a <a className=" underline " href={"mailto:crvinosmx@gmail.com"}>crvinosmx@gmail.com</a>.
+            Para cualquier consulta sobre este aviso legal, puede ponerse en contacto con nosotros a través de nuestro formulario de contacto, o enviando un correo electrónico a <a className=" underline " href={"mailto:admin@crvinosmx.com"}>admin@crvinosmx.com</a>.
             </p>
           </section>
         </div>

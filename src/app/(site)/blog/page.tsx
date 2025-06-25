@@ -6,19 +6,20 @@ import { BlogPostShort } from '@/types/Blog';
 import Navbar from '@/components/Navbar';
 import Icon from '@/components/Icons';
 
+
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "Blog | CR Vinos MX",
-  description: "Explora nuestro blog en CR Vinos MX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.",
+  title: "Blog de Vino | Cultura Vinícola Mexicana | CR Vinos MX",
+  description: "Descubre artículos sobre vinos mexicanos, maridajes, historia vinícola, consejos de cata, tendencias enológicas y eventos en nuestro blog especializado. La mejor guía para amantes del vino en México.",
   icons: {
     icon: "/favicon.ico",
     apple: "/img/apple-touch-icon.png",
   },
-  keywords: ['CR Vinos MX', 'blog', 'artículos de vino', 'empresa mexicana'],
+  keywords: ['blog de vino', 'cultura del vino México', 'artículos enológicos', 'maridaje vino y comida', 'consejos cata vinos', 'historia vinícola México', 'vitivinicultura mexicana', 'terroir Querétaro', 'elaboración vino mexicano', 'tendencias vinos mexicanos', 'blog CR Vinos', 'guía de vinos mexicanos', 'cómo catar vino', 'variedades uva mexicanas', 'viñedos en México', 'conservación de vinos', 'noticias sector vinícola', 'eventos enoturísticos', 'vocabulario enológico', 'blog bodega mexicana', 'denominaciones origen México', 'tipos de vino mexicanos', 'novedades industria vinícola', 'curiosidades mundo del vino', 'entrevistas enólogos mexicanos'],
   openGraph: {
-    title: "CR Vinos MX | Blog",
-    description: "Explora nuestro blog en CR Vinos MX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.",
+    title: "Blog de Vino | Cultura Vinícola Mexicana | CR Vinos MX",
+    description: "Descubre artículos sobre vinos mexicanos, maridajes, historia vinícola, consejos de cata, tendencias enológicas y eventos en nuestro blog especializado. La mejor guía para amantes del vino en México.",
     url: `${siteUrl}/blog`,
     siteName: "CR Vinos MX",
     images: [
@@ -26,27 +27,25 @@ export const metadata: Metadata = {
         url: `${siteUrl}/img/crvinosmxLogo.jpg`,
         width: 300,
         height: 225,
-        alt: "CR Vinos MX",
+        alt: "Blog de Vino CR Vinos MX",
       },
     ],
-    locale: 'es_ES',
+    locale: 'es_MX',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CR Vinos MX | Blog',
-    description: 'Explora nuestro blog en CR Vinos MX, una empresa 100% mexicana que ofrece una amplia variedad de vinos de la más alta calidad.',
+    title: 'Blog de Vino | Cultura Vinícola Mexicana | CR Vinos MX',
+    description: 'Descubre artículos sobre vinos mexicanos, maridajes, historia vinícola, consejos de cata, tendencias enológicas y eventos en nuestro blog especializado. La mejor guía para amantes del vino en México.',
     images: [`${siteUrl}/img/crvinosmxLogo.jpg`],
   },
   alternates: {
     canonical: `${siteUrl}/blog`,
     languages: {
-      'es-ES': `${siteUrl}/blog`,
+      'es-MX': `${siteUrl}/blog`,
     },
   },
-  verification: {
-    google: 'google-verification-code',
-  },
+  
   appleWebApp: {
     title: 'CR Vinos MX',
     statusBarStyle: 'black-translucent',
@@ -73,9 +72,16 @@ export default async function BlogPage() {
 
   return (
     <div className='flex flex-col'>
-      <div className='relative w-full -z-10'>
-        <Icon name='ContactVines' className='absolute h-80 w-full md:h-160 opacity-40' />
-      </div>
+      <div className='relative w-full -z-10 opacity-60'>
+          <div 
+            className='absolute h-80 w-full md:h-160 opacity-30'
+            style={{ 
+              backgroundImage: 'url(/img/icons/ContactVines.svg)', 
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          />
+        </div>
       <Navbar clearBg redLogo red relative />
       <BlogClient initialPosts={posts} categories={categories} />
       <div className='absolute -bottom-80 right-0 -z-10'>

@@ -46,7 +46,7 @@ const EventPage: React.FC<EventPageProps> = ({ event, isPastEvent }) => {
   const handleRSVPSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Add actual RSVP logic
-    console.log('RSVP submitted');
+
     setShowRSVPModal(false);
   };
   

@@ -152,3 +152,49 @@ body::before {
   background: linear-gradient(180deg, rgba(145,78,86,0.98) 0%, rgba(145,78,86,0.95) 100%);
 }
 
+/* Mobile-specific animations triggered by intersection */
+@media (hover: none) {
+  .group:not(.in-view) .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(8px);
+    max-height: 0;
+  }
+  
+  .group.in-view .animate-on-scroll {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 24rem; /* Same as the hover state */
+  }
+  
+  /* Handle bottle previews */
+  .group.in-view .animate-on-scroll .flex > div {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Handle card image */
+  .group.in-view .object-cover {
+    transform: scale(1.05);
+  }
+  
+  /* Handle gradient overlay */
+  .group.in-view .bg-gradient-to-t {
+    opacity: 0.9;
+  }
+  
+  /* Handle button indicator */
+  .group.in-view .rounded-full {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* Handle text animation */
+  .group.in-view .cormorant-garamond.italic {
+    transform: translateX(4px);
+  }
+  
+  .group.in-view svg {
+    transform: translateX(4px);
+  }
+}
+

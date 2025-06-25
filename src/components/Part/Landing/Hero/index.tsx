@@ -8,6 +8,7 @@ import crvinosvideo from '../../../../../videos/crvinosbgvideo.mov';
 import Link from 'next/link';
 
 import ExploreScroll from './exploreScroll';
+import TransitionLink from '@/components/TransitionLink';
 
 const Hero: React.FC = () => {
   return (
@@ -37,15 +38,15 @@ const Hero: React.FC = () => {
               </p>
             </div>
           </div>
-          <Link href="/about">
+
             <BasicButton
               variant="main"
               sizex="xlarge"
               className="border-crred border border-solid text-[12px] sm:text-sm md:text-base lg:text-base"
+              link="/about"
             >
               Aprende más
             </BasicButton>
-            </Link>
         </div>
       </div>
 

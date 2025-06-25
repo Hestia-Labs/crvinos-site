@@ -15,7 +15,7 @@ const NoBlogPost = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-6"
+            className="flex flex-col items-center space-y-6"
           >
             <svg
               className="w-24 h-24 mx-auto text-crred"
@@ -34,7 +34,7 @@ const NoBlogPost = () => {
             <h1 className="text-3xl md:text-4xl font-light text-crred">
               Publicación no encontrada
             </h1>
-            <p className="text-gray-600 mb-8">
+            <p className="text-gray-600 ">
               La publicación que estás buscando no existe o ha sido removida.
             </p>
             <BasicButton

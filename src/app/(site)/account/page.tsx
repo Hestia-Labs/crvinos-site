@@ -43,9 +43,6 @@ export const metadata: Metadata = {
       'es-ES': `${siteUrl}/account`,
     },
   },
-  verification: {
-    google: 'google-verification-code',
-  },
   appleWebApp: {
     title: 'CR Vinos MX',
     statusBarStyle: 'black-translucent',

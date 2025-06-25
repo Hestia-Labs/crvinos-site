@@ -50,7 +50,7 @@ const PrivacyPolicy: React.FC = () => {
           <section>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-crred">Contacto</h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-700">
-              Si tienes alguna pregunta sobre esta política de privacidad, por favor contáctanos, enviándonos un correo electrónico a crvinosmx@gmail.com.
+              Si tienes alguna pregunta sobre esta política de privacidad, por favor contáctanos, enviándonos un correo electrónico a <a className=" underline " href={"mailto:admin@crvinosmx.com"}>admin@crvinosmx.com</a>.
             </p>
           </section>
         </div>

@@ -40,9 +40,7 @@ export const metadata: Metadata = {
       'es-MX': `${siteUrl}/legal`,
     },
   },
-  verification: {
-    google: 'google-verification-code',
-  },
+  
   appleWebApp: {
     title: 'CRVinos',
     statusBarStyle: 'black-translucent',

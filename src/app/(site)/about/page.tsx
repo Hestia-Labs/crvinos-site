@@ -7,16 +7,16 @@ const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const generateMetadata = (): Metadata => {
   return {
-    title: " Sobre Nosotros | CR Vinos MX ",
-    description: "Conoce más sobre CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
+    title: "Nuestra Historia | Viñedos y Bodega en Querétaro | CR Vinos MX",
+    description: "Conoce la historia de CR Vinos MX, bodega 100% mexicana en Querétaro dedicada a la producción de vinos premium con un profundo respeto por el terroir local y técnicas tradicionales combinadas con innovación.",
     icons: {
       icon: "/favicon.ico",
       apple: "/img/apple-touch-icon.png",
     },
-    keywords: ['CR Vinos MX', 'sobre nosotros', 'empresa mexicana', 'vinos de alta calidad'],
+    keywords: ['historia viñedos mexicanos', 'bodega CR Vinos', 'productores vino Querétaro', 'vitivinicultura mexicana', 'terroir Querétaro', 'viñedos sustentables México', 'elaboración vinos premium', 'bodega boutique México', 'tradición vinícola mexicana', 'enología mexicana', 'productores independientes vino', 'viñedos familiares México', 'historia de la marca', 'proceso elaboración vino México', 'valores CR Vinos', 'equipo vinicultura', 'filosofía bodega mexicana', 'bodega artesanal Querétaro', 'sobre CR Vinos', 'proyecto enológico México', 'bodega sostenible', 'historia viticultura Querétaro', 'tradición e innovación vinos', 'elaboración vinos artesanales', 'visión vinícola mexicana'],
     openGraph: {
-      title: "CR Vinos MX | Vinos de la más alta calidad | Sobre Nosotros",
-      description: "Conoce más sobre CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.",
+      title: "Nuestra Historia | Viñedos y Bodega en Querétaro | CR Vinos MX",
+      description: "Conoce la historia de CR Vinos MX, bodega 100% mexicana en Querétaro dedicada a la producción de vinos premium con un profundo respeto por el terroir local y técnicas tradicionales combinadas con innovación.",
       url: `${siteUrl}/about`,
       siteName: "CR Vinos MX",
       images: [
@@ -24,26 +24,23 @@ export const generateMetadata = (): Metadata => {
           url: `${siteUrl}/img/crvinosmxLogo.jpg`,
           width: 300,
           height: 225,
-          alt: "CR Vinos MX",
+          alt: "Bodega CR Vinos MX Querétaro",
         },
       ],
-      locale: 'es_ES',
+      locale: 'es_MX',
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'CR Vinos MX | Vinos de la más alta calidad | Sobre Nosotros',
-      description: 'Conoce más sobre CR Vinos MX, una empresa 100% mexicana dedicada a ofrecer vinos de la más alta calidad.',
+      title: 'Nuestra Historia | Viñedos y Bodega en Querétaro | CR Vinos MX',
+      description: 'Conoce la historia de CR Vinos MX, bodega 100% mexicana en Querétaro dedicada a la producción de vinos premium con un profundo respeto por el terroir local y técnicas tradicionales combinadas con innovación.',
       images: [`${siteUrl}/img/crvinosmxLogo.jpg`],
     },
     alternates: {
       canonical: `${siteUrl}/about`,
       languages: {
-        'es-ES': `${siteUrl}/about`,
+        'es-MX': `${siteUrl}/about`,
       },
-    },
-    verification: {
-      google: 'google-verification-code',
     },
     appleWebApp: {
       title: 'CR Vinos MX',

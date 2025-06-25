@@ -3,21 +3,21 @@ import type { Metadata } from 'next';
 import EventsPageClient from '@/components/Part/Events';
 import { getEvents } from '@/app/actions/getEvents';
 import { EventShort } from '@/types/Event';
-import  { getImagesByLocationIds } from '@/app/actions/getImagebyLocation';
+import Navbar from '@/components/Navbar';
 
 const siteUrl = process.env.SITE_URL || 'https://default-url.com';
 
 export const metadata: Metadata = {
-  title: "Eventos Exclusivos | CR Vinos MX",
-  description: "Explora los eventos exclusivos de CR Vinos MX, donde la pasión por el vino se encuentra con experiencias inolvidables. Únete a nuestras catas, recorridos y celebraciones únicas.",
+  title: "Eventos de Vino en Querétaro | Catas y Celebraciones Especiales | CR Vinos MX",
+  description: "Descubre y reserva eventos exclusivos de vino en CR Vinos: catas temáticas, maridajes gourmet, festivales de vendimia y celebraciones especiales en nuestros viñedos de Querétaro.",
   icons: {
     icon: "/favicon.ico",
     apple: "/img/apple-touch-icon.png",
   },
-  keywords: ['CR Vinos MX', 'eventos de vino', 'catas exclusivas', 'recorridos de bodega', 'celebraciones vinícolas'],
+  keywords: ['eventos de vino Querétaro', 'calendario de catas', 'festivales de vino México', 'eventos en viñedos', 'catas temáticas', 'maridaje vino y comida', 'fiesta de la vendimia', 'eventos corporativos en bodega', 'celebraciones especiales CR Vinos', 'agenda vinícola Querétaro', 'talleres de vino', 'eventos privados en viñedo', 'experiencias enológicas exclusivas', 'degustación vinos mexicanos', 'eventos gastronómicos con vino', 'calendario enológico', 'actividades en bodega CR Vinos', 'catas exclusivas reservación', 'eventos enogastronómicos', 'experiencias sensoriales vino', 'celebraciones en bodega', 'eventos temáticos de vino', 'festivales vinícolas Querétaro', 'agenda cultural vinícola', 'actividades enoturísticas'],
   openGraph: {
-    title: "Eventos Exclusivos | CR Vinos MX",
-    description: "Explora los eventos exclusivos de CR Vinos MX, donde la pasión por el vino se encuentra con experiencias inolvidables.",
+    title: "Eventos de Vino en Querétaro | Catas y Celebraciones Especiales | CR Vinos MX",
+    description: "Descubre y reserva eventos exclusivos de vino en CR Vinos: catas temáticas, maridajes gourmet, festivales de vendimia y celebraciones especiales en nuestros viñedos de Querétaro.",
     url: `${siteUrl}/enotourism/events`,
     siteName: "CR Vinos MX",
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/img/crvinosmxLogo.jpg`,
         width: 300,
         height: 225,
-        alt: "CR Vinos MX",
+        alt: "Eventos Vinícolas CR Vinos Querétaro",
       },
     ],
     locale: 'es_MX',
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Eventos Exclusivos | CR Vinos MX',
-    description: 'Explora los eventos exclusivos de CR Vinos MX, donde la pasión por el vino se encuentra con experiencias inolvidables.',
+    title: 'Eventos de Vino en Querétaro | Catas y Celebraciones Especiales | CR Vinos MX',
+    description: 'Descubre y reserva eventos exclusivos de vino en CR Vinos: catas temáticas, maridajes gourmet, festivales de vendimia y celebraciones especiales en nuestros viñedos de Querétaro.',
     images: [`${siteUrl}/img/crvinosmxLogo.jpg`],
   },
   alternates: {
@@ -62,10 +62,7 @@ export const metadata: Metadata = {
   },
 };
 
-
-
 export default async function EventsPageServer() {
-
   const eventsData = (await getEvents({ shortVersion: true })) as EventShort[];
   const now = new Date();
 
@@ -77,7 +74,22 @@ export default async function EventsPageServer() {
     .filter((event) => new Date(event.endDate) < now)
     .sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
 
-  const bannerImage = await getImagesByLocationIds(['event-banner']);
-
-  return <EventsPageClient events={{ upcoming: upcomingEvents, past: pastEvents }} bannerImage={bannerImage[0]}/>;
+  return (
+    <div className='relative flex flex-col w-full items-center justify-center'>
+      <div className='relative w-full -z-10'>
+        <div 
+          className='absolute h-80 w-full md:h-160 opacity-40'
+          style={{ 
+            backgroundImage: 'url(/img/icons/ContactVines.svg)', 
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        />
+      </div>
+      <Navbar clearBg redLogo red relative />
+      <EventsPageClient 
+        events={{ upcoming: upcomingEvents, past: pastEvents }}
+      />
+    </div>
+  );
 }
